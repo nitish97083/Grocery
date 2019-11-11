@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:radhe_radhe/utils/BaseAppbar.dart';
+import 'package:radhe_radhe/utils/CategoryGrid.dart';
+import 'package:radhe_radhe/utils/HomepageSlider.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -23,76 +26,24 @@ class _HomePageState extends State<HomePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      endDrawer:Drawer() ,
-      appBar: AppBar(
-        actions: <Widget>[
-           IconButton(
-            padding: EdgeInsets.only(right:20),
-            icon: Icon(Icons.search),
-            onPressed: (){},
-          ),
-           IconButton(
-            padding: EdgeInsets.only(right:20),
-            icon: Icon(Icons.notifications),
-            onPressed: (){},
-          ),
-          
-           IconButton(
-            padding: EdgeInsets.only(right:20),
-            icon: Icon(Icons.shopping_cart),
-            onPressed: (){},
-          ),
-          Builder(
-            builder: (BuildContext context) {
-               return IconButton(
-               padding: EdgeInsets.only(right:20),
-              icon: Icon(Icons.menu),
-              onPressed: (){
-                //Navigator.push(context,MaterialPageRoute(builder: (context)=>CustomDrawer()));
-                Scaffold.of(context).openEndDrawer();
-              },
-            
-            );
-            } 
-          )
-        ],
-      ),
-       body: SingleChildScrollView(
-         child: Container(
-          // padding: EdgeInsets.all(10),
-           height: MediaQuery.of(context).size.height,
-            child: Column(
-            children: <Widget>[
-                   Container(
-                     height:MediaQuery.of(context).size.height/5,
-                     child: ListView.builder(
-              itemBuilder: (BuildContext context,int index){
-                     return Container(
-                       child: Image.asset("assets/homepageslider/edu.png",width: MediaQuery.of(context).size.width/1),
-                     );
-              },
-              itemCount:3,
-              scrollDirection:Axis.horizontal,
+        return Scaffold(
+    
+          endDrawer:Drawer() ,
+    
+          appBar: BaseAppBar(
+              appBar: AppBar(),
+              widgets: <Widget>[Icon(Icons.more_vert)],
             ),
-                   ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              //color: Colors.red,
-              height:MediaQuery.of(context).size.height/2,
-              child: GridView.builder(
-                itemCount:12,
-               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount:4),
-                itemBuilder: (BuildContext context,int index){
-                        return GestureDetector(child:Card(
-                          child: Container(
-                            child: Text("data"),
-                          ),
-                        ));
-                },
-              ),
-            ),
+    
+           body: SingleChildScrollView(
+             child: Container(
+              // padding: EdgeInsets.all(10),
+               height: MediaQuery.of(context).size.height,
+                child: Column(
+                children: <Widget>[
+                       HomepageSlider.getSlider(context,3,["assets/homepageslider/edu.png","assets/homepageslider/edu.png","assets/homepageslider/edu.png"]),
+                   
+            CategoryGrid.getCategoryGrid(context,[],[]),
             SizedBox(height: 20,)
             ],
             ),
