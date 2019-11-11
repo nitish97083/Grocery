@@ -60,25 +60,40 @@ class _HomePageState extends State<HomePage> {
       ),
        body: SingleChildScrollView(
          child: Container(
+          // padding: EdgeInsets.all(10),
+           height: MediaQuery.of(context).size.height,
             child: Column(
             children: <Widget>[
-            //  Container(
-            //             height: MediaQuery.of(context).size.height / 2,
-            //             width: MediaQuery.of(context).size.width,
-            //             child: new PageView.builder(
-            //                 itemCount:3,
-            //                 onPageChanged: (value) {
-            //                   setState(() {
-            //                     currentpage = value;
-            //                   });
-            //                 },
-            //                 controller: controller,
-            //                 itemBuilder: (context, index) => builder(index)),
-            //           ),
+                   Container(
+                     height:MediaQuery.of(context).size.height/5,
+                     child: ListView.builder(
+              itemBuilder: (BuildContext context,int index){
+                     return Container(
+                       child: Image.asset("assets/homepageslider/edu.png",width: MediaQuery.of(context).size.width/1),
+                     );
+              },
+              itemCount:3,
+              scrollDirection:Axis.horizontal,
+            ),
+                   ),
             Container(
-              color: Colors.red,
-              height: 300,
-            )
+              margin: EdgeInsets.only(top: 20),
+              //color: Colors.red,
+              height:MediaQuery.of(context).size.height/2,
+              child: GridView.builder(
+                itemCount:12,
+               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount:4),
+                itemBuilder: (BuildContext context,int index){
+                        return GestureDetector(child:Card(
+                          child: Container(
+                            child: Text("data"),
+                          ),
+                        ));
+                },
+              ),
+            ),
+            SizedBox(height: 20,)
             ],
             ),
          ),
