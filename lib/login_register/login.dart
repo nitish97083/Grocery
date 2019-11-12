@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/HomePage.dart';
+import 'package:radhe_radhe/login_register/register.dart';
 import 'package:shimmer/shimmer.dart';
+
 class Login extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -44,8 +46,8 @@ class _Login extends State<Login> {
               margin: EdgeInsets.only(top: 30),
               height: MediaQuery.of(context).size.height / 4,
               child: Form(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: Column(
+                  //padding: const EdgeInsets.symmetric(vertical: 16.0),
                   children: <Widget>[
                     TextFormField(
                       decoration: InputDecoration(
@@ -74,12 +76,10 @@ class _Login extends State<Login> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 11,
               child: Material(
-
-
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16)),
                   color: Color(0xffe84a5f),
-                  child:MaterialButton(
+                  child: MaterialButton(
                     child: Row(
                       children: <Widget>[
                         Container(
@@ -95,7 +95,7 @@ class _Login extends State<Login> {
                           child: Container(
                             margin: EdgeInsets.only(left: 200),
                             child: IconButton(
-                              onPressed: (){},
+                              onPressed: () {},
                               icon: Icon(
                                 Icons.arrow_forward,
                                 color: Colors.white,
@@ -105,12 +105,12 @@ class _Login extends State<Login> {
                         )
                       ],
                     ),
-                    onPressed: (){
+                    onPressed: () {
                       naviagteTOLogin(context);
                     },
                   )
 
-                /* Row(
+                  /* Row(
                     children: <Widget>[
                       Container(
                           padding: EdgeInsets.only(left: 60),
@@ -132,7 +132,7 @@ class _Login extends State<Login> {
                       )
                     ],
                   ),*/
-              ),
+                  ),
             ),
             Container(
                 margin: EdgeInsets.only(top: 5),
@@ -151,7 +151,6 @@ class _Login extends State<Login> {
               child: Row(
                 children: <Widget>[
                   Container(
-
                       width: 35,
                       height: 35,
                       child: Image.asset("assets/login/google.png")),
@@ -165,13 +164,37 @@ class _Login extends State<Login> {
                             fit: BoxFit.fill)),*/
                 ],
               ),
-            )
+            ),
+            Container(
+                padding: EdgeInsets.only(left: 25),
+                alignment: Alignment.topLeft,
+                child: Row(
+                  children: <Widget>[
+                    Text("Don't have an account "),
+                    InkWell(
+                      child: Text(
+                        "Register here ",
+                        style: TextStyle(
+                            color: Color(0xffe84a5f),
+                            decoration: TextDecoration.underline),
+                      ),
+                      onTap: () {
+                        navigateToRegister(context);
+                      },
+                    )
+                  ],
+                ))
           ],
         ),
       )),
     );
   }
 }
-Future naviagteTOLogin(context) async{
+
+Future naviagteTOLogin(context) async {
   Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+}
+
+Future navigateToRegister(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
 }

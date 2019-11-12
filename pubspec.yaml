@@ -47,6 +47,7 @@ flutter:
    - assets/login/login.png
    - assets/login/facebook.png
    - assets/login/google.png
+   - assets/login/register.png
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
