@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/HomePage.dart';
-
+import 'package:shimmer/shimmer.dart';
 class Login extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -56,6 +56,8 @@ class _Login extends State<Login> {
                     ),
                     SizedBox(height: 10),
                     TextFormField(
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
                       decoration: InputDecoration(
                         contentPadding: new EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -89,12 +91,15 @@ class _Login extends State<Login> {
                                     fontSize: 20,
                                   )),
                             )),
-                        Container(
-                          margin: EdgeInsets.only(left: 200),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only(left: 200),
+                            child: IconButton(
+                              onPressed: (){},
+                              icon: Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         )

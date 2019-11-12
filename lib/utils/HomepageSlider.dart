@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:radhe_radhe/HomePage.dart' as prefix0;
+import 'package:radhe_radhe/utils/CategoryGrid.dart';
 
 class HomepageSlider {
   static getSlider(BuildContext context, int numberOfSlids, var imageUrl) {
@@ -22,4 +24,36 @@ class HomepageSlider {
   }
 }
 
-class ListItem {}
+class ListItem {
+  static var height;
+  static getListBuilder(BuildContext context){
+    return Container(
+     // margin: EdgeInsets.only(top: 20),
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(left: 10),
+            alignment: Alignment.topLeft,
+            margin: EdgeInsets.only(bottom: 7),
+            child: Text("data from dynamic"),
+          ),
+          CategoryGrid.getCategoryGrid(context,[],[],8,2,DynamicHeight.dynamicHeight(context, "2222")),
+        ],
+      ),
+    );
+
+  }
+}
+class DynamicHeight{
+
+static dynamicHeight(context,id){
+   if(id=="1111"){
+  return MediaQuery.of(context).size.height/3;
+   
+   }
+   else if(id=='2222'){
+    return MediaQuery.of(context).size.height/3;
+   
+   }
+  }
+}

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CategoryGrid{
-  static getCategoryGrid(BuildContext context,var categoryName,categoryIconUrl)
+  static getCategoryGrid(BuildContext context,var categoryName,categoryIconUrl,numberOfItemCount,numberOfAxisCount,height)
   {
     return Container(
               margin: EdgeInsets.only(top: 20),
               //color: Colors.red,
-              height:MediaQuery.of(context).size.height/2,
+               height: height,
               child: GridView.builder(
-                itemCount:12,//categoryName.toList().length,
+                itemCount:numberOfItemCount,//categoryName.toList().length,
                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount:4),
+                        crossAxisCount:numberOfAxisCount),
                 itemBuilder: (BuildContext context,int index){
                         return GestureDetector(child:Card(
                           child: Container(

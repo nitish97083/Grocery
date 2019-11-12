@@ -1,8 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:radhe_radhe/ShimmarEffectClass.dart';
 import 'package:radhe_radhe/utils/BaseAppbar.dart';
 import 'package:radhe_radhe/utils/CategoryGrid.dart';
 import 'package:radhe_radhe/utils/HomepageSlider.dart';
-
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,47 +13,57 @@ class HomePage extends StatefulWidget {
 }
 
 PageController controller;
-  int currentpage = 0;
-
- 
+int currentpage = 0;
+bool loading = true;
+var height;
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    
     super.initState();
-    controller = new PageController(
-      initialPage: currentpage,
-      keepPage: false,
-      viewportFraction: 0.7,
-    );
+    Future.delayed(Duration(seconds: 5), () {
+      setState(() {
+        loading = false;
+      });
+    });
   }
+
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
     
-          endDrawer:Drawer() ,
-    
-          appBar: BaseAppBar(
-              appBar: AppBar(),
-              widgets: <Widget>[Icon(Icons.more_vert)],
+    print("Home Page Called");
+    return Scaffold(
+      endDrawer: Drawer(),
+      appBar: BaseAppBar(
+        appBar: AppBar(),
+        widgets: <Widget>[Icon(Icons.more_vert)],
+      ),
+      body: loading
+          ? ShimmerEffectClass()
+          : SingleChildScrollView(
+              child: Container(
+                // padding: EdgeInsets.all(10),
+                height: MediaQuery.of(context).size.height,
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      HomepageSlider.getSlider(context, 3, [
+                        "assets/homepageslider/edu.png",
+                        "assets/homepageslider/edu.png",
+                        "assets/homepageslider/edu.png"
+                      ]),
+                      CategoryGrid.getCategoryGrid(context, [], [],8,4,DynamicHeight.dynamicHeight(context,"1111")),
+                      ListItem.getListBuilder(context),
+                      SizedBox(
+                        height: 20,
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
-    
-           body: SingleChildScrollView(
-             child: Container(
-              // padding: EdgeInsets.all(10),
-               height: MediaQuery.of(context).size.height,
-                child: Column(
-                children: <Widget>[
-                       HomepageSlider.getSlider(context,3,["assets/homepageslider/edu.png","assets/homepageslider/edu.png","assets/homepageslider/edu.png"]),
-                   
-            CategoryGrid.getCategoryGrid(context,[],[]),
-            SizedBox(height: 20,)
-            ],
-            ),
-         ),
-       ),
     );
   }
+ 
   // builder(int index) {
   //   // print("assets/resumeDesignsLarge"+ data[index]['designid'].toString() +
   //   //           ".jpg");

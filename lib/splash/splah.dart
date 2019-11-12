@@ -24,11 +24,11 @@ class _Splash extends State<Splash> {
   }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+  
     return Scaffold(
       backgroundColor: Colors.pinkAccent,
       body: Center(
-        child: loading?Text("O"):Login(),
+        child: loading?Text("data"):Login(),
       ),
     );
   }
