@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/HomePage.dart';
 import 'package:radhe_radhe/login_register/register.dart';
+import 'package:radhe_radhe/utils/StaticFormField.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Login extends StatefulWidget {
@@ -30,17 +31,7 @@ class _Login extends State<Login> {
                       image: AssetImage('assets/login/login.png'),
                       fit: BoxFit.fill)),
             ),
-            Container(
-              padding: EdgeInsets.only(left: 40, top: 40),
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Log in",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 40,
-                ),
-              ),
-            ),
+           dynamicText("Login"),
             Container(
               padding: EdgeInsets.only(left: 30, right: 30),
               margin: EdgeInsets.only(top: 30),
@@ -49,23 +40,9 @@ class _Login extends State<Login> {
                 child: Column(
                   //padding: const EdgeInsets.symmetric(vertical: 16.0),
                   children: <Widget>[
-                    TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: new EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        labelText: "USERNAME",
-                      ),
-                    ),
+                  textFieldText(hintText:"username".toUpperCase()),
                     SizedBox(height: 10),
-                    TextFormField(
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        contentPadding: new EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        labelText: "PASSWORD",
-                      ),
-                    ),
+                    textFieldPass(hintText:"password".toUpperCase(),k: TextInputType.text,),
                   ],
                 ),
               ),

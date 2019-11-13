@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/login_register/login.dart';
+import 'package:radhe_radhe/utils/StaticFormField.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -11,14 +12,26 @@ class Register extends StatefulWidget {
 }
 
 class _Register extends State<Register> {
+  FocusNode f1 = FocusNode();
+  FocusNode f2 = FocusNode();
+  FocusNode f3 = FocusNode();
+  FocusNode f4 = FocusNode();
+  FocusNode f5 = FocusNode();
+  String name;
+  String email;
+  String phone;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white,
+      bottomNavigationBar:Container(
+        child: Image.asset('assets/login/register.png')),
       body: Container(
         alignment: Alignment.bottomLeft,
-          /*decoration: BoxDecoration(
+        /*decoration: BoxDecoration(
 
               image: DecorationImage(
                   image: AssetImage('assets/login/register.png'),
@@ -37,7 +50,8 @@ class _Register extends State<Register> {
                     color: Color(0xff2a363b),
                   ),
                   onPressed: () {
-                    Route route = MaterialPageRoute(builder: (context) => Login());
+                    Route route =
+                        MaterialPageRoute(builder: (context) => Login());
                     Navigator.pushReplacement(context, route);
                   },
                 ),
@@ -50,62 +64,64 @@ class _Register extends State<Register> {
                   style: TextStyle(color: Color(0xff2a363b), fontSize: 40),
                 ),
               ),
-            Container(
-              padding: EdgeInsets.only(right: 40),
-              margin: EdgeInsets.only(top: 20),
-
-              child:   Form(
-
-                child: Column(
-
-                  children: <Widget>[
-                    TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: new EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        labelText: "Name",
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: new EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        labelText: "Email",
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: new EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        labelText: "Phone Number",
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: new EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        labelText: "Password",
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: new EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        labelText: "Confirm Password",
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                  ],
+              Container(
+                padding: EdgeInsets.only(right: 40),
+                margin: EdgeInsets.only(top: 20),
+                child: Form(
+                  child: Column(
+                    children: <Widget>[
+                      textFieldText(
+                          hintText: "name".toUpperCase(),
+                          currentFocusNode: f1,
+                          nextFocusNode: f2,
+                          value: name,
+                          context: context),
+                      SizedBox(height: 10),
+                      textFieldText(
+                          hintText: "email".toUpperCase(),
+                          currentFocusNode: f2,
+                          nextFocusNode: f3,
+                          value: email,
+                          context: context),
+                      SizedBox(height: 10),
+                      textFieldText(
+                          hintText: "phone".toUpperCase(),
+                          k: TextInputType.phone,
+                          currentFocusNode: f3,
+                          context: context,
+                          nextFocusNode: f4,
+                          value: phone),
+                      SizedBox(height: 10),
+                      textFieldPass(
+                          hintText: "password".toUpperCase(),
+                          k: TextInputType.text,
+                          context: context,
+                          currentFocusNode: f4,
+                          nextFocusNode: f5,
+                          value: password),
+                      SizedBox(height: 10),
+                      textFieldPass(
+                          hintText: "confirm password".toUpperCase(),
+                          k: TextInputType.text,
+                          context: context,
+                          currentFocusNode: f5),
+                      SizedBox(height: 10),
+                    ],
+                  ),
                 ),
               ),
-            ),
+              // Container(
+              //   child: Row(
+              //     children: <Widget>[
+              //       Container(child: Image.asset('assets/login/google.png')),
+              //       Container(child: Image.asset('assets/login/.png')),
+              //       Container(child: Image.asset('assets/login/google.png')),
 
+              //     ],
+              //   ),
+              // ),
               Container(
-                margin: EdgeInsets.only( right: 40,top: 50),
+                margin: EdgeInsets.only(right: 40, top: 50),
 //              padding: EdgeInsets.only(left: 30,top: 10),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 11,
@@ -139,12 +155,10 @@ class _Register extends State<Register> {
                           )
                         ],
                       ),
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                     )
 
-                  /* Row(
+                    /* Row(
                     children: <Widget>[
                       Container(
                           padding: EdgeInsets.only(left: 60),
@@ -166,11 +180,10 @@ class _Register extends State<Register> {
                       )
                     ],
                   ),*/
-                ),
+                    ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 20),
-
                 child: Row(
                   children: <Widget>[
                     Text("Already have an account   "),
@@ -182,7 +195,8 @@ class _Register extends State<Register> {
                             decoration: TextDecoration.underline),
                       ),
                       onTap: () {
-                        Route route = MaterialPageRoute(builder: (context) => Login());
+                        Route route =
+                            MaterialPageRoute(builder: (context) => Login());
                         Navigator.pushReplacement(context, route);
                       },
                     )
@@ -190,11 +204,7 @@ class _Register extends State<Register> {
                 ),
               ),
               Container(
-
-                alignment: Alignment.bottomLeft,
-                height: 200,
-                width: MediaQuery.of(context).size.width,
-                 //Image.asset('assets/login/register.png',width: MediaQuery.of(context).size.width,),
+               height: 30,
               )
             ],
           ),

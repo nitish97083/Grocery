@@ -26,9 +26,9 @@ class _Splash extends State<Splash> {
   Widget build(BuildContext context) {
   
     return Scaffold(
-      backgroundColor: Colors.pinkAccent,
+      backgroundColor: Colors.grey[300],
       body: Center(
-        child: loading?Text("data"):Login(),
+        child: loading?CircularProgressIndicator():Login(),
       ),
     );
   }
