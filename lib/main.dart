@@ -15,6 +15,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home:Splash(),
+      //change s
+      //large changes
     );
   }
 }
