@@ -5,7 +5,6 @@ import 'package:radhe_radhe/login_register/login.dart';
 class Splash extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Splash();
   }
 

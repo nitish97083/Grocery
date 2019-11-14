@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/HomePage.dart';
+import 'package:radhe_radhe/container.dart';
 import 'package:radhe_radhe/login_register/register.dart';
 import 'package:radhe_radhe/utils/StaticFormField.dart';
 import 'package:shimmer/shimmer.dart';
@@ -31,7 +32,9 @@ class _Login extends State<Login> {
                       image: AssetImage('assets/login/login.png'),
                       fit: BoxFit.fill)),
             ),
-           dynamicText("Login"),
+           dynamicText("Login",st: TextStyle(
+             color: Colors.black,fontSize:30
+           )),
             Container(
               padding: EdgeInsets.only(left: 30, right: 30),
               margin: EdgeInsets.only(top: 30),
@@ -169,9 +172,9 @@ class _Login extends State<Login> {
 }
 
 Future naviagteTOLogin(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+    await Navigator.push(context, MaterialPageRoute(builder: (context) => ObjectContainer()));
 }
 
 Future navigateToRegister(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+     await Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
 }

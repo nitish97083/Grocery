@@ -60,17 +60,18 @@ Widget textFieldPass({
 }
 
 Widget dynamicText(
-  String dytext,
+  String dytext,{TextStyle st}
 ) {
   return Container(
     padding: EdgeInsets.only(left: 40, top: 40),
     alignment: Alignment.topLeft,
     child: Text(
       dytext,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 40,
-      ),
+      style:st
+      // TextStyle(
+      //   color: Colors.black,
+      //   fontSize: 40,
+      // ),
     ),
   );
 }
