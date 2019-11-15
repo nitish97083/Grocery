@@ -17,15 +17,12 @@ class _ShimmerEffectClassState extends State<ShimmerEffectClass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Shimmer effect"),
-      ),
       body: Container(
           padding: EdgeInsets.all(25.0),
           child: Center(
             child: Shimmer.fromColors(
-                direction: ShimmerDirection.rtl,
-                period: Duration(seconds: 5),
+                direction: ShimmerDirection.ltr,
+                period: Duration(seconds:4),
                 child: Column(
                   children: [0, 1, 2, 3]
                       .map((_) => Padding(
