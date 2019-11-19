@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/HomePage.dart';
-import 'package:radhe_radhe/container.dart';
 import 'package:radhe_radhe/login_register/register.dart';
-import 'package:radhe_radhe/utils/StaticFormField.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Login extends StatefulWidget {
@@ -32,9 +30,17 @@ class _Login extends State<Login> {
                       image: AssetImage('assets/login/login.png'),
                       fit: BoxFit.fill)),
             ),
-           dynamicText("Login",st: TextStyle(
-             color: Colors.black,fontSize:30
-           )),
+            Container(
+              padding: EdgeInsets.only(left: 40, top: 40),
+              alignment: Alignment.topLeft,
+              child: Text(
+                "Log in",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 40,
+                ),
+              ),
+            ),
             Container(
               padding: EdgeInsets.only(left: 30, right: 30),
               margin: EdgeInsets.only(top: 30),
@@ -43,9 +49,35 @@ class _Login extends State<Login> {
                 child: Column(
                   //padding: const EdgeInsets.symmetric(vertical: 16.0),
                   children: <Widget>[
-                  textFieldText(hintText:"username".toUpperCase()),
+                    TextFormField(
+                      decoration: InputDecoration(
+
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 15.0, horizontal: 15.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                          const BorderSide(color: Colors.green, ),
+//                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        labelText: "USERNAME",
+
+                      ),
+                    ),
                     SizedBox(height: 10),
-                    textFieldPass(hintText:"password".toUpperCase(),k: TextInputType.text,),
+                    TextFormField(
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 15.0, horizontal: 15.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.green, ),
+//                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        labelText: "PASSWORD",
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -158,9 +190,7 @@ class _Login extends State<Login> {
                             color: Color(0xffe84a5f),
                             decoration: TextDecoration.underline),
                       ),
-                      onTap: () {
-                        navigateToRegister(context);
-                      },
+                      onTap: () {},
                     )
                   ],
                 ))
@@ -172,9 +202,9 @@ class _Login extends State<Login> {
 }
 
 Future naviagteTOLogin(context) async {
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => ObjectContainer()));
+  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
 }
 
 Future navigateToRegister(context) async {
-     await Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+  Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
 }
