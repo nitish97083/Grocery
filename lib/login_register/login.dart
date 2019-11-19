@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:radhe_radhe/HomePage.dart';
 import 'package:radhe_radhe/login_register/register.dart';
 import 'package:shimmer/shimmer.dart';
@@ -13,6 +14,18 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+
+  final myControllerUsername = TextEditingController();
+  final passwdController = TextEditingController();
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    myControllerUsername.dispose();
+    passwdController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -45,11 +58,51 @@ class _Login extends State<Login> {
               padding: EdgeInsets.only(left: 30, right: 30),
               margin: EdgeInsets.only(top: 30),
               height: MediaQuery.of(context).size.height / 4,
-              child: Form(
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    controller: myControllerUsername,
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 15,
+                          horizontal: 15,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                          const BorderSide(color: Colors.green, ),
+//                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        labelText: "Username"
+                    ),
+
+                  ),
+                  SizedBox(height: 20,),
+                  TextField(
+                    controller: passwdController,
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 15,
+                          horizontal: 15,
+                        ),
+
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green ),
+
+//                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        labelText: "Password"
+                    ),
+
+                  ),
+
+                ],
+              )
+              /*Form(
                 child: Column(
                   //padding: const EdgeInsets.symmetric(vertical: 16.0),
                   children: <Widget>[
                     TextFormField(
+
                       decoration: InputDecoration(
 
                         contentPadding: new EdgeInsets.symmetric(
@@ -80,7 +133,7 @@ class _Login extends State<Login> {
                     ),
                   ],
                 ),
-              ),
+              ),*/
             ),
             Container(
               margin: EdgeInsets.only(left: 20, right: 20),
@@ -118,7 +171,8 @@ class _Login extends State<Login> {
                       ],
                     ),
                     onPressed: () {
-                      naviagteTOLogin(context);
+                      getInputValue(myControllerUsername.text,passwdController.text);
+
                     },
                   )
 
@@ -198,6 +252,39 @@ class _Login extends State<Login> {
         ),
       )),
     );
+  }
+
+  void getInputValue(String username, String password) {
+    if(username=="amit"){
+      if(password=="kumar"){
+        naviagteTOLogin(context);
+      }else{
+        Fluttertoast.showToast(msg: "password is wrong ",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+    /*,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );*/
+      }
+    }else{
+          Fluttertoast.showToast(msg: "Username is wrong ",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+    }
   }
 }
 
