@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:radhe_radhe/HomePage.dart';
 import 'package:radhe_radhe/login_register/register.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
@@ -14,10 +17,8 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
-
   final myControllerUsername = TextEditingController();
   final passwdController = TextEditingController();
-
 
   @override
   void dispose() {
@@ -26,6 +27,7 @@ class _Login extends State<Login> {
     passwdController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -55,49 +57,46 @@ class _Login extends State<Login> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 30, right: 30),
-              margin: EdgeInsets.only(top: 30),
-              height: MediaQuery.of(context).size.height / 4,
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    controller: myControllerUsername,
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 15,
-                          horizontal: 15,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                          const BorderSide(color: Colors.green, ),
+                padding: EdgeInsets.only(left: 30, right: 30),
+                margin: EdgeInsets.only(top: 30),
+                height: MediaQuery.of(context).size.height / 4,
+                child: Column(
+                  children: <Widget>[
+                    TextField(
+                      controller: myControllerUsername,
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal: 15,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.green,
+                            ),
 //                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        labelText: "Username"
+                          ),
+                          labelText: "Username"),
                     ),
-
-                  ),
-                  SizedBox(height: 20,),
-                  TextField(
-                    controller: passwdController,
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 15,
-                          horizontal: 15,
-                        ),
-
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      controller: passwdController,
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal: 15,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green),
 
 //                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        labelText: "Password"
+                          ),
+                          labelText: "Password"),
                     ),
-
-                  ),
-
-                ],
-              )
-              /*Form(
+                  ],
+                )
+                /*Form(
                 child: Column(
                   //padding: const EdgeInsets.symmetric(vertical: 16.0),
                   children: <Widget>[
@@ -134,7 +133,7 @@ class _Login extends State<Login> {
                   ],
                 ),
               ),*/
-            ),
+                ),
             Container(
               margin: EdgeInsets.only(left: 20, right: 20),
 //              padding: EdgeInsets.only(left: 30,top: 10),
@@ -171,8 +170,8 @@ class _Login extends State<Login> {
                       ],
                     ),
                     onPressed: () {
-                      getInputValue(myControllerUsername.text,passwdController.text);
-
+                      getInputValue(
+                          myControllerUsername.text, passwdController.text);
                     },
                   )
 
@@ -244,7 +243,9 @@ class _Login extends State<Login> {
                             color: Color(0xffe84a5f),
                             decoration: TextDecoration.underline),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        navigateToRegister(context);
+                      },
                     )
                   ],
                 ))
@@ -255,35 +256,29 @@ class _Login extends State<Login> {
   }
 
   void getInputValue(String username, String password) {
-    if(username=="amit"){
-      if(password=="kumar"){
+    Future<Post> fetchPost() async {
+      final response = await http.post(
+          'https://onlinekiranabazar.000webhostapp.com/api/login?phone=' +
+              username +
+              '&password=' +
+              password);
+
+      if (response.statusCode == 200) {
         naviagteTOLogin(context);
-      }else{
-        Fluttertoast.showToast(msg: "password is wrong ",
+        // If the call to the server was successful, parse the JSON.
+        return Post.fromJson(json.decode(response.body));
+      } else {
+        Fluttertoast.showToast(
+            msg: " khsdkjhfks",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIos: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
-            fontSize: 16.0
-        );
-    /*,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );*/
+            fontSize: 16.0);
+        // If that call was not successful, throw an error.
+        throw Exception('Failed to load post');
       }
-    }else{
-          Fluttertoast.showToast(msg: "Username is wrong ",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0);
     }
   }
 }
@@ -294,4 +289,17 @@ Future naviagteTOLogin(context) async {
 
 Future navigateToRegister(context) async {
   Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+}
+
+class Post {
+  String success;
+  List<String> data;
+  String message;
+
+  Post({this.success, this.data, this.message});
+
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+        success: json['Success'], data: json['data'], message: json['message']);
+  }
 }
