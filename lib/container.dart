@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
+import 'package:radhe_radhe/CustomPageBuilder.dart';
 import 'package:radhe_radhe/ShimmarEffectClass.dart';
 import 'package:radhe_radhe/utils/BaseAppbar.dart';
 
@@ -45,7 +47,7 @@ class _ObjectContainerState extends State<ObjectContainer> {
                       text("Categories"),
                       Container(
                         height: MediaQuery.of(context).size.height / 5,
-                        child: ListView.builder(
+                        child:prefix0.ListView.builder(
                             itemCount: 2,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index) {
@@ -84,7 +86,7 @@ class _ObjectContainerState extends State<ObjectContainer> {
                       Container(
                         //color: Colors.red,
                         height: x/2,
-                        child: GridView.builder(
+                        child: CustomGridView.builder(
                           itemBuilder: (BuildContext context,int index){
                             return Card(
                               child: Container(
@@ -192,7 +194,8 @@ class _ObjectContainerState extends State<ObjectContainer> {
                             crossAxisCount: 2,
                             mainAxisSpacing:15
                           ),
-                          itemCount: 4,
+                        //  scrollDirection: Axis.horizontal,
+                          itemCount:12,
                         ),
                       )
                     ],
