@@ -15,14 +15,47 @@ class Login extends StatefulWidget {
     return _Login();
   }
 }
-
+String url ="http://dummy.restapiexample.com/api/v1/employees";
 class _Login extends State<Login> {
   final myControllerUsername = TextEditingController();
   final passwdController = TextEditingController();
 
+
+  var data;
+  Future<String> getDat()async{
+
+     http.Response response = await http.get(
+
+       Uri.encodeFull(url),
+       headers:{
+       'Accept':'application/json'
+       }
+     );
+       this.setState(() {
+         if(response!=null){
+       if(response.body!=null){
+          data =jsonDecode(response.body);
+
+       }
+         }
+    });
+     data.forEach((v){
+
+          print(v['id']+" "+v['employee_name']);
+     });
+         
+        
+    return 'Success';
+     }
+     
+      @override
+      void initState(){
+       this. getDat();
+      }
+
+
   @override
   void dispose() {
-    // TODO: implement dispose
     myControllerUsername.dispose();
     passwdController.dispose();
     super.dispose();
@@ -30,7 +63,6 @@ class _Login extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white,
       body: Material(
