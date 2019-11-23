@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:radhe_radhe/HomePage.dart';
 import 'package:radhe_radhe/login_register/register.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
@@ -15,44 +14,49 @@ class Login extends StatefulWidget {
     return _Login();
   }
 }
-String url ="http://dummy.restapiexample.com/api/v1/employees";
+
+//String url = "http://dummy.restapiexample.com/api/v1/employees";
+
 class _Login extends State<Login> {
   final myControllerUsername = TextEditingController();
   final passwdController = TextEditingController();
 
+  //var data;
+  String url = "https://onlinekiranabazar.000webhostapp.com/api/login";
 
-  var data;
-  Future<String> getDat()async{
+  Future singIn(String username, String Password) async {
+    Map data = {'phone': username, 'password': Password};
 
-     http.Response response = await http.get(
-
-       Uri.encodeFull(url),
-       headers:{
-       'Accept':'application/json'
-       }
-     );
-       this.setState(() {
-         if(response!=null){
-       if(response.body!=null){
-          data =jsonDecode(response.body);
-
-       }
-         }
-    });
-     data.forEach((v){
-
-          print(v['id']+" "+v['employee_name']);
-     });
-         
-        
-    return 'Success';
-     }
-     
-      @override
-      void initState(){
-       this. getDat();
+    var response = await http.post(url, body: data);
+    if (response.statusCode == 200) {
+      if (response.body != null) {
+        var data = jsonDecode(response.body);
+        var Success = data['Success'];
+        var message = data['message'];
+        if (Success) {
+          naviagteTOLogin(context);
+        }
+        Fluttertoast.showToast(msg: message,toastLength: Toast.LENGTH_SHORT);
       }
-
+      Fluttertoast.showToast(
+          msg: response.body,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      Fluttertoast.showToast(
+          msg: 'something went wrong',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
 
   @override
   void dispose() {
@@ -202,8 +206,13 @@ class _Login extends State<Login> {
                       ],
                     ),
                     onPressed: () {
-                      getInputValue(
+                      var emaiee = myControllerUsername.text;
+                      singIn(
                           myControllerUsername.text, passwdController.text);
+                      bool emailValid = RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(emaiee);
+
                     },
                   )
 
@@ -287,8 +296,38 @@ class _Login extends State<Login> {
     );
   }
 
-  void getInputValue(String username, String password) {
-    Future<Post> fetchPost() async {
+/*void getInputValue(String username, String password) {
+    var data;
+    String url =
+        'https://onlinekiranabazar.000webhostapp.com/api/login?phone=' +
+            username +
+            '&password=' +
+            password;
+    Future<String> getDat() async {
+      http.Response response = await http
+          .post(Uri.encodeFull(url), headers: {'Accept': 'application/json'});
+      this.setState(() {
+        if (response != null) {
+          if (response.body != null) {
+            data = jsonDecode(response.body);
+          }
+        }
+      });
+      data.forEach((v) {
+        print(v['Success'] );
+        Fluttertoast.showToast(
+            msg: v['Success'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      });
+
+      return 'Success';
+    }
+    */ /*Future<Post> fetchPost() async {
       final response = await http.post(
           'https://onlinekiranabazar.000webhostapp.com/api/login?phone=' +
               username +
@@ -311,8 +350,8 @@ class _Login extends State<Login> {
         // If that call was not successful, throw an error.
         throw Exception('Failed to load post');
       }
-    }
-  }
+    }*/ /*
+  }*/
 }
 
 Future naviagteTOLogin(context) async {
@@ -321,17 +360,4 @@ Future naviagteTOLogin(context) async {
 
 Future navigateToRegister(context) async {
   Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
-}
-
-class Post {
-  String success;
-  List<String> data;
-  String message;
-
-  Post({this.success, this.data, this.message});
-
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
-        success: json['Success'], data: json['data'], message: json['message']);
-  }
 }
