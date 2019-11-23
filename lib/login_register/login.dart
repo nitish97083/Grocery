@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:radhe_radhe/HomePage.dart';
 import 'package:radhe_radhe/login_register/register.dart';
 import 'package:http/http.dart' as http;
+import 'package:radhe_radhe/new_home_page.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -355,7 +356,7 @@ class _Login extends State<Login> {
 }
 
 Future naviagteTOLogin(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+  Navigator.push(context, MaterialPageRoute(builder: (context) => NewHomePageDart()));
 }
 
 Future navigateToRegister(context) async {

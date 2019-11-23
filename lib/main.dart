@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/HomePage.dart';
+import 'package:radhe_radhe/new_home_page.dart';
 import 'package:radhe_radhe/splash/splah.dart';
 
 void main() => runApp(MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
        
         primarySwatch: Colors.blue,
       ),
-      home:Splash(),
+      home:NewHomePageDart(),
       //change s
       //large changes
     );
