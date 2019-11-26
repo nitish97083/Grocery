@@ -1,4 +1,20 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+Future<Post> fetchPost() async {
+  var response = await http
+      .get("https://onlinekiranabazar.000webhostapp.com/api/getCategories");
+  if (response.statusCode == 200) {
+    // If server returns an OK response, parse the JSON.
+    return Post.fromJson(json.decode(response.body));
+  } else {
+    // If that response was not OK, throw an error.
+    throw Exception('Failed to load post');
+  }
+}
 
 class NewHomePageDart extends StatefulWidget {
   @override
@@ -129,10 +145,172 @@ class _NewHomePageDart extends State {
                         fontSize: 22,
                         fontWeight: FontWeight.bold),
                   ),
-                )
+                ),
+                Container(
+                    margin: EdgeInsets.only(top: 20, left: 20),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width / 2.1,
+                    child: FutureBuilder<Post>(
+                      future: fetchPost(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<Data> list = snapshot.data.data;
+                          return ListView.builder(
+                              itemCount: list.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) =>
+                                  buildBody(context, index, list));
+                        }
+                      },
+                    )
+                    /*  itemCount: snapshot.data.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context,index) =>buildBody(context,index),
+                        );*/
+                    /*ListView.builder(
+                        itemCount: litems.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext ctxt, int index) =>
+                            buildBody(ctxt, index))*/
+
+                    /*ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: <Widget>[
+                      Container(
+                        width: 160.0,
+                        color: Colors.red,
+                      ),
+                      Container(
+                        width: 160.0,
+                        color: Colors.blue,
+                      ),
+                      Container(
+                        width: 160.0,
+                        color: Colors.green,
+                      ),
+                      Container(
+                        width: 160.0,
+                        color: Colors.yellow,
+                      ),
+                      Container(
+                        width: 160.0,
+                        color: Colors.orange,
+                      ),
+                    ],
+                  ),*/
+                    )
               ],
             ),
           )),
     );
+  }
+}
+
+Widget buildBody(BuildContext ctxt, int index, List<Data> data) {
+  return Container(
+    width: MediaQuery.of(ctxt).size.width / 2.5,
+    height: MediaQuery.of(ctxt).size.width / 2.5,
+    child: Card(
+        margin: EdgeInsets.all(10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6.0),
+        ),
+        elevation: 3,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6.0),
+                    child: Image.network(
+                      data[index].cateIconUrl,
+                      width: MediaQuery.of(ctxt).size.width / 2.5,
+                      height: MediaQuery.of(ctxt).size.width / 2.5,
+                      fit: BoxFit.cover,
+                    ))
+                /* Image.network(
+                data[index].cateIconUrl,
+                width: MediaQuery.of(ctxt).size.width / 3.5,
+                height: MediaQuery.of(ctxt).size.width / 2.5,
+                fit: BoxFit.fill,
+              ),*/
+                ),
+            Positioned(
+              left:-4,
+                top: MediaQuery.of(ctxt).size.width / 3.45,
+                child: Card(
+                  color: Color(0xffB5ffffff),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6.0),
+                  ),
+                  child: Container(
+
+                      width: MediaQuery.of(ctxt).size.width / 2.6,
+                      height: MediaQuery.of(ctxt).size.width / 8,
+                  child: Text(data[index].nameInEng+"               "+data[index].nameInHin),),
+                ))
+          ],
+        )),
+  );
+}
+
+class Post {
+  bool success;
+  List<Data> data;
+  String message;
+
+  Post({this.success, this.data, this.message});
+
+  Post.fromJson(Map<String, dynamic> json) {
+    success = json['Success'];
+    if (json['data'] != null) {
+      data = new List<Data>();
+      json['data'].forEach((v) {
+        data.add(new Data.fromJson(v));
+      });
+    }
+    message = json['message'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Success'] = this.success;
+    if (this.data != null) {
+      data['data'] = this.data.map((v) => v.toJson()).toList();
+    }
+    data['message'] = this.message;
+    return data;
+  }
+}
+
+class Data {
+  int cateId;
+  String nameInEng;
+  String nameInHin;
+  String details;
+  String cateIconUrl;
+
+  Data(
+      {this.cateId,
+      this.nameInEng,
+      this.nameInHin,
+      this.details,
+      this.cateIconUrl});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    cateId = json['cate_id'];
+    nameInEng = json['name_in_eng'];
+    nameInHin = json['name_in_hin'];
+    details = json['details'];
+    cateIconUrl = json['cate_icon_url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['cate_id'] = this.cateId;
+    data['name_in_eng'] = this.nameInEng;
+    data['name_in_hin'] = this.nameInHin;
+    data['details'] = this.details;
+    data['cate_icon_url'] = this.cateIconUrl;
+    return data;
   }
 }

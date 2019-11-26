@@ -37,7 +37,7 @@ class _Login extends State<Login> {
         if (Success) {
           naviagteTOLogin(context);
         }
-        Fluttertoast.showToast(msg: message,toastLength: Toast.LENGTH_SHORT);
+        Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
       }
       Fluttertoast.showToast(
           msg: response.body,
@@ -208,12 +208,10 @@ class _Login extends State<Login> {
                     ),
                     onPressed: () {
                       var emaiee = myControllerUsername.text;
-                      singIn(
-                          myControllerUsername.text, passwdController.text);
+                      singIn(myControllerUsername.text, passwdController.text);
                       bool emailValid = RegExp(
                               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(emaiee);
-
                     },
                   )
 
@@ -356,7 +354,8 @@ class _Login extends State<Login> {
 }
 
 Future naviagteTOLogin(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => NewHomePageDart()));
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => NewHomePageDart()));
 }
 
 Future navigateToRegister(context) async {
