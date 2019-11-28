@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 
 Future<Post> fetchPost() async {
@@ -27,6 +28,8 @@ class NewHomePageDart extends StatefulWidget {
 class _NewHomePageDart extends State {
   @override
   Widget build(BuildContext context) {
+    var www = MediaQuery.of(context).size.width;
+
     // TODO: implement build
     return MaterialApp(
       home: Scaffold(
@@ -147,7 +150,7 @@ class _NewHomePageDart extends State {
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: 20, left: 20),
+                    margin: EdgeInsets.only(top: 20, left: 10),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.width / 2.1,
                     child: FutureBuilder<Post>(
@@ -160,6 +163,16 @@ class _NewHomePageDart extends State {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) =>
                                   buildBody(context, index, list));
+                        } else {
+                          return Container(
+                            margin: EdgeInsets.only(top: 20, left: 20),
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.width / 2.1,
+                            child: CupertinoActivityIndicator(
+                              animating: true,
+                              radius: 15,
+                            ),
+                          );
                         }
                       },
                     )
@@ -198,7 +211,62 @@ class _NewHomePageDart extends State {
                       ),
                     ],
                   ),*/
-                    )
+                    ),
+                Container(
+                  margin: EdgeInsets.only(left: 10, top: 5),
+                  height: MediaQuery.of(context).size.height / 5.4,
+                  width: MediaQuery.of(context).size.width / 1.1,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6.0),
+                      child: Image.network(
+                        "https://images.unsplash.com/photo-1529511582893-2d7e684dd128?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80",
+                        //width: MediaQuery.of(context).size.width / 2.5,
+                        //height: MediaQuery.of(context).size.width / 2.5,
+                        fit: BoxFit.fill,
+                      )),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 20, top: 15),
+                  height: MediaQuery.of(context).size.height / 29,
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    "Recomended",
+                    style: TextStyle(
+                        color: Color(0xff172B4D),
+                        fontFamily: 'SF Pro Display',
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                    //height: 1000,
+                    child: GridView.count(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  // Create a grid with 2 columns. If you change the scrollDirection to
+                  // horizontal, this produces 2 rows.
+                  crossAxisCount: 2,
+
+
+                  // Generate 100 widgets that display their index in the List.
+                  children: List.generate(100, (index) {
+                    return Padding(
+                      padding: EdgeInsets.only(left: 10, bottom: 10),
+                      // height: MediaQuery.of(context).size.width/5,
+                      // width: MediaQuery.of(context).size.width/5,
+                      // color: Colors.red,
+                      child: Card(
+                        child: Container(
+                          height: 400,
+                        ),
+                      ),
+                      /*Text(
+                        'Item $index',
+                        style: Theme.of(context).textTheme.headline,
+                      ),*/
+                    );
+                  }),
+                ))
               ],
             ),
           )),
@@ -235,18 +303,47 @@ Widget buildBody(BuildContext ctxt, int index, List<Data> data) {
               ),*/
                 ),
             Positioned(
-              left:-4,
-                top: MediaQuery.of(ctxt).size.width / 3.45,
+                left: -4,
+                top: MediaQuery.of(ctxt).size.width / 4,
                 child: Card(
                   color: Color(0xffB5ffffff),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6.0),
                   ),
                   child: Container(
-
-                      width: MediaQuery.of(ctxt).size.width / 2.6,
-                      height: MediaQuery.of(ctxt).size.width / 8,
-                  child: Text(data[index].nameInEng+"               "+data[index].nameInHin),),
+                    width: MediaQuery.of(ctxt).size.width / 2.85,
+                    height: MediaQuery.of(ctxt).size.width / 6,
+                    child: Column(
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            data[index].nameInEng,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: TextStyle(
+                              fontFamily: "SF Pro Display",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                        //SizedBox(height: 6,),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            data[index].nameInHin,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontFamily: "SF Pro Display",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ))
           ],
         )),
