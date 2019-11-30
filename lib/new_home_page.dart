@@ -9,6 +9,7 @@ Future<Post> fetchPost() async {
   var response = await http
       .get("https://onlinekiranabazar.000webhostapp.com/api/getCategories");
   if (response.statusCode == 200) {
+    print(jsonDecode(response.body));
     // If server returns an OK response, parse the JSON.
     return Post.fromJson(json.decode(response.body));
   } else {
@@ -35,246 +36,334 @@ class _NewHomePageDart extends State {
       home: Scaffold(
           backgroundColor: Color(0xffDDDDDD),
           body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 12,
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        top: 30,
-                        left: 20,
-                        child: InkWell(
-                          child: Container(
-                            //margin: EdgeInsets.only(left: 20, top: 20),
-                            child: Image.asset(
-                              'assets/icons_new/menu.png',
-                              width: 25,
-                              height: 25,
+              child: FutureBuilder<Post>(
+            future: fetchPost(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                Data d = snapshot.data.data;
+                List<Categories> list = d.categories;
+                List<TopProducts> topProducts = d.topProducts;
+                /*Fluttertoast.showToast(
+                    msg: d.toJson().toString(), gravity: ToastGravity.CENTER);*/
+                return Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 12,
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            top: 30,
+                            left: 20,
+                            child: InkWell(
+                              child: Container(
+                                //margin: EdgeInsets.only(left: 20, top: 20),
+                                child: Image.asset(
+                                  'assets/icons_new/menu.png',
+                                  width: 25,
+                                  height: 25,
+                                ),
+                              ),
+                              onTap: () {
+                                // there will be hamburger menu
+                              },
                             ),
                           ),
-                          onTap: () {
-                            // there will be hamburger menu
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        top: 30,
-                        left: MediaQuery.of(context).size.width / 1.3,
-                        child: InkWell(
-                          child: Container(
-                            // margin: EdgeInsets.only(left: 20, top: 20),
-                            child: Image.asset(
-                              'assets/icons_new/cart.png',
-                              width: 25,
-                              height: 25,
+                          Positioned(
+                            top: 30,
+                            left: MediaQuery.of(context).size.width / 1.3,
+                            child: InkWell(
+                              child: Container(
+                                // margin: EdgeInsets.only(left: 20, top: 20),
+                                child: Image.asset(
+                                  'assets/icons_new/cart.png',
+                                  width: 25,
+                                  height: 25,
+                                ),
+                              ),
+                              onTap: () {
+                                // there will be hamburger menu
+                              },
                             ),
                           ),
-                          onTap: () {
-                            // there will be hamburger menu
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        top: 30,
-                        left: MediaQuery.of(context).size.width / 1.15,
-                        child: InkWell(
-                          child: Container(
-                            // margin: EdgeInsets.only(left: 20, top: 20),
-                            child: Image.asset(
-                              'assets/icons_new/notification.png',
-                              width: 25,
-                              height: 25,
+                          Positioned(
+                            top: 30,
+                            left: MediaQuery.of(context).size.width / 1.15,
+                            child: InkWell(
+                              child: Container(
+                                // margin: EdgeInsets.only(left: 20, top: 20),
+                                child: Image.asset(
+                                  'assets/icons_new/notification.png',
+                                  width: 25,
+                                  height: 25,
+                                ),
+                              ),
+                              onTap: () {
+                                // there will be hamburger menu
+                              },
                             ),
-                          ),
-                          onTap: () {
-                            // there will be hamburger menu
-                          },
-                        ),
-                      )
-                      /**/
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  //color: Colors.black,
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: MediaQuery.of(context).size.height / 13,
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        child: TextField(
-                          //controller: passwdController,
-                          decoration: InputDecoration(
-                            hintText: "What are you looking for?",
-                            hintStyle: TextStyle(color: Color(0xff8898AA)),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xff172B4D)),
-
-//                          borderRadius: BorderRadius.circular(25.0),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                              vertical: 15,
-                              horizontal: 15,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xff172B4D)),
-
-//                          borderRadius: BorderRadius.circular(25.0),
-                            ),
-                          ),
-                        ),
+                          )
+                          /**/
+                        ],
                       ),
-                      Positioned(
-                        top: 10,
-                        left: MediaQuery.of(context).size.width / 1.25,
-                        child: Image.asset('assets/icons_new/search_icon.png'),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 20, top: 5),
-                  height: MediaQuery.of(context).size.height / 29,
-                  width: MediaQuery.of(context).size.width,
-                  child: Text(
-                    "Categories",
-                    style: TextStyle(
-                        color: Color(0xff172B4D),
-                        fontFamily: 'SF Pro Display',
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Container(
-                    margin: EdgeInsets.only(top: 20, left: 10),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width / 2.1,
-                    child: FutureBuilder<Post>(
-                      future: fetchPost(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          List<Data> list = snapshot.data.data;
-                          return ListView.builder(
-                              itemCount: list.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) =>
-                                  buildBody(context, index, list));
-                        } else {
-                          return Container(
-                            margin: EdgeInsets.only(top: 20, left: 20),
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.width / 2.1,
-                            child: CupertinoActivityIndicator(
-                              animating: true,
-                              radius: 15,
-                            ),
-                          );
-                        }
-                      },
-                    )
-                    /*  itemCount: snapshot.data.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context,index) =>buildBody(context,index),
-                        );*/
-                    /*ListView.builder(
-                        itemCount: litems.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext ctxt, int index) =>
-                            buildBody(ctxt, index))*/
-
-                    /*ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: <Widget>[
-                      Container(
-                        width: 160.0,
-                        color: Colors.red,
-                      ),
-                      Container(
-                        width: 160.0,
-                        color: Colors.blue,
-                      ),
-                      Container(
-                        width: 160.0,
-                        color: Colors.green,
-                      ),
-                      Container(
-                        width: 160.0,
-                        color: Colors.yellow,
-                      ),
-                      Container(
-                        width: 160.0,
-                        color: Colors.orange,
-                      ),
-                    ],
-                  ),*/
                     ),
-                Container(
-                  margin: EdgeInsets.only(left: 10, top: 5),
-                  height: MediaQuery.of(context).size.height / 5.4,
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(6.0),
-                      child: Image.network(
-                        "https://images.unsplash.com/photo-1529511582893-2d7e684dd128?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80",
-                        //width: MediaQuery.of(context).size.width / 2.5,
-                        //height: MediaQuery.of(context).size.width / 2.5,
-                        fit: BoxFit.fill,
-                      )),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 20, top: 15),
-                  height: MediaQuery.of(context).size.height / 29,
-                  width: MediaQuery.of(context).size.width,
-                  child: Text(
-                    "Recomended",
-                    style: TextStyle(
-                        color: Color(0xff172B4D),
-                        fontFamily: 'SF Pro Display',
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Container(
-                    //height: 1000,
-                    child: GridView.count(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  // Create a grid with 2 columns. If you change the scrollDirection to
-                  // horizontal, this produces 2 rows.
-                  crossAxisCount: 2,
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      //color: Colors.black,
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      height: MediaQuery.of(context).size.height / 13,
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            child: TextField(
+                              //controller: passwdController,
+                              decoration: InputDecoration(
+                                hintText: "What are you looking for?",
+                                hintStyle: TextStyle(color: Color(0xff8898AA)),
+                                border: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xff172B4D)),
 
+//                          borderRadius: BorderRadius.circular(25.0),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                  vertical: 15,
+                                  horizontal: 15,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xff172B4D)),
 
-                  // Generate 100 widgets that display their index in the List.
-                  children: List.generate(100, (index) {
-                    return Padding(
-                      padding: EdgeInsets.only(left: 10, bottom: 10),
-                      // height: MediaQuery.of(context).size.width/5,
-                      // width: MediaQuery.of(context).size.width/5,
-                      // color: Colors.red,
-                      child: Card(
-                        child: Container(
-                          height: 400,
-                        ),
+//                          borderRadius: BorderRadius.circular(25.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 10,
+                            left: MediaQuery.of(context).size.width / 1.25,
+                            child:
+                                Image.asset('assets/icons_new/search_icon.png'),
+                          )
+                        ],
                       ),
-                      /*Text(
-                        'Item $index',
-                        style: Theme.of(context).textTheme.headline,
-                      ),*/
-                    );
-                  }),
-                ))
-              ],
-            ),
-          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 20, top: 5),
+                      height: MediaQuery.of(context).size.height / 29,
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        "Categories",
+                        style: TextStyle(
+                            color: Color(0xff172B4D),
+                            fontFamily: 'SF Pro Display',
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                        margin: EdgeInsets.only(top: 20, left: 10),
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width / 2.1,
+                        child: ListView.builder(
+                            itemCount: list.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) =>
+                                buildBody(context, index, list))),
+                    Container(
+                      margin: EdgeInsets.only(left: 10, top: 5),
+                      height: MediaQuery.of(context).size.height / 5.4,
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(6.0),
+                          child: Image.network(
+                            "https://images.unsplash.com/photo-1529511582893-2d7e684dd128?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80",
+                            //width: MediaQuery.of(context).size.width / 2.5,
+                            //height: MediaQuery.of(context).size.width / 2.5,
+                            fit: BoxFit.fill,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 20, top: 15),
+                      height: MediaQuery.of(context).size.height / 29,
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        "Top Products",
+                        style: TextStyle(
+                            color: Color(0xff172B4D),
+                            fontFamily: 'SF Pro Display',
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                        /*ListView.builder(
+                            itemCount: list.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) =>
+                                buildBody(context, index, list))),*/
+                        //height: 1000,
+                        child: GridView.count(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      // Create a grid with 2 columns. If you change the scrollDirection to
+                      // horizontal, this produces 2 rows.
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.7,
+
+                      // Generate 100 widgets that display their index in the List.
+                      children: List.generate(topProducts.length, (index) {
+                        return Padding(
+                          padding: EdgeInsets.all(10),
+                          // height: MediaQuery.of(context).size.width/5,
+                          // width: MediaQuery.of(context).size.width/5,
+                          // color: Colors.red,
+                          child: Material(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              color: Color(0xff2A363B),
+                              elevation: 2,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                      height: www / 2.5,
+                                      width: www / 2,
+                                      child: Material(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        color: Color(0xff2A993B),
+                                        elevation: 2,
+                                        child: Image.network(
+                                          topProducts[index].imageUrl,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      )),
+                                  Stack(
+                                    children: <Widget>[
+                                      Positioned(
+                                        child: Container(
+                                          height: www / 3.8,
+                                          // color: Colors.blueAccent,
+                                          child: Align(
+                                            alignment: Alignment.bottomCenter,
+                                            child: Container(
+                                              // color: Colors.yellow,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(
+                                                    topProducts[index]
+                                                        .nameInEng,
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    topProducts[index]
+                                                        .nameInHin,
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 20),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: www / 4.5,
+                                        child: Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Container(
+                                                margin:
+                                                    EdgeInsets.only(left: 10),
+                                                child: Text(
+                                                  topProducts[index].mrp + " ₹",
+                                                  style: TextStyle(
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                              Container(
+                                                color: Colors.green,
+                                                alignment: Alignment.bottomLeft,
+                                                margin:
+                                                    EdgeInsets.only(left: 10),
+                                                child: Text(
+                                                  topProducts[index].price +
+                                                      "  ₹",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      decoration:
+                                                          TextDecoration.none,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: www / 6,
+                                        left: www / 4.5,
+                                        child: Container(
+                                          width: 80,
+                                          height: 30,
+                                          child: RaisedButton(
+                                            child: Text("add"),
+                                            onPressed: () {},
+                                            color: Colors.white,
+                                            textColor: Colors.black,
+                                            splashColor: Colors.blueAccent,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              )),
+                        );
+                      }),
+                    ))
+                  ],
+                );
+              } else {
+                return Center(
+                    child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: www,
+                  child: Card(
+                    child: CupertinoActivityIndicator(
+                      animating: true,
+                      radius: 25,
+                    ),
+                  ),
+                ));
+              }
+            },
+          ))),
     );
   }
 }
 
-Widget buildBody(BuildContext ctxt, int index, List<Data> data) {
+Widget buildBody(BuildContext ctxt, int index, List<Categories> data) {
   return Container(
     width: MediaQuery.of(ctxt).size.width / 2.5,
     height: MediaQuery.of(ctxt).size.width / 2.5,
@@ -350,21 +439,20 @@ Widget buildBody(BuildContext ctxt, int index, List<Data> data) {
   );
 }
 
+// To parse this JSON data, do
+//
+//     final post = postFromJson(jsonString);
+
 class Post {
   bool success;
-  List<Data> data;
+  Data data;
   String message;
 
   Post({this.success, this.data, this.message});
 
   Post.fromJson(Map<String, dynamic> json) {
     success = json['Success'];
-    if (json['data'] != null) {
-      data = new List<Data>();
-      json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     message = json['message'];
   }
 
@@ -372,7 +460,7 @@ class Post {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['Success'] = this.success;
     if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+      data['data'] = this.data.toJson();
     }
     data['message'] = this.message;
     return data;
@@ -380,20 +468,73 @@ class Post {
 }
 
 class Data {
+  List<Categories> categories;
+  List<TopProducts> topProducts;
+  List<Recomanded> recomanded;
+  List<Recent> recent;
+
+  Data({this.categories, this.topProducts, this.recomanded, this.recent});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    if (json['categories'] != null) {
+      categories = new List<Categories>();
+      json['categories'].forEach((v) {
+        categories.add(new Categories.fromJson(v));
+      });
+    }
+    if (json['topProducts'] != null) {
+      topProducts = new List<TopProducts>();
+      json['topProducts'].forEach((v) {
+        topProducts.add(new TopProducts.fromJson(v));
+      });
+    }
+    if (json['recomanded'] != null) {
+      recomanded = new List<Recomanded>();
+      json['recomanded'].forEach((v) {
+        recomanded.add(new Recomanded.fromJson(v));
+      });
+    }
+    if (json['recent'] != null) {
+      recent = new List<Recent>();
+      json['recent'].forEach((v) {
+        recent.add(new Recent.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.categories != null) {
+      data['categories'] = this.categories.map((v) => v.toJson()).toList();
+    }
+    if (this.topProducts != null) {
+      data['topProducts'] = this.topProducts.map((v) => v.toJson()).toList();
+    }
+    if (this.recomanded != null) {
+      data['recomanded'] = this.recomanded.map((v) => v.toJson()).toList();
+    }
+    if (this.recent != null) {
+      data['recent'] = this.recent.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Categories {
   int cateId;
   String nameInEng;
   String nameInHin;
   String details;
   String cateIconUrl;
 
-  Data(
+  Categories(
       {this.cateId,
       this.nameInEng,
       this.nameInHin,
       this.details,
       this.cateIconUrl});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Categories.fromJson(Map<String, dynamic> json) {
     cateId = json['cate_id'];
     nameInEng = json['name_in_eng'];
     nameInHin = json['name_in_hin'];
@@ -408,6 +549,237 @@ class Data {
     data['name_in_hin'] = this.nameInHin;
     data['details'] = this.details;
     data['cate_icon_url'] = this.cateIconUrl;
+    return data;
+  }
+}
+
+class TopProducts {
+  int productId;
+  String nameInEng;
+  String nameInHin;
+  String description;
+  String imageUrl;
+  int categoryId;
+  int subCategoryId;
+  String quantity;
+  String brand;
+  Null model;
+  Null configuration;
+  String mrp;
+  String price;
+  Null featured;
+  int popularity;
+  String createdAt;
+
+  TopProducts(
+      {this.productId,
+      this.nameInEng,
+      this.nameInHin,
+      this.description,
+      this.imageUrl,
+      this.categoryId,
+      this.subCategoryId,
+      this.quantity,
+      this.brand,
+      this.model,
+      this.configuration,
+      this.mrp,
+      this.price,
+      this.featured,
+      this.popularity,
+      this.createdAt});
+
+  TopProducts.fromJson(Map<String, dynamic> json) {
+    productId = json['product_id'];
+    nameInEng = json['name_in_eng'];
+    nameInHin = json['name_in_hin'];
+    description = json['description'];
+    imageUrl = json['image_url'];
+    categoryId = json['category_id'];
+    subCategoryId = json['sub_category_id'];
+    quantity = json['quantity'];
+    brand = json['brand'];
+    model = json['model'];
+    configuration = json['configuration'];
+    mrp = json['mrp'];
+    price = json['price'];
+    featured = json['featured'];
+    popularity = json['popularity'];
+    createdAt = json['created_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['product_id'] = this.productId;
+    data['name_in_eng'] = this.nameInEng;
+    data['name_in_hin'] = this.nameInHin;
+    data['description'] = this.description;
+    data['image_url'] = this.imageUrl;
+    data['category_id'] = this.categoryId;
+    data['sub_category_id'] = this.subCategoryId;
+    data['quantity'] = this.quantity;
+    data['brand'] = this.brand;
+    data['model'] = this.model;
+    data['configuration'] = this.configuration;
+    data['mrp'] = this.mrp;
+    data['price'] = this.price;
+    data['featured'] = this.featured;
+    data['popularity'] = this.popularity;
+    data['created_at'] = this.createdAt;
+    return data;
+  }
+}
+
+class Recomanded {
+  int productId;
+  String nameInEng;
+  String nameInHin;
+  String description;
+  String imageUrl;
+  int categoryId;
+  int subCategoryId;
+  String quantity;
+  String brand;
+  Null model;
+  Null configuration;
+  String mrp;
+  String price;
+  Null featured;
+  int popularity;
+  String createdAt;
+
+  Recomanded(
+      {this.productId,
+      this.nameInEng,
+      this.nameInHin,
+      this.description,
+      this.imageUrl,
+      this.categoryId,
+      this.subCategoryId,
+      this.quantity,
+      this.brand,
+      this.model,
+      this.configuration,
+      this.mrp,
+      this.price,
+      this.featured,
+      this.popularity,
+      this.createdAt});
+
+  Recomanded.fromJson(Map<String, dynamic> json) {
+    productId = json['product_id'];
+    nameInEng = json['name_in_eng'];
+    nameInHin = json['name_in_hin'];
+    description = json['description'];
+    imageUrl = json['image_url'];
+    categoryId = json['category_id'];
+    subCategoryId = json['sub_category_id'];
+    quantity = json['quantity'];
+    brand = json['brand'];
+    model = json['model'];
+    configuration = json['configuration'];
+    mrp = json['mrp'];
+    price = json['price'];
+    featured = json['featured'];
+    popularity = json['popularity'];
+    createdAt = json['created_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['product_id'] = this.productId;
+    data['name_in_eng'] = this.nameInEng;
+    data['name_in_hin'] = this.nameInHin;
+    data['description'] = this.description;
+    data['image_url'] = this.imageUrl;
+    data['category_id'] = this.categoryId;
+    data['sub_category_id'] = this.subCategoryId;
+    data['quantity'] = this.quantity;
+    data['brand'] = this.brand;
+    data['model'] = this.model;
+    data['configuration'] = this.configuration;
+    data['mrp'] = this.mrp;
+    data['price'] = this.price;
+    data['featured'] = this.featured;
+    data['popularity'] = this.popularity;
+    data['created_at'] = this.createdAt;
+    return data;
+  }
+}
+
+class Recent {
+  int productId;
+  String nameInEng;
+  String nameInHin;
+  String description;
+  String imageUrl;
+  int categoryId;
+  int subCategoryId;
+  String quantity;
+  String brand;
+  Null model;
+  Null configuration;
+  String mrp;
+  String price;
+  Null featured;
+  int popularity;
+  String createdAt;
+
+  Recent(
+      {this.productId,
+      this.nameInEng,
+      this.nameInHin,
+      this.description,
+      this.imageUrl,
+      this.categoryId,
+      this.subCategoryId,
+      this.quantity,
+      this.brand,
+      this.model,
+      this.configuration,
+      this.mrp,
+      this.price,
+      this.featured,
+      this.popularity,
+      this.createdAt});
+
+  Recent.fromJson(Map<String, dynamic> json) {
+    productId = json['product_id'];
+    nameInEng = json['name_in_eng'];
+    nameInHin = json['name_in_hin'];
+    description = json['description'];
+    imageUrl = json['image_url'];
+    categoryId = json['category_id'];
+    subCategoryId = json['sub_category_id'];
+    quantity = json['quantity'];
+    brand = json['brand'];
+    model = json['model'];
+    configuration = json['configuration'];
+    mrp = json['mrp'];
+    price = json['price'];
+    featured = json['featured'];
+    popularity = json['popularity'];
+    createdAt = json['created_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['product_id'] = this.productId;
+    data['name_in_eng'] = this.nameInEng;
+    data['name_in_hin'] = this.nameInHin;
+    data['description'] = this.description;
+    data['image_url'] = this.imageUrl;
+    data['category_id'] = this.categoryId;
+    data['sub_category_id'] = this.subCategoryId;
+    data['quantity'] = this.quantity;
+    data['brand'] = this.brand;
+    data['model'] = this.model;
+    data['configuration'] = this.configuration;
+    data['mrp'] = this.mrp;
+    data['price'] = this.price;
+    data['featured'] = this.featured;
+    data['popularity'] = this.popularity;
+    data['created_at'] = this.createdAt;
     return data;
   }
 }
