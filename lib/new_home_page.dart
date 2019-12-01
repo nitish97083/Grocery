@@ -47,67 +47,8 @@ class _NewHomePageDart extends State {
                     msg: d.toJson().toString(), gravity: ToastGravity.CENTER);*/
                 return Column(
                   children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(top: 10),
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height / 12,
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned(
-                            top: 30,
-                            left: 20,
-                            child: InkWell(
-                              child: Container(
-                                //margin: EdgeInsets.only(left: 20, top: 20),
-                                child: Image.asset(
-                                  'assets/icons_new/menu.png',
-                                  width: 25,
-                                  height: 25,
-                                ),
-                              ),
-                              onTap: () {
-                                // there will be hamburger menu
-                              },
-                            ),
-                          ),
-                          Positioned(
-                            top: 30,
-                            left: MediaQuery.of(context).size.width / 1.3,
-                            child: InkWell(
-                              child: Container(
-                                // margin: EdgeInsets.only(left: 20, top: 20),
-                                child: Image.asset(
-                                  'assets/icons_new/cart.png',
-                                  width: 25,
-                                  height: 25,
-                                ),
-                              ),
-                              onTap: () {
-                                // there will be hamburger menu
-                              },
-                            ),
-                          ),
-                          Positioned(
-                            top: 30,
-                            left: MediaQuery.of(context).size.width / 1.15,
-                            child: InkWell(
-                              child: Container(
-                                // margin: EdgeInsets.only(left: 20, top: 20),
-                                child: Image.asset(
-                                  'assets/icons_new/notification.png',
-                                  width: 25,
-                                  height: 25,
-                                ),
-                              ),
-                              onTap: () {
-                                // there will be hamburger menu
-                              },
-                            ),
-                          )
-                          /**/
-                        ],
-                      ),
-                    ),
+                    //here app bar
+
                     Container(
                       margin: EdgeInsets.only(top: 10),
                       //color: Colors.black,
@@ -231,17 +172,26 @@ class _NewHomePageDart extends State {
                                       height: www / 2.5,
                                       width: www / 2,
                                       child: Material(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                        color: Color(0xff2A993B),
-                                        elevation: 2,
-                                        child: Image.network(
-                                          topProducts[index].imageUrl,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      )),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          color: Color(0xff2A993B),
+                                          elevation: 2,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                    topProducts[index].imageUrl,
+                                                  ),
+                                                ),
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10))),
+                                          ))),
                                   Stack(
                                     children: <Widget>[
                                       Positioned(
@@ -255,28 +205,28 @@ class _NewHomePageDart extends State {
                                               child: Column(
                                                 children: <Widget>[
                                                   SizedBox(
-                                                    height: 10,
+                                                    height: 3,
                                                   ),
                                                   Text(
                                                     topProducts[index]
                                                         .nameInEng,
-                                                    maxLines: 2,
+                                                    maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 20,
+                                                      fontSize: 17,
                                                     ),
                                                   ),
                                                   Text(
                                                     topProducts[index]
                                                         .nameInHin,
-                                                    maxLines: 2,
+                                                    maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 20),
+                                                        fontSize: 17),
                                                   ),
                                                 ],
                                               ),
@@ -285,7 +235,7 @@ class _NewHomePageDart extends State {
                                         ),
                                       ),
                                       Positioned(
-                                        top: www / 4.5,
+                                        top: www / 5,
                                         child: Align(
                                           alignment: Alignment.bottomCenter,
                                           child: Row(
@@ -298,6 +248,7 @@ class _NewHomePageDart extends State {
                                                   style: TextStyle(
                                                       decoration: TextDecoration
                                                           .lineThrough,
+                                                      fontSize: 14,
                                                       color: Colors.white),
                                                 ),
                                               ),
@@ -308,7 +259,7 @@ class _NewHomePageDart extends State {
                                                     EdgeInsets.only(left: 10),
                                                 child: Text(
                                                   topProducts[index].price +
-                                                      "  ₹",
+                                                      " ₹",
                                                   style: TextStyle(
                                                       fontSize: 14,
                                                       decoration:
@@ -321,20 +272,72 @@ class _NewHomePageDart extends State {
                                         ),
                                       ),
                                       Positioned(
-                                        top: www / 6,
-                                        left: www / 4.5,
-                                        child: Container(
-                                          width: 80,
-                                          height: 30,
-                                          child: RaisedButton(
+                                          top: www / 5.6,
+                                          left: www / 4.2,
+                                          child: Visibility(
+                                            child: Container(
+                                                width: 80,
+                                                height: 28,
+                                                child: Material(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                    color: Color(0xffffffff),
+                                                    elevation: 2,
+                                                    child: Center(
+                                                      child: Text("Add"),
+                                                    ))),
+                                            visible: false,
+                                            replacement: Container(
+                                                width: 80,
+                                                height: 28,
+                                                child: Material(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                    color: Color(0xffffffff),
+                                                    elevation: 2,
+                                                    child: Center(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: <Widget>[
+                                                          Icon(
+                                                            Icons.remove,
+                                                            color: Colors.pink,
+                                                            size: 24.0,
+                                                          ),
+                                                          Text(
+                                                            "0",
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.pink,
+                                                                fontSize: 18),
+                                                          ),
+                                                          Icon(
+                                                            Icons.add,
+                                                            color: Colors.pink,
+                                                            size: 24.0,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ))),
+                                          ) /*RaisedButton(
+),
                                             child: Text("add"),
                                             onPressed: () {},
                                             color: Colors.white,
                                             textColor: Colors.black,
                                             splashColor: Colors.blueAccent,
-                                          ),
-                                        ),
-                                      )
+                                          ),*/
+                                          )
                                     ],
                                   )
                                 ],
