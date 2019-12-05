@@ -35,301 +35,470 @@ class _NewHomePageDart extends State {
     return MaterialApp(
       home: Scaffold(
           backgroundColor: Color(0xffDDDDDD),
-          body: SingleChildScrollView(
-              child: FutureBuilder<Post>(
-            future: fetchPost(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                Data d = snapshot.data.data;
-                List<Categories> list = d.categories;
-                List<TopProducts> topProducts = d.topProducts;
-                /*Fluttertoast.showToast(
-                    msg: d.toJson().toString(), gravity: ToastGravity.CENTER);*/
-                return Column(
-                  children: <Widget>[
-                    //here app bar
-
-                    Container(
-                      margin: EdgeInsets.only(top: 10),
-                      //color: Colors.black,
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      height: MediaQuery.of(context).size.height / 13,
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned(
-                            child: TextField(
-                              //controller: passwdController,
-                              decoration: InputDecoration(
-                                hintText: "What are you looking for?",
-                                hintStyle: TextStyle(color: Color(0xff8898AA)),
-                                border: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Color(0xff172B4D)),
-
-//                          borderRadius: BorderRadius.circular(25.0),
-                                ),
-                                contentPadding: EdgeInsets.symmetric(
-                                  vertical: 15,
-                                  horizontal: 15,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Color(0xff172B4D)),
-
-//                          borderRadius: BorderRadius.circular(25.0),
-                                ),
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: Color(0xffDDDDDD),
+                expandedHeight: 160.0,
+                floating: false,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                    background: Container(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 12,
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          top: 30,
+                          left: 20,
+                          child: InkWell(
+                            child: Container(
+                              //margin: EdgeInsets.only(left: 20, top: 20),
+                              child: Image.asset(
+                                'assets/icons_new/menu.png',
+                                width: 25,
+                                height: 25,
                               ),
                             ),
+                            onTap: () {
+                              // there will be hamburger menu
+                            },
                           ),
-                          Positioned(
-                            top: 10,
-                            left: MediaQuery.of(context).size.width / 1.25,
-                            child:
-                                Image.asset('assets/icons_new/search_icon.png'),
-                          )
-                        ],
-                      ),
+                        ),
+                        Positioned(
+                          top: 30,
+                          left: MediaQuery.of(context).size.width / 1.3,
+                          child: InkWell(
+                            child: Container(
+                              // margin: EdgeInsets.only(left: 20, top: 20),
+                              child: Image.asset(
+                                'assets/icons_new/cart.png',
+                                width: 25,
+                                height: 25,
+                              ),
+                            ),
+                            onTap: () {
+                              // there will be hamburger menu
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          top: 30,
+                          left: MediaQuery.of(context).size.width / 1.15,
+                          child: InkWell(
+                            child: Container(
+                              // margin: EdgeInsets.only(left: 20, top: 20),
+                              child: Image.asset(
+                                'assets/icons_new/notification.png',
+                                width: 25,
+                                height: 25,
+                              ),
+                            ),
+                            onTap: () {
+                              // there will be hamburger menu
+                            },
+                          ),
+                        )
+                      ],
                     ),
-                    Container(
-                      margin: EdgeInsets.only(left: 20, top: 5),
-                      height: MediaQuery.of(context).size.height / 29,
-                      width: MediaQuery.of(context).size.width,
-                      child: Text(
-                        "Categories",
-                        style: TextStyle(
-                            color: Color(0xff172B4D),
-                            fontFamily: 'SF Pro Display',
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(top: 20, left: 10),
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.width / 2.1,
-                        child: ListView.builder(
-                            itemCount: list.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) =>
-                                buildBody(context, index, list))),
-                    Container(
-                      margin: EdgeInsets.only(left: 10, top: 5),
-                      height: MediaQuery.of(context).size.height / 5.4,
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(6.0),
-                          child: Image.network(
-                            "https://images.unsplash.com/photo-1529511582893-2d7e684dd128?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80",
-                            //width: MediaQuery.of(context).size.width / 2.5,
-                            //height: MediaQuery.of(context).size.width / 2.5,
-                            fit: BoxFit.fill,
-                          )),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 20, top: 15),
-                      height: MediaQuery.of(context).size.height / 29,
-                      width: MediaQuery.of(context).size.width,
-                      child: Text(
-                        "Top Products",
-                        style: TextStyle(
-                            color: Color(0xff172B4D),
-                            fontFamily: 'SF Pro Display',
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Container(
-                        /*ListView.builder(
+                  ),
+                )),
+              ),
+              SliverFillRemaining(
+                  child: ListView(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                children: <Widget>[
+                  FutureBuilder<Post>(
+                    future: fetchPost(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        Data d = snapshot.data.data;
+                        List<Categories> list = d.categories;
+                        List<TopProducts> topProducts = d.topProducts;
+                        /*Fluttertoast.showToast(
+                    msg: d.toJson().toString(), gravity: ToastGravity.CENTER);*/
+                        return Column(
+                          children: <Widget>[
+                            //here app bar
+/*
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 12,
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    top: 30,
+                                    left: 20,
+                                    child: InkWell(
+                                      child: Container(
+                                        //margin: EdgeInsets.only(left: 20, top: 20),
+                                        child: Image.asset(
+                                          'assets/icons_new/menu.png',
+                                          width: 25,
+                                          height: 25,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        // there will be hamburger menu
+                                      },
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 30,
+                                    left:
+                                        MediaQuery.of(context).size.width / 1.3,
+                                    child: InkWell(
+                                      child: Container(
+                                        // margin: EdgeInsets.only(left: 20, top: 20),
+                                        child: Image.asset(
+                                          'assets/icons_new/cart.png',
+                                          width: 25,
+                                          height: 25,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        // there will be hamburger menu
+                                      },
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 30,
+                                    left: MediaQuery.of(context).size.width /
+                                        1.15,
+                                    child: InkWell(
+                                      child: Container(
+                                        // margin: EdgeInsets.only(left: 20, top: 20),
+                                        child: Image.asset(
+                                          'assets/icons_new/notification.png',
+                                          width: 25,
+                                          height: 25,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        // there will be hamburger menu
+                                      },
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),*/
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              //color: Colors.black,
+                              width: MediaQuery.of(context).size.width / 1.1,
+                              height: MediaQuery.of(context).size.height / 13,
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    child: TextField(
+                                      //controller: passwdController,
+                                      decoration: InputDecoration(
+                                        hintText: "What are you looking for?",
+                                        hintStyle:
+                                            TextStyle(color: Color(0xff8898AA)),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xff172B4D)),
+
+//                          borderRadius: BorderRadius.circular(25.0),
+                                        ),
+                                        contentPadding: EdgeInsets.symmetric(
+                                          vertical: 15,
+                                          horizontal: 15,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xff172B4D)),
+
+//                          borderRadius: BorderRadius.circular(25.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 10,
+                                    left: MediaQuery.of(context).size.width /
+                                        1.25,
+                                    child: Image.asset(
+                                        'assets/icons_new/search_icon.png'),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 20, top: 5),
+                              height: MediaQuery.of(context).size.height / 29,
+                              width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                "Categories",
+                                style: TextStyle(
+                                    color: Color(0xff172B4D),
+                                    fontFamily: 'SF Pro Display',
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(top: 20, left: 10),
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.width / 2.1,
+                                child: ListView.builder(
+                                    itemCount: list.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) =>
+                                        buildBody(context, index, list))),
+                            Container(
+                              margin: EdgeInsets.only(left: 10, top: 5),
+                              height: MediaQuery.of(context).size.height / 5.4,
+                              width: MediaQuery.of(context).size.width / 1.1,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  child: Image.network(
+                                    "https://images.unsplash.com/photo-1529511582893-2d7e684dd128?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80",
+                                    //width: MediaQuery.of(context).size.width / 2.5,
+                                    //height: MediaQuery.of(context).size.width / 2.5,
+                                    fit: BoxFit.fill,
+                                  )),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 20, top: 15),
+                              height: MediaQuery.of(context).size.height / 29,
+                              width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                "Top Products",
+                                style: TextStyle(
+                                    color: Color(0xff172B4D),
+                                    fontFamily: 'SF Pro Display',
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Container(
+                                /*ListView.builder(
                             itemCount: list.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) =>
                                 buildBody(context, index, list))),*/
-                        //height: 1000,
-                        child: GridView.count(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      // Create a grid with 2 columns. If you change the scrollDirection to
-                      // horizontal, this produces 2 rows.
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.7,
+                                //height: 1000,
+                                child: GridView.count(
+                              shrinkWrap: true,
+                              physics: BouncingScrollPhysics(),
+                              // Create a grid with 2 columns. If you change the scrollDirection to
+                              // horizontal, this produces 2 rows.
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.7,
 
-                      // Generate 100 widgets that display their index in the List.
-                      children: List.generate(topProducts.length, (index) {
-                        return Padding(
-                          padding: EdgeInsets.all(10),
-                          // height: MediaQuery.of(context).size.width/5,
-                          // width: MediaQuery.of(context).size.width/5,
-                          // color: Colors.red,
-                          child: Material(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              color: Color(0xff2A363B),
-                              elevation: 2,
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                      height: www / 2.5,
-                                      width: www / 2,
-                                      child: Material(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                          color: Color(0xff2A993B),
-                                          elevation: 2,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                    topProducts[index].imageUrl,
-                                                  ),
-                                                ),
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(10),
-                                                    topRight:
-                                                        Radius.circular(10))),
-                                          ))),
-                                  Stack(
-                                    children: <Widget>[
-                                      Positioned(
-                                        child: Container(
-                                          height: www / 3.8,
-                                          // color: Colors.blueAccent,
-                                          child: Align(
-                                            alignment: Alignment.bottomCenter,
-                                            child: Container(
-                                              // color: Colors.yellow,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    height: 3,
-                                                  ),
-                                                  Text(
-                                                    topProducts[index]
-                                                        .nameInEng,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 17,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    topProducts[index]
-                                                        .nameInHin,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 17),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                              // Generate 100 widgets that display their index in the List.
+                              children:
+                                  List.generate(topProducts.length, (index) {
+                                return Padding(
+                                  padding: EdgeInsets.all(10),
+                                  // height: MediaQuery.of(context).size.width/5,
+                                  // width: MediaQuery.of(context).size.width/5,
+                                  // color: Colors.red,
+                                  child: Material(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
-                                      Positioned(
-                                        top: www / 5,
-                                        child: Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: Row(
+                                      color: Color(0xff2A363B),
+                                      elevation: 2,
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                              height: www / 2.5,
+                                              width: www / 2,
+                                              child: Material(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12),
+                                                  ),
+                                                  color: Color(0xff2A993B),
+                                                  elevation: 2,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          fit: BoxFit.cover,
+                                                          image: NetworkImage(
+                                                            topProducts[index]
+                                                                .imageUrl,
+                                                          ),
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        10))),
+                                                  ))),
+                                          Stack(
                                             children: <Widget>[
-                                              Container(
-                                                margin:
-                                                    EdgeInsets.only(left: 10),
-                                                child: Text(
-                                                  topProducts[index].mrp + " ₹",
-                                                  style: TextStyle(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                      fontSize: 14,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                              Container(
-                                                color: Colors.green,
-                                                alignment: Alignment.bottomLeft,
-                                                margin:
-                                                    EdgeInsets.only(left: 10),
-                                                child: Text(
-                                                  topProducts[index].price +
-                                                      " ₹",
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      decoration:
-                                                          TextDecoration.none,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                          top: www / 5.6,
-                                          left: www / 4.2,
-                                          child: Visibility(
-                                            child: Container(
-                                                width: 80,
-                                                height: 28,
-                                                child: Material(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
-                                                    ),
-                                                    color: Color(0xffffffff),
-                                                    elevation: 2,
-                                                    child: Center(
-                                                      child: Text("Add"),
-                                                    ))),
-                                            visible: false,
-                                            replacement: Container(
-                                                width: 80,
-                                                height: 28,
-                                                child: Material(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
-                                                    ),
-                                                    color: Color(0xffffffff),
-                                                    elevation: 2,
-                                                    child: Center(
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
+                                              Positioned(
+                                                child: Container(
+                                                  height: www / 3.8,
+                                                  // color: Colors.blueAccent,
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                    child: Container(
+                                                      // color: Colors.yellow,
+                                                      child: Column(
                                                         children: <Widget>[
-                                                          Icon(
-                                                            Icons.remove,
-                                                            color: Colors.pink,
-                                                            size: 24.0,
+                                                          SizedBox(
+                                                            height: 3,
                                                           ),
                                                           Text(
-                                                            "0",
+                                                            topProducts[index]
+                                                                .nameInEng,
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                             style: TextStyle(
-                                                                color:
-                                                                    Colors.pink,
-                                                                fontSize: 18),
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 17,
+                                                            ),
                                                           ),
-                                                          Icon(
-                                                            Icons.add,
-                                                            color: Colors.pink,
-                                                            size: 24.0,
+                                                          Text(
+                                                            topProducts[index]
+                                                                .nameInHin,
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 17),
                                                           ),
                                                         ],
                                                       ),
-                                                    ))),
-                                          ) /*RaisedButton(
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: www / 5,
+                                                child: Align(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 10),
+                                                        child: Text(
+                                                          topProducts[index]
+                                                                  .mrp +
+                                                              " ₹",
+                                                          style: TextStyle(
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .lineThrough,
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        color: Colors.green,
+                                                        alignment: Alignment
+                                                            .bottomLeft,
+                                                        margin: EdgeInsets.only(
+                                                            left: 10),
+                                                        child: Text(
+                                                          topProducts[index]
+                                                                  .price +
+                                                              " ₹",
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .none,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                  top: www / 5.6,
+                                                  left: www / 4.2,
+                                                  child: Visibility(
+                                                    child: Container(
+                                                        width: 80,
+                                                        height: 28,
+                                                        child: Material(
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12),
+                                                            ),
+                                                            color: Color(
+                                                                0xffffffff),
+                                                            elevation: 2,
+                                                            child: Center(
+                                                              child:
+                                                                  Text("Add"),
+                                                            ))),
+                                                    visible: false,
+                                                    replacement: Container(
+                                                        width: 80,
+                                                        height: 28,
+                                                        child: Material(
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12),
+                                                            ),
+                                                            color: Color(
+                                                                0xffffffff),
+                                                            elevation: 2,
+                                                            child: Center(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .remove,
+                                                                    color: Colors
+                                                                        .pink,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                  Text(
+                                                                    "0",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .pink,
+                                                                        fontSize:
+                                                                            18),
+                                                                  ),
+                                                                  Icon(
+                                                                    Icons.add,
+                                                                    color: Colors
+                                                                        .pink,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ))),
+                                                  ) /*RaisedButton(
 ),
                                             child: Text("add"),
                                             onPressed: () {},
@@ -337,31 +506,35 @@ class _NewHomePageDart extends State {
                                             textColor: Colors.black,
                                             splashColor: Colors.blueAccent,
                                           ),*/
+                                                  )
+                                            ],
                                           )
-                                    ],
-                                  )
-                                ],
-                              )),
+                                        ],
+                                      )),
+                                );
+                              }),
+                            ))
+                          ],
                         );
-                      }),
-                    ))
-                  ],
-                );
-              } else {
-                return Center(
-                    child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: www,
-                  child: Card(
-                    child: CupertinoActivityIndicator(
-                      animating: true,
-                      radius: 25,
-                    ),
-                  ),
-                ));
-              }
-            },
-          ))),
+                      } else {
+                        return Center(
+                            child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          width: www,
+                          child: Card(
+                            child: CupertinoActivityIndicator(
+                              animating: true,
+                              radius: 25,
+                            ),
+                          ),
+                        ));
+                      }
+                    },
+                  )
+                ],
+              ))
+            ],
+          )),
     );
   }
 }
@@ -386,14 +559,7 @@ Widget buildBody(BuildContext ctxt, int index, List<Categories> data) {
                       width: MediaQuery.of(ctxt).size.width / 2.5,
                       height: MediaQuery.of(ctxt).size.width / 2.5,
                       fit: BoxFit.cover,
-                    ))
-                /* Image.network(
-                data[index].cateIconUrl,
-                width: MediaQuery.of(ctxt).size.width / 3.5,
-                height: MediaQuery.of(ctxt).size.width / 2.5,
-                fit: BoxFit.fill,
-              ),*/
-                ),
+                    ))),
             Positioned(
                 left: -4,
                 top: MediaQuery.of(ctxt).size.width / 4,
