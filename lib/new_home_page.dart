@@ -39,8 +39,9 @@ class _NewHomePageDart extends State {
             slivers: <Widget>[
               SliverAppBar(
                 backgroundColor: Color(0xffDDDDDD),
-                expandedHeight: 160.0,
-                floating: false,
+                expandedHeight:80.0,
+               // floating: false,
+               //backgroundColor: Colors.transparent,
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
                     background: Container(
