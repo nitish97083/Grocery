@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:radhe_radhe/HomePage.dart';
-import 'package:radhe_radhe/login_register/register.dart';
 import 'package:http/http.dart' as http;
-import 'package:radhe_radhe/new_home_page.dart';
+import 'package:radhe_radhe/home/new_home_page.dart';
+import 'package:radhe_radhe/login_register/register.dart';
+
+//import 'package:radhe_radhe/login_register/registerome_page.dart';
 
 class Login extends StatefulWidget {
   @override
