@@ -71,14 +71,14 @@ class _NewHomePageDart extends State {
             headerSliverBuilder: (context, bool ibs) => [
               SliverAppBar(
                 backgroundColor: Colors.transparent,
-                expandedHeight: 60,
+                expandedHeight: 80,
                 floating: false,
                 pinned: true,
                 flexibleSpace: Container(
-                  color: isShrink ? Colors.black : Color(0xffDDDDDD),
+                  color: isShrink ? Colors.amber : Color(0xffDDDDDD),
                   padding: EdgeInsets.only(top: 10),
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 12,
+                  height: MediaQuery.of(context).size.height / 10,
                   child: Stack(
                     children: <Widget>[
                       Positioned(
@@ -131,7 +131,7 @@ class _NewHomePageDart extends State {
                             // there will be hamburger menu
                           },
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -602,6 +602,8 @@ Widget buildBody(BuildContext ctxt, int index, List<Categories> data) {
 Widget cartAddButton(
     BuildContext context, int index, List<TopProducts> topProducts) {
   int _counter;
+  bool value=true;
+
 
   //setState(() {});
 
@@ -613,7 +615,7 @@ Widget cartAddButton(
       // called again, and so nothing would appear to happen.
       _counter++;
     });*/
-  return Container(
+  return value?Container(
       width: 80,
       height: 28,
       child: InkWell(
@@ -627,17 +629,55 @@ Widget cartAddButton(
               child: Text("Add"),
             )),
         onTap: () {
-          /* tapedButton(
-                topProducts[index].productId,
-                topProducts[index].price,
-                topProducts[index].mrp,
-                topProducts[index].nameInHin,
-                topProducts[index].nameInEng,
-                topProducts[index].imageUrl,
-                topProducts[index].categoryId,
-                2);*/
+
+
+
         },
-      ));
+      )):Container(
+      width: 80,
+      height: 28,
+      child: Material(
+      shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+  ),
+  color: Color(0xffffffff),
+  elevation: 2,
+  child: Center(
+  child: Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: <Widget>[
+  InkWell(
+  child: Icon(
+  Icons.remove,
+  color: Colors.pink,
+  size: 24.0,
+  ),
+  onTap: () {}
+  )],),),),);
+
+  /*tapedButton(
+                          topProducts[index].productId,
+                          topProducts[index].price,
+                          topProducts[index].mrp,
+                          topProducts[index].nameInHin,
+                          topProducts[index].nameInEng,
+                          topProducts[index].imageUrl,
+                          topProducts[index].categoryId,
+                          2);*/ /*
+                    },
+                  ),
+                  Text(
+                    "0",
+                    style: TextStyle(color: Colors.pink, fontSize: 18),
+                  ),
+                  Icon(
+                    Icons.add,
+                    color: Colors.pink,
+                    size: 24.0,
+                  ),
+                ],
+              ),
+            )));;
   //SharedPreferences prefs =
   //SharedPreferences.getInstance() as SharedPreferences;
   /* SharedPref sharedPref = SharedPref();
@@ -722,3 +762,5 @@ Widget cartAddButton(
             )));
   }*/
 }
+
+
