@@ -29,6 +29,35 @@ class NewHomePageDart extends StatefulWidget {
 }
 
 class _NewHomePageDart extends State {
+  ScrollController _scrollController;
+  bool lastStatus = true;
+
+  _scrollListener() {
+    if (isShrink != lastStatus) {
+      setState(() {
+        lastStatus = isShrink;
+      });
+    }
+  }
+
+  bool get isShrink {
+    return _scrollController.hasClients &&
+        _scrollController.offset > (60 - kToolbarHeight);
+  }
+
+  @override
+  void initState() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var www = MediaQuery.of(context).size.width;
@@ -37,79 +66,79 @@ class _NewHomePageDart extends State {
     return MaterialApp(
       home: Scaffold(
           backgroundColor: Color(0xffDDDDDD),
-          body: CustomScrollView(
-            slivers: <Widget>[
+          body: NestedScrollView(
+            controller: _scrollController,
+            headerSliverBuilder: (context, bool ibs) => [
               SliverAppBar(
-                backgroundColor: Color(0xffDDDDDD),
-                expandedHeight: 100.0,
+                backgroundColor: Colors.transparent,
+                expandedHeight: 60,
                 floating: false,
                 pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                    background: Container(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 10),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 12,
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned(
-                          top: 30,
-                          left: 20,
-                          child: InkWell(
-                            child: Container(
-                              //margin: EdgeInsets.only(left: 20, top: 20),
-                              child: Image.asset(
-                                'assets/icons_new/menu.png',
-                                width: 25,
-                                height: 25,
-                              ),
+                flexibleSpace: Container(
+                  color: isShrink ? Colors.black : Color(0xffDDDDDD),
+                  padding: EdgeInsets.only(top: 10),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 12,
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned(
+                        top: 30,
+                        left: 20,
+                        child: InkWell(
+                          child: Container(
+                            //margin: EdgeInsets.only(left: 20, top: 20),
+                            child: Image.asset(
+                              'assets/icons_new/menu.png',
+                              width: 25,
+                              height: 25,
                             ),
-                            onTap: () {
-                              // there will be hamburger menu
-                            },
                           ),
+                          onTap: () {
+                            // there will be hamburger menu
+                          },
                         ),
-                        Positioned(
-                          top: 30,
-                          left: MediaQuery.of(context).size.width / 1.3,
-                          child: InkWell(
-                            child: Container(
-                              // margin: EdgeInsets.only(left: 20, top: 20),
-                              child: Image.asset(
-                                'assets/icons_new/cart.png',
-                                width: 25,
-                                height: 25,
-                              ),
+                      ),
+                      Positioned(
+                        top: 30,
+                        left: MediaQuery.of(context).size.width / 1.3,
+                        child: InkWell(
+                          child: Container(
+                            // margin: EdgeInsets.only(left: 20, top: 20),
+                            child: Image.asset(
+                              'assets/icons_new/cart.png',
+                              width: 25,
+                              height: 25,
                             ),
-                            onTap: () {
-                              // there will be hamburger menu
-                            },
                           ),
+                          onTap: () {
+                            // there will be hamburger menu
+                          },
                         ),
-                        Positioned(
-                          top: 30,
-                          left: MediaQuery.of(context).size.width / 1.15,
-                          child: InkWell(
-                            child: Container(
-                              // margin: EdgeInsets.only(left: 20, top: 20),
-                              child: Image.asset(
-                                'assets/icons_new/notification.png',
-                                width: 25,
-                                height: 25,
-                              ),
+                      ),
+                      Positioned(
+                        top: 30,
+                        left: MediaQuery.of(context).size.width / 1.15,
+                        child: InkWell(
+                          child: Container(
+                            // margin: EdgeInsets.only(left: 20, top: 20),
+                            child: Image.asset(
+                              'assets/icons_new/notification.png',
+                              width: 25,
+                              height: 25,
                             ),
-                            onTap: () {
-                              // there will be hamburger menu
-                            },
                           ),
-                        )
-                      ],
-                    ),
+                          onTap: () {
+                            // there will be hamburger menu
+                          },
+                        ),
+                      )
+                    ],
                   ),
-                )),
-              ),
-              SliverFillRemaining(
-                  child: ListView(
+                ),
+              )
+            ],
+            body: Container(
+              child: ListView(
                 shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
@@ -189,7 +218,7 @@ class _NewHomePageDart extends State {
                               ),
                             ),*/
                             Container(
-                              margin: EdgeInsets.only(top: 10),
+                              margin: EdgeInsets.only(top: 0),
                               //color: Colors.black,
                               width: MediaQuery.of(context).size.width / 1.1,
                               height: MediaQuery.of(context).size.height / 13,
@@ -459,8 +488,8 @@ class _NewHomePageDart extends State {
                       } else {
                         return Center(
                             child: Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: www,
+                          height: www / 2,
+                          width: www / 2,
                           child: Card(
                             child: CupertinoActivityIndicator(
                               animating: true,
@@ -472,8 +501,8 @@ class _NewHomePageDart extends State {
                     },
                   )
                 ],
-              ))
-            ],
+              ),
+            ),
           )),
     );
   }
