@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 
-import 'pojo/post.dart';
-
 Future<Post> fetchPost() async {
   var response = await http
       .get("https://onlinekiranabazar.000webhostapp.com/api/getCategories");
@@ -19,7 +17,7 @@ Future<Post> fetchPost() async {
     throw Exception('Failed to load post');
   }
 }
- var count = 0;
+   var count = 0;
 class NewHomePageDart extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -29,35 +27,6 @@ class NewHomePageDart extends StatefulWidget {
 }
 
 class _NewHomePageDart extends State {
-  ScrollController _scrollController;
-  bool lastStatus = true;
-
-  _scrollListener() {
-    if (isShrink != lastStatus) {
-      setState(() {
-        lastStatus = isShrink;
-      });
-    }
-  }
-
-  bool get isShrink {
-    return _scrollController.hasClients &&
-        _scrollController.offset > (60 - kToolbarHeight);
-  }
-
-  @override
-  void initState() {
-    _scrollController = ScrollController();
-    _scrollController.addListener(_scrollListener);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     var www = MediaQuery.of(context).size.width;
@@ -66,79 +35,80 @@ class _NewHomePageDart extends State {
     return MaterialApp(
       home: Scaffold(
           backgroundColor: Color(0xffDDDDDD),
-          body: NestedScrollView(
-            controller: _scrollController,
-            headerSliverBuilder: (context, bool ibs) => [
+          body: CustomScrollView(
+            slivers: <Widget>[
               SliverAppBar(
-                backgroundColor: Colors.transparent,
-                expandedHeight: 80,
-                floating: false,
+                backgroundColor: Color(0xffDDDDDD),
+                expandedHeight:80.0,
+               // floating: false,
+               //backgroundColor: Colors.transparent,
                 pinned: true,
-                flexibleSpace: Container(
-                  color: isShrink ? Colors.amber : Color(0xffDDDDDD),
-                  padding: EdgeInsets.only(top: 10),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 10,
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        top: 30,
-                        left: 20,
-                        child: InkWell(
-                          child: Container(
-                            //margin: EdgeInsets.only(left: 20, top: 20),
-                            child: Image.asset(
-                              'assets/icons_new/menu.png',
-                              width: 25,
-                              height: 25,
+                flexibleSpace: FlexibleSpaceBar(
+                    background: Container(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 12,
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          top: 30,
+                          left: 20,
+                          child: InkWell(
+                            child: Container(
+                              //margin: EdgeInsets.only(left: 20, top: 20),
+                              child: Image.asset(
+                                'assets/icons_new/menu.png',
+                                width: 25,
+                                height: 25,
+                              ),
                             ),
+                            onTap: () {
+                              // there will be hamburger menu
+                            },
                           ),
-                          onTap: () {
-                            // there will be hamburger menu
-                          },
                         ),
-                      ),
-                      Positioned(
-                        top: 30,
-                        left: MediaQuery.of(context).size.width / 1.3,
-                        child: InkWell(
-                          child: Container(
-                            // margin: EdgeInsets.only(left: 20, top: 20),
-                            child: Image.asset(
-                              'assets/icons_new/cart.png',
-                              width: 25,
-                              height: 25,
+                        Positioned(
+                          top: 30,
+                          left: MediaQuery.of(context).size.width / 1.3,
+                          child: InkWell(
+                            child: Container(
+                              // margin: EdgeInsets.only(left: 20, top: 20),
+                              child: Image.asset(
+                                'assets/icons_new/cart.png',
+                                width: 25,
+                                height: 25,
+                              ),
                             ),
+                            onTap: () {
+                              // there will be hamburger menu
+                            },
                           ),
-                          onTap: () {
-                            // there will be hamburger menu
-                          },
                         ),
-                      ),
-                      Positioned(
-                        top: 30,
-                        left: MediaQuery.of(context).size.width / 1.15,
-                        child: InkWell(
-                          child: Container(
-                            // margin: EdgeInsets.only(left: 20, top: 20),
-                            child: Image.asset(
-                              'assets/icons_new/notification.png',
-                              width: 25,
-                              height: 25,
+                        Positioned(
+                          top: 30,
+                          left: MediaQuery.of(context).size.width / 1.15,
+                          child: InkWell(
+                            child: Container(
+                              // margin: EdgeInsets.only(left: 20, top: 20),
+                              child: Image.asset(
+                                'assets/icons_new/notification.png',
+                                width: 25,
+                                height: 25,
+                              ),
                             ),
+                            onTap: () {
+                              // there will be hamburger menu
+                            },
                           ),
-                          onTap: () {
-                            // there will be hamburger menu
-                          },
-                        ),
-                      ),
-                    ],
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
-            body: Container(
-              child: ListView(
+                )),
+              ),
+              SliverFillRemaining(
+                  child: ListView(
                 shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
@@ -218,7 +188,7 @@ class _NewHomePageDart extends State {
                               ),
                             ),*/
                             Container(
-                              margin: EdgeInsets.only(top: 0),
+                              margin: EdgeInsets.only(top: 10),
                               //color: Colors.black,
                               width: MediaQuery.of(context).size.width / 1.1,
                               height: MediaQuery.of(context).size.height / 13,
@@ -464,10 +434,72 @@ class _NewHomePageDart extends State {
                                               Positioned(
                                                   top: www / 5.6,
                                                   left: www / 4.2,
-                                                  child: cartAddButton(
-                                                      context,
-                                                      index,
-                                                      topProducts) /*RaisedButton(
+                                                  child: Visibility(
+                                                    child: Container(
+                                                        width: 80,
+                                                        height: 28,
+                                                        child: Material(
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12),
+                                                            ),
+                                                            color: Color(
+                                                                0xffffffff),
+                                                            elevation: 2,
+                                                            child: Center(
+                                                              child:
+                                                                  Text("Add"),
+                                                            ))),
+                                                    visible: false,
+                                                    replacement: Container(
+                                                        width: 80,
+                                                        height: 28,
+                                                        child: Material(
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12),
+                                                            ),
+                                                            color: Color(
+                                                                0xffffffff),
+                                                            elevation: 2,
+                                                            child: Center(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .remove,
+                                                                    color: Colors
+                                                                        .pink,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                  Text(
+                                                                    "0",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .pink,
+                                                                        fontSize:
+                                                                            18),
+                                                                  ),
+                                                                  Icon(
+                                                                    Icons.add,
+                                                                    color: Colors
+                                                                        .pink,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ))),
+                                                  ) /*RaisedButton(
 ),
                                             child: Text("add"),
                                             onPressed: () {},
@@ -488,8 +520,8 @@ class _NewHomePageDart extends State {
                       } else {
                         return Center(
                             child: Container(
-                          height: www / 2,
-                          width: www / 2,
+                          height: MediaQuery.of(context).size.height,
+                          width: www,
                           child: Card(
                             child: CupertinoActivityIndicator(
                               animating: true,
@@ -501,34 +533,12 @@ class _NewHomePageDart extends State {
                     },
                   )
                 ],
-              ),
-            ),
+              ))
+            ],
           )),
     );
   }
 }
-
-/*tapedButton(int productId, String price, String mrp, String nameInHin,
-    String nameInEng, String imageUrl, int categoryId, int clicked) {
-  //SharedPreferences prefs = await SharedPreferences.getInstance();
-  CartValue saveCart = CartValue();
-  saveCart.productId = productId;
-  saveCart.price = price;
-  saveCart.mrp = mrp;
-  saveCart.nameInHin;
-  saveCart.nameInEng;
-  saveCart.imageUrl;
-
-  saveCart.categoryId = categoryId;
-  SharedPref sharedPref = new SharedPref();
-  List<CartValue> getF = sharedPref.retrive() as List<CartValue>;
-  getF.add(saveCart);
-  sharedPref.save(getF);
-
-  //prefs.setString("cart", jsonEncode(saveCart));
-  //cartValue.toJson();
-  //value.insert(productId, new CartValue());
-}*/
 
 Widget buildBody(BuildContext ctxt, int index, List<Categories> data) {
   return Container(
@@ -599,169 +609,347 @@ Widget buildBody(BuildContext ctxt, int index, List<Categories> data) {
   );
 }
 
-Widget cartAddButton(
-    BuildContext context, int index, List<TopProducts> topProducts) {
-  int _counter;
-  bool value = true;
+// To parse this JSON data, do
+//
+//     final post = postFromJson(jsonString);
 
-  //setState(() {});
+class Post {
+  bool success;
+  Data data;
+  String message;
 
-  /*setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });*/
-  return count==0
-      ? Container(
-          width: 80,
-          height: 28,
-          child: InkWell(
-            child: Material(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                color: Color(0xffffffff),
-                elevation: 2,
-                child: Center(
-                  child: Text("Add"),
-                )),
-            onTap: () {},
-          ))
-      : Container(
-          width: 80,
-          height: 28,
-          child: Material(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            color: Color(0xffffffff),
-            elevation: 2,
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  InkWell(
-                      child: Icon(
-                        Icons.remove,
-                        color: Colors.pink,
-                        size: 24.0,
-                      ),
-                      onTap: () {})
-                ],
-              ),
-            ),
-          ),
-        );
+  Post({this.success, this.data, this.message});
+
+  Post.fromJson(Map<String, dynamic> json) {
+    success = json['Success'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    message = json['message'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Success'] = this.success;
+    if (this.data != null) {
+      data['data'] = this.data.toJson();
+    }
+    data['message'] = this.message;
+    return data;
+  }
 }
 
-//   tapedButton(
-//                           topProducts[index].productId,
-//                           topProducts[index].price,
-//                           topProducts[index].mrp,
-//                           topProducts[index].nameInHin,
-//                           topProducts[index].nameInEng,
-//                           topProducts[index].imageUrl,
-//                           topProducts[index].categoryId,
-//                           2);*/ /*
-//                     },
-//                   ),
-//                   Text(
-//                     "0",
-//                     style: TextStyle(color: Colors.pink, fontSize: 18),
-//                   ),
-//                   Icon(
-//                     Icons.add,
-//                     color: Colors.pink,
-//                     size: 24.0,
-//                   ),
-//                 ],
-//               ),
-//             )));;
-//   //SharedPreferences prefs =
-//   //SharedPreferences.getInstance() as SharedPreferences;
-//   /* SharedPref sharedPref = SharedPref();
-//   List<CartValue> getValue = sharedPref.retrive() as List<CartValue>;
-//   Fluttertoast.showToast(
-//       msg: "jhkjh",
-//       toastLength: Toast.LENGTH_SHORT,
-//       timeInSecForIos: 1,
-//       fontSize: 16,
-//       gravity: ToastGravity.CENTER,
-//       backgroundColor: Colors.blueAccent,
-//       textColor: Colors.black);*/
-//   /*if (getValue.length == 0) {
-//     return Container(
-//         width: 80,
-//         height: 28,
-//         child: InkWell(
-//           child: Material(
-//               shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(12),
-//               ),
-//               color: Color(0xffffffff),
-//               elevation: 2,
-//               child: Center(
-//                 child: Text("Add"),
-//               )),
-//           onTap: () {
-//             */ /* tapedButton(
-//                 topProducts[index].productId,
-//                 topProducts[index].price,
-//                 topProducts[index].mrp,
-//                 topProducts[index].nameInHin,
-//                 topProducts[index].nameInEng,
-//                 topProducts[index].imageUrl,
-//                 topProducts[index].categoryId,
-//                 2);*/ /*
-//           },
-//         ));
-//   } else {
-//     return Container(
-//         width: 80,
-//         height: 28,
-//         child: Material(
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(12),
-//             ),
-//             color: Color(0xffffffff),
-//             elevation: 2,
-//             child: Center(
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                 children: <Widget>[
-//                   InkWell(
-//                     child: Icon(
-//                       Icons.remove,
-//                       color: Colors.pink,
-//                       size: 24.0,
-//                     ),
-//                     onTap: () {
-//                       */ /*tapedButton(
-//                           topProducts[index].productId,
-//                           topProducts[index].price,
-//                           topProducts[index].mrp,
-//                           topProducts[index].nameInHin,
-//                           topProducts[index].nameInEng,
-//                           topProducts[index].imageUrl,
-//                           topProducts[index].categoryId,
-//                           2);*/ /*
-//                     },
-//                   ),
-//                   Text(
-//                     "0",
-//                     style: TextStyle(color: Colors.pink, fontSize: 18),
-//                   ),
-//                   Icon(
-//                     Icons.add,
-//                     color: Colors.pink,
-//                     size: 24.0,
-//                   ),
-//                 ],
-//               ),
-//             )));
+class Data {
+  List<Categories> categories;
+  List<TopProducts> topProducts;
+  List<Recomanded> recomanded;
+  List<Recent> recent;
 
-// }
-//    }
+  Data({this.categories, this.topProducts, this.recomanded, this.recent});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    if (json['categories'] != null) {
+      categories = new List<Categories>();
+      json['categories'].forEach((v) {
+        categories.add(new Categories.fromJson(v));
+      });
+    }
+    if (json['topProducts'] != null) {
+      topProducts = new List<TopProducts>();
+      json['topProducts'].forEach((v) {
+        topProducts.add(new TopProducts.fromJson(v));
+      });
+    }
+    if (json['recomanded'] != null) {
+      recomanded = new List<Recomanded>();
+      json['recomanded'].forEach((v) {
+        recomanded.add(new Recomanded.fromJson(v));
+      });
+    }
+    if (json['recent'] != null) {
+      recent = new List<Recent>();
+      json['recent'].forEach((v) {
+        recent.add(new Recent.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.categories != null) {
+      data['categories'] = this.categories.map((v) => v.toJson()).toList();
+    }
+    if (this.topProducts != null) {
+      data['topProducts'] = this.topProducts.map((v) => v.toJson()).toList();
+    }
+    if (this.recomanded != null) {
+      data['recomanded'] = this.recomanded.map((v) => v.toJson()).toList();
+    }
+    if (this.recent != null) {
+      data['recent'] = this.recent.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Categories {
+  int cateId;
+  String nameInEng;
+  String nameInHin;
+  String details;
+  String cateIconUrl;
+
+  Categories(
+      {this.cateId,
+      this.nameInEng,
+      this.nameInHin,
+      this.details,
+      this.cateIconUrl});
+
+  Categories.fromJson(Map<String, dynamic> json) {
+    cateId = json['cate_id'];
+    nameInEng = json['name_in_eng'];
+    nameInHin = json['name_in_hin'];
+    details = json['details'];
+    cateIconUrl = json['cate_icon_url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['cate_id'] = this.cateId;
+    data['name_in_eng'] = this.nameInEng;
+    data['name_in_hin'] = this.nameInHin;
+    data['details'] = this.details;
+    data['cate_icon_url'] = this.cateIconUrl;
+    return data;
+  }
+}
+
+class TopProducts {
+  int productId;
+  String nameInEng;
+  String nameInHin;
+  String description;
+  String imageUrl;
+  int categoryId;
+  int subCategoryId;
+  String quantity;
+  String brand;
+  Null model;
+  Null configuration;
+  String mrp;
+  String price;
+  Null featured;
+  int popularity;
+  String createdAt;
+
+  TopProducts(
+      {this.productId,
+      this.nameInEng,
+      this.nameInHin,
+      this.description,
+      this.imageUrl,
+      this.categoryId,
+      this.subCategoryId,
+      this.quantity,
+      this.brand,
+      this.model,
+      this.configuration,
+      this.mrp,
+      this.price,
+      this.featured,
+      this.popularity,
+      this.createdAt});
+
+  TopProducts.fromJson(Map<String, dynamic> json) {
+    productId = json['product_id'];
+    nameInEng = json['name_in_eng'];
+    nameInHin = json['name_in_hin'];
+    description = json['description'];
+    imageUrl = json['image_url'];
+    categoryId = json['category_id'];
+    subCategoryId = json['sub_category_id'];
+    quantity = json['quantity'];
+    brand = json['brand'];
+    model = json['model'];
+    configuration = json['configuration'];
+    mrp = json['mrp'];
+    price = json['price'];
+    featured = json['featured'];
+    popularity = json['popularity'];
+    createdAt = json['created_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['product_id'] = this.productId;
+    data['name_in_eng'] = this.nameInEng;
+    data['name_in_hin'] = this.nameInHin;
+    data['description'] = this.description;
+    data['image_url'] = this.imageUrl;
+    data['category_id'] = this.categoryId;
+    data['sub_category_id'] = this.subCategoryId;
+    data['quantity'] = this.quantity;
+    data['brand'] = this.brand;
+    data['model'] = this.model;
+    data['configuration'] = this.configuration;
+    data['mrp'] = this.mrp;
+    data['price'] = this.price;
+    data['featured'] = this.featured;
+    data['popularity'] = this.popularity;
+    data['created_at'] = this.createdAt;
+    return data;
+  }
+}
+
+class Recomanded {
+  int productId;
+  String nameInEng;
+  String nameInHin;
+  String description;
+  String imageUrl;
+  int categoryId;
+  int subCategoryId;
+  String quantity;
+  String brand;
+  Null model;
+  Null configuration;
+  String mrp;
+  String price;
+  Null featured;
+  int popularity;
+  String createdAt;
+
+  Recomanded(
+      {this.productId,
+      this.nameInEng,
+      this.nameInHin,
+      this.description,
+      this.imageUrl,
+      this.categoryId,
+      this.subCategoryId,
+      this.quantity,
+      this.brand,
+      this.model,
+      this.configuration,
+      this.mrp,
+      this.price,
+      this.featured,
+      this.popularity,
+      this.createdAt});
+
+  Recomanded.fromJson(Map<String, dynamic> json) {
+    productId = json['product_id'];
+    nameInEng = json['name_in_eng'];
+    nameInHin = json['name_in_hin'];
+    description = json['description'];
+    imageUrl = json['image_url'];
+    categoryId = json['category_id'];
+    subCategoryId = json['sub_category_id'];
+    quantity = json['quantity'];
+    brand = json['brand'];
+    model = json['model'];
+    configuration = json['configuration'];
+    mrp = json['mrp'];
+    price = json['price'];
+    featured = json['featured'];
+    popularity = json['popularity'];
+    createdAt = json['created_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['product_id'] = this.productId;
+    data['name_in_eng'] = this.nameInEng;
+    data['name_in_hin'] = this.nameInHin;
+    data['description'] = this.description;
+    data['image_url'] = this.imageUrl;
+    data['category_id'] = this.categoryId;
+    data['sub_category_id'] = this.subCategoryId;
+    data['quantity'] = this.quantity;
+    data['brand'] = this.brand;
+    data['model'] = this.model;
+    data['configuration'] = this.configuration;
+    data['mrp'] = this.mrp;
+    data['price'] = this.price;
+    data['featured'] = this.featured;
+    data['popularity'] = this.popularity;
+    data['created_at'] = this.createdAt;
+    return data;
+  }
+}
+
+class Recent {
+  int productId;
+  String nameInEng;
+  String nameInHin;
+  String description;
+  String imageUrl;
+  int categoryId;
+  int subCategoryId;
+  String quantity;
+  String brand;
+  Null model;
+  Null configuration;
+  String mrp;
+  String price;
+  Null featured;
+  int popularity;
+  String createdAt;
+
+  Recent(
+      {this.productId,
+      this.nameInEng,
+      this.nameInHin,
+      this.description,
+      this.imageUrl,
+      this.categoryId,
+      this.subCategoryId,
+      this.quantity,
+      this.brand,
+      this.model,
+      this.configuration,
+      this.mrp,
+      this.price,
+      this.featured,
+      this.popularity,
+      this.createdAt});
+
+  Recent.fromJson(Map<String, dynamic> json) {
+    productId = json['product_id'];
+    nameInEng = json['name_in_eng'];
+    nameInHin = json['name_in_hin'];
+    description = json['description'];
+    imageUrl = json['image_url'];
+    categoryId = json['category_id'];
+    subCategoryId = json['sub_category_id'];
+    quantity = json['quantity'];
+    brand = json['brand'];
+    model = json['model'];
+    configuration = json['configuration'];
+    mrp = json['mrp'];
+    price = json['price'];
+    featured = json['featured'];
+    popularity = json['popularity'];
+    createdAt = json['created_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['product_id'] = this.productId;
+    data['name_in_eng'] = this.nameInEng;
+    data['name_in_hin'] = this.nameInHin;
+    data['description'] = this.description;
+    data['image_url'] = this.imageUrl;
+    data['category_id'] = this.categoryId;
+    data['sub_category_id'] = this.subCategoryId;
+    data['quantity'] = this.quantity;
+    data['brand'] = this.brand;
+    data['model'] = this.model;
+    data['configuration'] = this.configuration;
+    data['mrp'] = this.mrp;
+    data['price'] = this.price;
+    data['featured'] = this.featured;
+    data['popularity'] = this.popularity;
+    data['created_at'] = this.createdAt;
+    return data;
+  }
+}
