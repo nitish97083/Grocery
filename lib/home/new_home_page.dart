@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:radhe_radhe/home/AddButtonOfCart.dart';
 
+import '../single_item_view.dart';
 import 'pojo/post.dart';
 
 Future<Post> fetchPost() async {
@@ -20,7 +21,9 @@ Future<Post> fetchPost() async {
     throw Exception('Failed to load post');
   }
 }
- var count = 0;
+
+var count = 0;
+
 class NewHomePageDart extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -332,140 +335,147 @@ class _NewHomePageDart extends State {
                                   // height: MediaQuery.of(context).size.width/5,
                                   // width: MediaQuery.of(context).size.width/5,
                                   // color: Colors.red,
-                                  child: Material(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      color: Color(0xff2A363B),
-                                      elevation: 2,
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                              height: www / 2.5,
-                                              width: www / 2,
-                                              child: Material(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12),
-                                                  ),
-                                                  color: Color(0xff2A993B),
-                                                  elevation: 2,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        image: DecorationImage(
-                                                          fit: BoxFit.cover,
-                                                          image: NetworkImage(
-                                                            topProducts[index]
-                                                                .imageUrl,
-                                                          ),
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        10),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        10))),
-                                                  ))),
-                                          Stack(
-                                            children: <Widget>[
-                                              Positioned(
-                                                child: Container(
-                                                  height: www / 3.8,
-                                                  // color: Colors.blueAccent,
-                                                  child: Align(
-                                                    alignment:
-                                                        Alignment.bottomCenter,
+                                  child: InkWell(//item card started here grid view
+                                    child: Material(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        color: Color(0xff2A363B),
+                                        elevation: 2,
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(
+                                                height: www / 2.5,
+                                                width: www / 2,
+                                                child: Material(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                    color: Color(0xff2A993B),
+                                                    elevation: 2,
                                                     child: Container(
-                                                      // color: Colors.yellow,
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          SizedBox(
-                                                            height: 3,
-                                                          ),
-                                                          Text(
-                                                            topProducts[index]
-                                                                .nameInEng,
-                                                            maxLines: 1,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 17,
+                                                      decoration: BoxDecoration(
+                                                          image:
+                                                              DecorationImage(
+                                                            fit: BoxFit.cover,
+                                                            image: NetworkImage(
+                                                              topProducts[index]
+                                                                  .imageUrl,
                                                             ),
                                                           ),
-                                                          Text(
-                                                            topProducts[index]
-                                                                .nameInHin,
-                                                            maxLines: 1,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: TextStyle(
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          10),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          10))),
+                                                    ))),
+                                            Stack(
+                                              children: <Widget>[
+                                                Positioned(
+                                                  child: Container(
+                                                    height: www / 3.8,
+                                                    // color: Colors.blueAccent,
+                                                    child: Align(
+                                                      alignment: Alignment
+                                                          .bottomCenter,
+                                                      child: Container(
+                                                        // color: Colors.yellow,
+                                                        child: Column(
+                                                          children: <Widget>[
+                                                            SizedBox(
+                                                              height: 3,
+                                                            ),
+                                                            Text(
+                                                              topProducts[index]
+                                                                  .nameInEng,
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
                                                                 color: Colors
                                                                     .white,
-                                                                fontSize: 17),
-                                                          ),
-                                                        ],
+                                                                fontSize: 17,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              topProducts[index]
+                                                                  .nameInHin,
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 17),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              Positioned(
-                                                top: www / 5,
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.bottomCenter,
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        margin: EdgeInsets.only(
-                                                            left: 10),
-                                                        child: Text(
-                                                          topProducts[index]
-                                                                  .mrp +
-                                                              " ₹",
-                                                          style: TextStyle(
-                                                              decoration:
-                                                                  TextDecoration
-                                                                      .lineThrough,
-                                                              fontSize: 14,
-                                                              color:
-                                                                  Colors.white),
+                                                Positioned(
+                                                  top: www / 5,
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Container(
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  left: 10),
+                                                          child: Text(
+                                                            topProducts[index]
+                                                                    .mrp +
+                                                                " ₹",
+                                                            style: TextStyle(
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .lineThrough,
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Container(
-                                                        color: Colors.green,
-                                                        alignment: Alignment
-                                                            .bottomLeft,
-                                                        margin: EdgeInsets.only(
-                                                            left: 10),
-                                                        child: Text(
-                                                          topProducts[index]
-                                                                  .price +
-                                                              " ₹",
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              decoration:
-                                                                  TextDecoration
-                                                                      .none,
-                                                              color:
-                                                                  Colors.white),
+                                                        Container(
+                                                          color: Colors.green,
+                                                          alignment: Alignment
+                                                              .bottomLeft,
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  left: 10),
+                                                          child: Text(
+                                                            topProducts[index]
+                                                                    .price +
+                                                                " ₹",
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .none,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Positioned(
+                                                Positioned(
                                                   top: www / 5.6,
                                                   left: www / 4.2,
-                                                  child: Addbutton(index, topProducts) ,/*RaisedButton(
+                                                  child: Addbutton(index,
+                                                      topProducts), /*RaisedButton(
 ),
                                             child: Text("add"),
                                             onPressed: () {},
@@ -473,11 +483,21 @@ class _NewHomePageDart extends State {
                                             textColor: Colors.black,
                                             splashColor: Colors.blueAccent,
                                           ),*/
-                                                  )
-                                            ],
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        )),
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => ItemView(
+                                                  index, topProducts)
                                           )
-                                        ],
-                                      )),
+                                      );
+                                    },
+                                  ),
                                 );
                               }),
                             ))
@@ -612,7 +632,7 @@ Widget cartAddButton(
       // called again, and so nothing would appear to happen.
       _counter++;
     });*/
-  return count==0
+  return count == 0
       ? Container(
           width: 80,
           height: 28,

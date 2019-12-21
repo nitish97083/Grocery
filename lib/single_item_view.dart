@@ -28,6 +28,19 @@ class _ItemView extends State<ItemView> {
     var withd= MediaQuery.of(context).size.width;
     // TODO: implement build
     return Scaffold(
+      bottomSheet: Container(
+        child: Card(
+
+          color: Colors.white,
+          shape:  RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Container(
+            width: withd,
+            height: withd/6,
+          )
+        ),
+      ),
       body:SingleChildScrollView(
         child:  Column(
           children: <Widget>[
@@ -83,12 +96,46 @@ class _ItemView extends State<ItemView> {
              ],
            ),
             Container(
-              child: Text(ss),
-            )
+              padding: EdgeInsets.all(10),
+              child: Text(ss,style: TextStyle(
+                fontSize: 16,
+              ),),
+            ),
+            Container(
+              width: withd,
+              height: withd,
+              padding: EdgeInsets.all(10),
+
+            ),
+
 
           ],
         ),
       )
     );
   }
+}
+
+void _settingModalBottomSheet(context){
+  showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc){
+        return Container(
+          child: new Wrap(
+            children: <Widget>[
+              new ListTile(
+                  leading: new Icon(Icons.music_note),
+                  title: new Text('Music'),
+                  onTap: () => {}
+              ),
+              new ListTile(
+                leading: new Icon(Icons.videocam),
+                title: new Text('Video'),
+                onTap: () => {},
+              ),
+            ],
+          ),
+        );
+      }
+  );
 }
