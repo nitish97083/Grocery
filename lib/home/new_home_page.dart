@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
+import 'package:radhe_radhe/home/AddButtonOfCart.dart';
 
 import 'pojo/post.dart';
 
@@ -464,10 +465,7 @@ class _NewHomePageDart extends State {
                                               Positioned(
                                                   top: www / 5.6,
                                                   left: www / 4.2,
-                                                  child: cartAddButton(
-                                                      context,
-                                                      index,
-                                                      topProducts) /*RaisedButton(
+                                                  child: Addbutton(index, topProducts) ,/*RaisedButton(
 ),
                                             child: Text("add"),
                                             onPressed: () {},
