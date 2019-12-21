@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/HomePage.dart';
-import 'package:radhe_radhe/new_home_page.dart';
+
 import 'package:radhe_radhe/splash/splah.dart';
 import 'package:radhe_radhe/utils/rough.dart';
+
+import 'home/new_home_page.dart';
 
 void main() => runApp(MyApp());
 

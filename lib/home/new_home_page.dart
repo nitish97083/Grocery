@@ -71,7 +71,7 @@ class _NewHomePageDart extends State {
             headerSliverBuilder: (context, bool ibs) => [
               SliverAppBar(
                 backgroundColor: Colors.transparent,
-                expandedHeight: 80,
+                expandedHeight: 40,
                 floating: false,
                 pinned: true,
                 flexibleSpace: Container(
