@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
+import 'package:radhe_radhe/AppBarCustomWidth.dart';
 import 'package:radhe_radhe/home/AddButtonOfCart.dart';
 
 import '../single_item_view.dart';
@@ -66,7 +67,7 @@ class _NewHomePageDart extends State {
   Widget build(BuildContext context) {
     var www = MediaQuery.of(context).size.width;
 
-    // TODO: implement build
+   
     return MaterialApp(
       home: Scaffold(
           backgroundColor: Color(0xffDDDDDD),
@@ -99,6 +100,7 @@ class _NewHomePageDart extends State {
                           ),
                           onTap: () {
                             // there will be hamburger menu
+                            print("drawer icon");
                           },
                         ),
                       ),
@@ -335,7 +337,8 @@ class _NewHomePageDart extends State {
                                   // height: MediaQuery.of(context).size.width/5,
                                   // width: MediaQuery.of(context).size.width/5,
                                   // color: Colors.red,
-                                  child: InkWell(//item card started here grid view
+                                  child: InkWell(
+                                    //item card started here grid view
                                     child: Material(
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -493,9 +496,7 @@ class _NewHomePageDart extends State {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => ItemView(
-                                                  index, topProducts)
-                                          )
-                                      );
+                                                  index, topProducts)));
                                     },
                                   ),
                                 );
