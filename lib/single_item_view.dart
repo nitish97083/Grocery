@@ -24,8 +24,8 @@ class _ItemView extends State<ItemView> {
     var withd = MediaQuery.of(context).size.width;
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(),
         bottomSheet: Container(
-          padding: EdgeInsets.only(top: 100),
           child: Card(
               color: Colors.white,
               shape: RoundedRectangleBorder(
