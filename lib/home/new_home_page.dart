@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:radhe_radhe/AppBarCustomWidth.dart';
+import 'package:radhe_radhe/drawer/SideMenu.dart';
 import 'package:radhe_radhe/home/AddButtonOfCart.dart';
 import 'package:radhe_radhe/home/TopProductContainer.dart';
 
@@ -72,7 +73,8 @@ class _NewHomePageDart extends State {
     return MaterialApp(
       home: Scaffold(
           backgroundColor: Color(0xffDDDDDD),
-          appBar: AppBar(),
+          appBar: AppbarCustomWidth(),
+          drawer: Drawer(),
           body: SingleChildScrollView(
             child: Container(
           // height: MediaQuery.of(context).size.height/1,

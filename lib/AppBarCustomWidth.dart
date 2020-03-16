@@ -1,114 +1,141 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:radhe_radhe/drawer/SideMenu.dart';
+
 String t;
 String z;
-class AppbarCustomWidth extends StatelessWidget with PreferredSizeWidget {
-  AppbarCustomWidth(String title,String i){
-t=title;
-z=i;
-  }
-  everythingSynced(BuildContext context) {
-    CupertinoAlertDialog d = CupertinoAlertDialog(
-      content: Text("Everything is synchronized properly"),
-      actions: <Widget>[
-        CupertinoButton(
-          child: Text("Great!"),
-          onPressed: Navigator.of(context).pop,
-        )
-      ],
-    );
+ TextStyle style = TextStyle(color: Colors.white,fontSize: 15);
+class AppbarCustomWidth extends StatefulWidget with PreferredSizeWidget {
+  // AppbarCustomWidth(String title,String i)
 
-    showCupertinoDialog(context: context, builder: (_) => d);
-  }
+  @override
+  _AppbarCustomWidthState createState() => _AppbarCustomWidthState();
 
+  @override
+  Size get preferredSize => Size.fromHeight(140.0);
+}
+
+class _AppbarCustomWidthState extends State<AppbarCustomWidth> {
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
-     preferredSize: Size.fromHeight(150),
+      preferredSize: Size.fromHeight(150),
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Colors.white.withOpacity(0.25),
-           child: Row(
-              children: <Widget>[
-              Padding(padding: EdgeInsets.only(bottom: 10),),
+        color: Colors.black.withOpacity(0.25),
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height /15, left: 10),
+              child: Column(
+                children: <Widget>[
                   Container(
-                    width: MediaQuery.of(context).size.width/8,
-                    alignment: Alignment.topLeft,
-                   // margin: EdgeInsets.only(top: 25),
-                    padding: EdgeInsets.only(top:32),
-                    child: IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,),onPressed: (){
-                         Navigator.pop(context);
-                    },),
-                  ),
-                    Expanded(
-                          child: Container(
-                            padding: EdgeInsets.only(top:60),
-                            child: Column(
-                        children: <Widget>[
-                            Container(
-                             // color: Colors.green,
-                             // margin: EdgeInsets.only(top: 40),
-                             // padding: EdgeInsets.only(top: 30),
-                              child: Image.asset(z,height: 60,width: 60,)),
 
-                               Container(
-                          
-                                 alignment: Alignment.center,
-                margin: EdgeInsets.only(top:15),
-                  child: Text(t,textAlign: TextAlign.center,style: TextStyle(
-                      color: Colors.white,
-                              fontWeight: FontWeight.w300,
-                              fontSize:25,
-                              letterSpacing:3.25),
-                  )),
-                        ],
-                      ),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: IconButton(
+                              icon: Icon(
+                                Icons.menu,
+                                color: Colors.white,
+                                size: 35,
+                              ),
+                              onPressed: () {}),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width / 12),
+                         
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text("delivery location",style: style,),
+                              InkWell(
+                                child: Container(
+                                    child: Row(
+                                  children: <Widget>[
+                                   Text("Kestopur Kolkata",style: style,),
+                                    Container(
+                                      margin: EdgeInsets.only(right: 20),
+                                      child: IconButton(
+                                          icon: Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ),
+                                          onPressed: () {
+                                            print("Edit deliver Address");
+                                          }),
+                                    ),
+                                  ],
+                                )),
+                                onTap: (){
+                                  print("Location Set");
+                                },
+                              )
+                            ],
                           ),
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(
+                              bottom: 10,
+                                left: MediaQuery.of(context).size.width / 4.5),
+                            child: IconButton(
+                                icon: Icon(Icons.shopping_cart,size: 35,color: Colors.white,),
+                                onPressed: null))
+                      ],
                     ),
-            // Container(
-            //   padding: EdgeInsets.only(top: 32),
-            //   alignment: Alignment.topRight,
-            //   child: ValueListenableBuilder(
-            //    valueListenable: syncOnGoing,
-            //    builder: (context, loading, child) => loading
-            //        ? Padding(
-            //            padding: EdgeInsets.only(right: 14),
-            //            child: CupertinoActivityIndicator(),
-            //          )
-            //        : ValueListenableBuilder(
-            //            valueListenable: syncNotifier,
-            //            builder: (context, shouldUpdate, child) => !shouldUpdate
-            //                ? IconButton(
-            //                    onPressed: () {
-            //                      everythingSynced(context);
-            //                    },
-            //                    icon: Icon(
-            //                      Icons.done_outline,
-            //                      color: Colors.white,
-            //                      size: 14,
-            //                    ),
-            //                  )
-            //                : IconButton(
-            //                    onPressed: () {
-            //                    //  syncthedata(context);
-            //                    },
-            //                    icon: Icon(
-            //                      Icons.sync,
-            //                      color: Colors.white,
-            //                    ),
-            //                    tooltip: 'Sync',
-            //                  ),
-            //          ),
-            //   ),
-            // ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(right: 10,left: 10),
+                          child: RaisedButton(
+                            onPressed: () {},
+                            child: Text("Categories"),
+                          ),
+                        ),
+                        InkWell(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 1.55,
+                            height: MediaQuery.of(context).size.height / 22,
+                            decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.7),
+                                borderRadius: BorderRadius.circular(3)),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.width /
+                                          25),
+                                  child: Icon(Icons.search),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.width /
+                                          15),
+                                  child: Text("Search for products"),
+                                )
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            print("object");
+                          },
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
-          ),
-    ),
-  );
+        ),
+      ),
+    );
   }
-
-  Size get preferredSize => Size.fromHeight(150.0);
 }
