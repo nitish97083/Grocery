@@ -2,18 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:radhe_radhe/drawer/SideMenu.dart';
+import 'package:radhe_radhe/home/CustomColors.dart';
+import 'package:radhe_radhe/home/SearchForProduct.dart';
 
-String t;
-String z;
- TextStyle style = TextStyle(color: Colors.white,fontSize: 15);
+
+ TextStyle style = TextStyle(color:CustomColors.secondaryColors,fontSize: 15);
 class AppbarCustomWidth extends StatefulWidget with PreferredSizeWidget {
-  // AppbarCustomWidth(String title,String i)
+  GlobalKey<ScaffoldState> _scd = GlobalKey<ScaffoldState>();
+   AppbarCustomWidth(this._scd);
 
   @override
   _AppbarCustomWidthState createState() => _AppbarCustomWidthState();
 
   @override
-  Size get preferredSize => Size.fromHeight(140.0);
+  Size get preferredSize => Size.fromHeight(130.0);
 }
 
 class _AppbarCustomWidthState extends State<AppbarCustomWidth> {
@@ -28,64 +30,67 @@ class _AppbarCustomWidthState extends State<AppbarCustomWidth> {
         child: Column(
           children: <Widget>[
             Container(
+              
               padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height /15, left: 10),
+                  top: MediaQuery.of(context).size.height /15, left: 0),
               child: Column(
                 children: <Widget>[
                   Container(
-
                     child: Row(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.only(bottom: 12),
+                          
+                          padding: EdgeInsets.only(),
                           child: IconButton(
                               icon: Icon(
                                 Icons.menu,
-                                color: Colors.white,
-                                size: 35,
+                                color: CustomColors.secondaryColors,
+                                size:30,
                               ),
-                              onPressed: () {}),
+                              onPressed: () {
+                                widget._scd.currentState.openDrawer();
+                                print(widget._scd.currentState);
+                                print("Drawer menu Icon pressed");
+                              }),
                         ),
                         Container(
+                          width: MediaQuery.of(context).size.width/1.5,
+
                           margin: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width / 12),
+                              left: MediaQuery.of(context).size.width /50),
                          
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("delivery location",style: style,),
-                              InkWell(
-                                child: Container(
+                          child:InkWell(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text("delivery location",style: style,),
+                                Container(
                                     child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceAround,  
                                   children: <Widget>[
-                                   Text("Kestopur Kolkata",style: style,),
+                                   Expanded(child: Text("Kestopur Kolkata shjkshldfdv",maxLines:2,style: style,)),
                                     Container(
-                                      margin: EdgeInsets.only(right: 20),
-                                      child: IconButton(
-                                          icon: Icon(
+                                     // margin: EdgeInsets.only(right:10),
+                                      child: 
+                                           Icon(
                                             Icons.edit,
-                                            color: Colors.white,
+                                            color: CustomColors.secondaryColors,
                                           ),
-                                          onPressed: () {
-                                            print("Edit deliver Address");
-                                          }),
+                                         
                                     ),
                                   ],
-                                )),
-                                onTap: (){
-                                  print("Location Set");
-                                },
-                              )
-                            ],
+                                ))
+                              ],
+                              
+                            ),
+                            onTap: (){
+                              print("Edit Location");
+                            },
                           ),
                         ),
-                        Container(
-                            margin: EdgeInsets.only(
-                              bottom: 10,
-                                left: MediaQuery.of(context).size.width / 4.5),
-                            child: IconButton(
-                                icon: Icon(Icons.shopping_cart,size: 35,color: Colors.white,),
-                                onPressed: null))
+                        
+                         customCart(context),  
+                        
                       ],
                     ),
                   ),
@@ -101,7 +106,7 @@ class _AppbarCustomWidthState extends State<AppbarCustomWidth> {
                         ),
                         InkWell(
                           child: Container(
-                            width: MediaQuery.of(context).size.width / 1.55,
+                            width: MediaQuery.of(context).size.width / 1.46,
                             height: MediaQuery.of(context).size.height / 22,
                             decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.7),
@@ -111,19 +116,20 @@ class _AppbarCustomWidthState extends State<AppbarCustomWidth> {
                                 Container(
                                   margin: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.width /
-                                          25),
+                                          30),
                                   child: Icon(Icons.search),
                                 ),
                                 Container(
                                   margin: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.width /
-                                          15),
+                                          20),
                                   child: Text("Search for products"),
                                 )
                               ],
                             ),
                           ),
                           onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchForProduct()));
                             print("object");
                           },
                         )

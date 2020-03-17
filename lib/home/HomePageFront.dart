@@ -64,7 +64,7 @@ class _NewHomePageDart extends State {
   //   _scrollController.removeListener(_scrollListener);
   //   super.dispose();
   // }
-
+GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     var www = MediaQuery.of(context).size.width;
@@ -72,8 +72,9 @@ class _NewHomePageDart extends State {
    
     return MaterialApp(
       home: Scaffold(
+        key: _scaffoldKey,
           backgroundColor: Color(0xffDDDDDD),
-          appBar: AppbarCustomWidth(),
+          appBar: AppbarCustomWidth(_scaffoldKey),
           drawer: Drawer(),
           body: SingleChildScrollView(
             child: Container(
