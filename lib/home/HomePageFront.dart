@@ -8,8 +8,8 @@ import 'package:radhe_radhe/AppBarCustomWidth.dart';
 import 'package:radhe_radhe/drawer/SideMenu.dart';
 import 'package:radhe_radhe/home/AddButtonOfCart.dart';
 import 'package:radhe_radhe/home/TopProductContainer.dart';
-
 import '../single_item_view.dart';
+import 'CustomProperties.dart';
 import 'pojo/post.dart';
 
 Future<Post> fetchPost() async {
@@ -75,7 +75,7 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
         key: _scaffoldKey,
           backgroundColor: Color(0xffDDDDDD),
           appBar: AppbarCustomWidth(_scaffoldKey),
-          drawer: Drawer(),
+          drawer:SideMenuDrawer(),
           body: SingleChildScrollView(
             child: Container(
           // height: MediaQuery.of(context).size.height/1,
@@ -286,7 +286,7 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                                   "Categories",
                                   style: TextStyle(
                                       color: Color(0xff172B4D),
-                                      fontFamily: 'SF Pro Display',
+                                      fontFamily: CustomFont.categoryFont,
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold),
                                 ),

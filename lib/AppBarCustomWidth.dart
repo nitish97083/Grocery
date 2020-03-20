@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:radhe_radhe/drawer/SideMenu.dart';
-import 'package:radhe_radhe/home/CustomColors.dart';
 import 'package:radhe_radhe/home/SearchForProduct.dart';
+
+import 'home/CustomProperties.dart';
 
 
  TextStyle style = TextStyle(color:CustomColors.secondaryColors,fontSize: 15);

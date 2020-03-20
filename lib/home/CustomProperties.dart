@@ -20,3 +20,12 @@ Widget customCart(context) {
           ),
           onPressed: null));
 }
+class CustomFont{
+
+    static String categoryFont = 'SF Pro Display';
+    static String productFont = 'Poppins';
+    static String poppins = 'SF Pro Display';
+
+    
+
+}
