@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomColors {
-  static Color primaryColors = Colors.red;
+  static Color primaryColors = Colors.black.withOpacity(0.2);
   static Color secondaryColors = Colors.white;
   static Color tertiary = Colors.black;
   static Color forthColors = Colors.grey;

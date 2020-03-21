@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:radhe_radhe/home/HomePageFront.dart';
+import 'package:radhe_radhe/home/SearchForProduct.dart';
 
-import 'package:radhe_radhe/home/pojo/post.dart';
+import 'pojo/SearchedItems.dart';
 
-class ItemView extends StatefulWidget {
-  ItemView(this.index, this.topProducts);
+
+class SearchItemDetails extends StatefulWidget {
+  SearchItemDetails(this.index, this.items);
   final index;
-  final List<TopProducts> topProducts;
+  final List<Datum> items;
  
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _ItemView();
+    return _SearchItemDetails();
   }
 }
 
-class _ItemView extends State<ItemView> {
+class _SearchItemDetails extends State<SearchItemDetails> {
   @override
   Widget build(BuildContext context) {
     String ss = " ";
-    if (widget.topProducts[widget.index].description != null) {
-      ss = widget.topProducts[widget.index].description;
+    if (widget.items[widget.index].description != null) {
+      ss = widget.items[widget.index].description;
     }
     var withd = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -45,14 +46,14 @@ class _ItemView extends State<ItemView> {
                   child: IconButton(
                       icon: Icon(Icons.arrow_back), onPressed: () {
                         print("Back to main page");
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>NewHomePageDart()) );
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=>SearchForProduct()));
                       },
                       iconSize:40,
                       color: Colors.black,
                       )),
               Material(
                 child: Image.network(
-                  widget.topProducts[widget.index].imageUrl,
+                  widget.items[widget.index].imageUrl,
                   width: withd,
                   height: withd,
                 ),
@@ -67,14 +68,14 @@ class _ItemView extends State<ItemView> {
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget.topProducts[widget.index].nameInEng,
+                            widget.items[widget.index].nameInEng,
                             style: TextStyle(fontSize: 22),
                           ),
                         ),
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                              widget.topProducts[widget.index].nameInHin,
+                              widget.items[widget.index].nameInHin,
                               style: TextStyle(fontSize: 22)),
                         )
                       ],
@@ -88,7 +89,7 @@ class _ItemView extends State<ItemView> {
                           Container(
                             color: Colors.green,
                             child: Text(
-                              widget.topProducts[widget.index].mrp + " ₹",
+                              widget.items[widget.index].mrp + " ₹",
                               style: TextStyle(
                                   decoration: TextDecoration.lineThrough,
                                   fontSize: 18,
@@ -97,7 +98,7 @@ class _ItemView extends State<ItemView> {
                           ),
                           Container(
                             child: Text(
-                              widget.topProducts[widget.index].price + " ₹",
+                              widget.items[widget.index].price + " ₹",
                               style: TextStyle(fontSize: 18),
                             ),
                           ),

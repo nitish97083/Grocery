@@ -122,9 +122,7 @@ class _BaseProductContainerState extends State<BaseProductContainer> {
                           top: www / 5.6,
                           left: www / 4.2,
                           child: Addbutton(
-                              widget.index,
-                              widget
-                                  .topProducts), /*RaisedButton(
+                             ), /*RaisedButton(
 ),
                                               child: Text("add"),
                                               onPressed: () {},

@@ -3,9 +3,9 @@ import 'package:radhe_radhe/home/pojo/post.dart';
 
 class Addbutton extends StatefulWidget {
 
-  final index;
-  final List<TopProducts> topProducts;
-  Addbutton(this.index, this.topProducts);
+  // final index;
+  // final List<TopProducts> topProducts;
+  // Addbutton(this.index, this.topProducts);
 
   @override
   _AddbuttonState createState() => _AddbuttonState();
