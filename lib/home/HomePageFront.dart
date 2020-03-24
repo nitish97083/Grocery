@@ -1,14 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:radhe_radhe/AppBarCustomWidth.dart';
 import 'package:radhe_radhe/drawer/SideMenu.dart';
-import 'package:radhe_radhe/home/AddButtonOfCart.dart';
 import 'package:radhe_radhe/home/TopProductContainer.dart';
-import '../single_item_view.dart';
+import 'package:radhe_radhe/utils/CategItemsDetails.dart';
 import 'CustomProperties.dart';
 import 'pojo/post.dart';
 
@@ -573,68 +571,73 @@ Widget buildBody(BuildContext ctxt, int index, List<Categories> data) {
   return Container(
     width: MediaQuery.of(ctxt).size.width / 2.5,
     height: MediaQuery.of(ctxt).size.width / 2.5,
-    child: Card(
-        margin: EdgeInsets.all(10),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6.0),
-        ),
-        elevation: 3,
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6.0),
-                    child: Image.network(
-                      data[index].cateIconUrl,
-                      width: MediaQuery.of(ctxt).size.width / 2.5,
-                      height: MediaQuery.of(ctxt).size.width / 2.5,
-                      fit: BoxFit.cover,
-                    ))),
-            Positioned(
-                left: -4,
-                top: MediaQuery.of(ctxt).size.width / 4,
-                child: Card(
-                  color: Color(0xffB5ffffff),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                  child: Container(
-                    width: MediaQuery.of(ctxt).size.width / 2.85,
-                    height: MediaQuery.of(ctxt).size.width / 6,
-                    child: Column(
-                      children: <Widget>[
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            data[index].nameInEng,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: TextStyle(
-                              fontFamily: "SF Pro Display",
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ),
-                        //SizedBox(height: 6,),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            data[index].nameInHin,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+    child:InkWell(
+      child: Card(
+          margin: EdgeInsets.all(10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6.0),
+          ),
+          elevation: 3,
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6.0),
+                      child: Image.network(
+                        data[index].cateIconUrl,
+                        width: MediaQuery.of(ctxt).size.width / 2.5,
+                        height: MediaQuery.of(ctxt).size.width / 2.5,
+                        fit: BoxFit.cover,
+                      ))),
+              Positioned(
+                  left: -4,
+                  top: MediaQuery.of(ctxt).size.width / 4,
+                  child: Card(
+                    color: Color(0xffB5ffffff),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6.0),
+                    ),
+                    child: Container(
+                      width: MediaQuery.of(ctxt).size.width / 2.85,
+                      height: MediaQuery.of(ctxt).size.width / 6,
+                      child: Column(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              data[index].nameInEng,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              style: TextStyle(
                                 fontFamily: "SF Pro Display",
                                 fontWeight: FontWeight.bold,
-                                fontSize: 17),
+                                fontSize: 17,
+                              ),
+                            ),
                           ),
-                        )
-                      ],
+                          //SizedBox(height: 6,),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              data[index].nameInHin,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontFamily: "SF Pro Display",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ))
-          ],
-        )),
+                  ))
+            ],
+          )),
+          onTap: (){
+            Navigator.push(ctxt, MaterialPageRoute(builder: (context)=>CatItemDetail(index, data)));
+          },
+    ),
   );
 }
 

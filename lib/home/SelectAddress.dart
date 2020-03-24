@@ -2,6 +2,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/AppBarCustomWidth.dart';
 import 'package:radhe_radhe/home/CustomProperties.dart';
+import 'package:radhe_radhe/home/TextStyleProper.dart';
 
 class SelectAddress extends StatefulWidget {
   @override
@@ -10,15 +11,22 @@ class SelectAddress extends StatefulWidget {
   }
 }
 
+List<dynamic> list = [6];
 class SelectAddressState extends State<SelectAddress> {
   final _formKey = GlobalKey<FormState>();
 final  FocusNode _nameFocus = FocusNode();
- final FocusNode _add1Focus = FocusNode();
- final FocusNode _add2Focus = FocusNode();
+final FocusNode _add1Focus = FocusNode();
+final FocusNode _add2Focus = FocusNode();
 final  FocusNode _pinFocus = FocusNode();
- final FocusNode _distFocus = FocusNode();
+final FocusNode _distFocus = FocusNode();
 final  FocusNode _contFocus = FocusNode();
 final  FocusNode _altconFocus = FocusNode();
+TextEditingController _nameCont = TextEditingController();
+TextEditingController _add1Cont = TextEditingController();
+TextEditingController _add2Cont = TextEditingController();
+TextEditingController _pinCont = TextEditingController();
+TextEditingController _contactCont = TextEditingController();
+TextEditingController _alterCont = TextEditingController();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -37,19 +45,24 @@ final  FocusNode _altconFocus = FocusNode();
               children: <Widget>[
                 //Center(child: myTextWidget(text: 'Full Address')),
                 myTextWidget(text: 'Full Name'),
-                textFormField(context, "Please Enter Full Name",k: TextInputType.text,current: _nameFocus,next: _add1Focus),
+                textFormField(context, "Please Enter Full Name", 0,k: TextInputType.text,current: _nameFocus,next:
+                 _add1Focus,hintText:'Nitish Kumar Verma',controller: _nameCont),
                 myTextWidget(text: 'Address Line 1'),
-                textFormField(context, 'Please Enter Address',k:TextInputType.text,current: _add1Focus,next: _add2Focus ),
+                textFormField(context, 'Please Enter Address',1,k:TextInputType.text,current: _add1Focus,next: _add2Focus,
+                hintText: 'Village/Ward.....' ,controller: _add1Cont),
                 myTextWidget(text: 'Address Line 2'),
-                textFormField(context, 'Please Enter Address',k: TextInputType.text,current: _add2Focus,next: _pinFocus),
+                textFormField(context, 'Please Enter Address',2,k: TextInputType.text,current: _add2Focus,next: _pinFocus,
+                hintText: 'Near by/LandMark',controller: _add2Cont),
                 myTextWidget(text: 'Pin Code'),
-                textFormField(context, 'Please Enter PinCode',k: TextInputType.number,current: _pinFocus,next: _distFocus,pinLent: 6),
+                textFormField(context, 'Please Enter PinCode',3,k: TextInputType.number,current: _pinFocus,next:
+                 _contFocus,pinLent: 6,hintText: 'Pincode/833201',controller: _pinCont),
                 // myTextWidget(text: 'Distict'),
                 // textFormField(context, 'Please Enter Distict name',k: TextInputType.text,current: _distFocus,next: _contFocus),
                 myTextWidget(text: 'Phone Number', ),
-                textFormField(context, 'Please Enter Contact Number',k:TextInputType.number,current: _contFocus,next: _altconFocus),
+                textFormField(context, 'Please Enter Contact Number',4,k:TextInputType.number,current:
+                 _contFocus,next: _altconFocus,pinLent: 13,hintText: '+918986567023',controller: _contactCont),
                 myTextWidget(text: 'Alternate Phone Number'),
-                textFormField(context, null,k: TextInputType.number),
+                textFormField(context, null,5,k: TextInputType.number,pinLent: 13,hintText: '+918787554223',controller: _alterCont),
                 InkWell(
                   child: Container(
                     height: MediaQuery.of(context).size.height / 20,
@@ -105,7 +118,7 @@ final  FocusNode _altconFocus = FocusNode();
         .showSnackBar(snackBar)
         .closed
         .then((SnackBarClosedReason reason) {
-      //  _opennewpage();
+         list.forEach((v)=>print(v.toString()));
     });
   }
 }
@@ -178,28 +191,38 @@ Widget myTextWidget({String text}) {
     children: <Widget>[
       Container(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
-        child: Text(text),
+        child: Text(text,style: textStyle1),
       ),
     ],
   );
 }
 
-Widget textFormField(context, String validators,{TextInputType k,FocusNode current,FocusNode next,var pinLent}) {
+Widget textFormField(context, String validators,int numb,{TextInputType k,FocusNode current,FocusNode next,var pinLent,
+ hintText,TextEditingController controller}) {
+
   return Container(
     height: MediaQuery.of(context).size.height / 15,
     padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
     child: TextFormField(
+      decoration: const InputDecoration(
+   
+    counter:SizedBox(
+      height: 0.0,
+    )
+    ),
       keyboardType: k,
       focusNode: current,
+      controller: controller,style: textStyle1,
       maxLength: pinLent,
       validator: validators == null
           ? null
           : (value) {
-              if (value.isEmpty && value.length<=6) {
+              if (value.isEmpty) {
                 return validators;
               }
             },
-           onFieldSubmitted: (val){
+           onFieldSubmitted: (val,){
+             list.add(val);
              _fieldFocusChange(context,current,next);
            },
     ),
@@ -207,7 +230,7 @@ Widget textFormField(context, String validators,{TextInputType k,FocusNode curre
 }
 _fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
     currentFocus.unfocus();
-    FocusScope.of(context).requestFocus(nextFocus);  
+    FocusScope.of(context).requestFocus(nextFocus);
 }
 
 //***************************************8 */

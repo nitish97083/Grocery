@@ -3,25 +3,25 @@ import 'package:radhe_radhe/home/HomePageFront.dart';
 
 import 'package:radhe_radhe/home/pojo/post.dart';
 
-class ItemView extends StatefulWidget {
-  ItemView(this.index, this.topProducts);
+class CatItemDetail extends StatefulWidget {
+  CatItemDetail(this.index, this.category);
   final index;
-  final List<TopProducts> topProducts;
+  final List<Categories> category;
  
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _ItemView();
+    return _CatItemDetail();
   }
 }
 
-class _ItemView extends State<ItemView> {
+class _CatItemDetail extends State<CatItemDetail> {
   @override
   Widget build(BuildContext context) {
     String ss = " ";
-    if (widget.topProducts[widget.index].description != null) {
-      ss = widget.topProducts[widget.index].description;
-    }
+    // if (widget.category[widget.index].description != null) {
+    //   ss = widget.category[widget.index].description;
+    // }
     var withd = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(),
@@ -43,7 +43,7 @@ class _ItemView extends State<ItemView> {
              
               Material(
                 child: Image.network(
-                  widget.topProducts[widget.index].imageUrl,
+                  widget.category[widget.index].cateIconUrl,
                   width: withd,
                   height: withd,
                 ),
@@ -58,14 +58,14 @@ class _ItemView extends State<ItemView> {
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget.topProducts[widget.index].nameInEng,
+                            widget.category[widget.index].nameInEng,
                             style: TextStyle(fontSize: 22),
                           ),
                         ),
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                              widget.topProducts[widget.index].nameInHin,
+                              widget.category[widget.index].nameInHin,
                               style: TextStyle(fontSize: 22)),
                         )
                       ],
@@ -76,22 +76,23 @@ class _ItemView extends State<ItemView> {
                       top: withd / 29,
                       child: Column(
                         children: <Widget>[
-                          Container(
-                            color: Colors.green,
-                            child: Text(
-                              widget.topProducts[widget.index].mrp + " ₹",
-                              style: TextStyle(
-                                  decoration: TextDecoration.lineThrough,
-                                  fontSize: 18,
-                                  color: Colors.white),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              widget.topProducts[widget.index].price + " ₹",
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
+                          //**************************  MRP is Not There */
+                          // Container(
+                          //   color: Colors.green,
+                          //   child: Text(
+                          //     widget.category[widget.index].mrp + " ₹",
+                          //     style: TextStyle(
+                          //         decoration: TextDecoration.lineThrough,
+                          //         fontSize: 18,
+                          //         color: Colors.white),
+                          //   ),
+                          // ),
+                          // Container(
+                          //   child: Text(
+                          //     widget.category[widget.index].price + " ₹",
+                          //     style: TextStyle(fontSize: 18),
+                          //   ),
+                          // ),
                         ],
                       ))
                 ],
