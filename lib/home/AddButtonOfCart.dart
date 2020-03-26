@@ -6,17 +6,18 @@ class Addbutton extends StatefulWidget {
   // final index;
   // final List<TopProducts> topProducts;
   // Addbutton(this.index, this.topProducts);
-
+  
+static var countOfAddButton=0;
   @override
   _AddbuttonState createState() => _AddbuttonState();
 }
 
 class _AddbuttonState extends State<Addbutton> {
-  var count=0;
+   
 
   @override
   Widget build(BuildContext context) {
-    return count==0 ? Container(
+    return Addbutton.countOfAddButton==0 ? Container(
           width: 80,
           height: 28,
           child: InkWell(
@@ -32,7 +33,7 @@ class _AddbuttonState extends State<Addbutton> {
             onTap: () {
               print("Pressed Add Button");
               setState(() {
-                count++;
+                Addbutton.countOfAddButton++;
               });
             },
           ))
@@ -58,15 +59,15 @@ class _AddbuttonState extends State<Addbutton> {
                       onTap: () {
                         setState(() {
                           print("Count Decrement");
-                          count--;
+                          Addbutton.countOfAddButton--;
                         });
                       }),
                        InkWell(
-                      child: Text("$count"),
+                      child: Text("${Addbutton.countOfAddButton}"),
                       onTap: () {
                         setState(() {
-                          print("$count");
-                          count--;
+                          print("${Addbutton.countOfAddButton}");
+                          Addbutton.countOfAddButton--;
                         });
                       }),
                        InkWell(
@@ -78,7 +79,7 @@ class _AddbuttonState extends State<Addbutton> {
                       onTap: () {
                         setState(() {
                           print("Count Increment");
-                          count++;
+                          Addbutton.countOfAddButton++;
                         });
                       })
                 ],

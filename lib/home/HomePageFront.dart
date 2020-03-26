@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:radhe_radhe/AppBarCustomWidth.dart';
 import 'package:radhe_radhe/drawer/SideMenu.dart';
+import 'package:radhe_radhe/home/SelectAddress.dart';
 import 'package:radhe_radhe/home/TopProductContainer.dart';
 import 'package:radhe_radhe/utils/CategItemsDetails.dart';
 import 'CustomProperties.dart';
@@ -24,8 +25,12 @@ Future<Post> fetchPost() async {
 }
 
 var count = 0;
-
+class ListVar{
+ static  List<Categories> list1;
+ static List<TopProducts> topProduct;
+}
 class NewHomePageDart extends StatefulWidget {
+ 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -161,8 +166,8 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           Data d = snapshot.data.data;
-                          List<Categories> list = d.categories;
-                          List<TopProducts> topProducts = d.topProducts;
+                         ListVar.list1 = d.categories;
+                           ListVar.topProduct = d.topProducts;
                           /*Fluttertoast.showToast(
                       msg: d.toJson().toString(), gravity: ToastGravity.CENTER);*/
                           return Column(
@@ -276,28 +281,16 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 //                                   ],
 //                                 ),
 //                               ),
-                              Container(
-                                margin: EdgeInsets.only(left: 20, top: 5),
-                                height: MediaQuery.of(context).size.height / 29,
-                                width: MediaQuery.of(context).size.width,
-                                child: Text(
-                                  "Categories",
-                                  style: TextStyle(
-                                      color: Color(0xff172B4D),
-                                      fontFamily: CustomFont.categoryFont,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                             //categories************************************************
                               Container(
                                   margin: EdgeInsets.only(top: 20, left: 10),
                                   width: MediaQuery.of(context).size.width,
                                   height: MediaQuery.of(context).size.width / 2.1,
                                   child: ListView.builder(
-                                      itemCount: list.length,
+                                      itemCount: ListVar.list1.length,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) =>
-                                          buildBody(context, index, list))),
+                                          buildBody(context, index, ListVar.list1))),
                               Container(
                                 margin: EdgeInsets.only(left: 10, top: 5),
                                 height: MediaQuery.of(context).size.height / 5.4,
@@ -311,23 +304,16 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                                       fit: BoxFit.fill,
                                     )),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(left: 20, top: 15),
-                                height: MediaQuery.of(context).size.height / 29,
-                                width: MediaQuery.of(context).size.width,
-                                child: Text(
-                                  "Top Products",
-                                  style: TextStyle(
-                                      color: Color(0xff172B4D),
-                                      fontFamily: 'SF Pro Display',
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-
+                              
+                              topProductTitle(context),
 
                               // ****************from topProducthere************************************//
-                              TopProductContainer(topProducts)
+                             InkWell(
+                                child: TopProductContainer(ListVar.topProduct),
+
+                                )
+
+
 //                               Container(
 //                                   /*ListView.builder(
 //                               itemCount: list.length,

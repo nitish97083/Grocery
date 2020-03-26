@@ -40,7 +40,20 @@ class _TopProductContainerState extends State<TopProductContainer> {
           // height: MediaQuery.of(context).size.width/5,
           // width: MediaQuery.of(context).size.width/5,
           // color: Colors.red,
-          child:BaseProductContainer(index, widget.topProducts) 
+
+          //*********************Change here    refract InkWell and remove from BaseProductContainer
+
+          //************************* */
+          child:InkWell(
+            child: BaseProductContainer(index, widget.topProducts),
+             onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ItemView(index, widget.topProducts)));
+            },
+            ) 
 //          InkWell(
 //             //item card started here grid view
 //             child: Material(
