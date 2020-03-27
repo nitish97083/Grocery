@@ -7,17 +7,17 @@ class Addbutton extends StatefulWidget {
   // final List<TopProducts> topProducts;
   // Addbutton(this.index, this.topProducts);
   
-static var countOfAddButton=0;
   @override
   _AddbuttonState createState() => _AddbuttonState();
 }
 
 class _AddbuttonState extends State<Addbutton> {
    
+   var countOfAddButton=0;
 
   @override
   Widget build(BuildContext context) {
-    return Addbutton.countOfAddButton==0 ? Container(
+    return countOfAddButton==0 ? Container(
           width: 80,
           height: 28,
           child: InkWell(
@@ -33,7 +33,7 @@ class _AddbuttonState extends State<Addbutton> {
             onTap: () {
               print("Pressed Add Button");
               setState(() {
-                Addbutton.countOfAddButton++;
+                countOfAddButton++;
               });
             },
           ))
@@ -59,15 +59,15 @@ class _AddbuttonState extends State<Addbutton> {
                       onTap: () {
                         setState(() {
                           print("Count Decrement");
-                          Addbutton.countOfAddButton--;
+                          countOfAddButton--;
                         });
                       }),
                        InkWell(
-                      child: Text("${Addbutton.countOfAddButton}"),
+                      child: Text("$countOfAddButton"),
                       onTap: () {
                         setState(() {
-                          print("${Addbutton.countOfAddButton}");
-                          Addbutton.countOfAddButton--;
+                          print("$countOfAddButton");
+                          countOfAddButton--;
                         });
                       }),
                        InkWell(
@@ -79,7 +79,7 @@ class _AddbuttonState extends State<Addbutton> {
                       onTap: () {
                         setState(() {
                           print("Count Increment");
-                          Addbutton.countOfAddButton++;
+                          countOfAddButton++;
                         });
                       })
                 ],

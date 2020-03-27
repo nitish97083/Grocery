@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:radhe_radhe/drawer/SideMenu.dart';
+import 'package:radhe_radhe/home/CustomProperties.dart';
 import 'package:radhe_radhe/home/HomePageFront.dart';
+import 'package:radhe_radhe/home/pojo/cartValue.dart';
 
 import 'package:radhe_radhe/home/pojo/post.dart';
 
@@ -24,7 +27,13 @@ class _CatItemDetail extends State<CatItemDetail> {
     // }
     var withd = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: CustomColors.primaryColors,
+        actions: <Widget>[
+          customCart(context),
+        ],
+      ),
+      drawer: SideMenuDrawer(),
         bottomSheet: Container(
           child: Card(
               color: Colors.white,

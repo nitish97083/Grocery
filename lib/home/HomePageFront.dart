@@ -282,6 +282,7 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 //                                 ),
 //                               ),
                              //categories************************************************
+                             categoriestitleContainer(context),
                               Container(
                                   margin: EdgeInsets.only(top: 20, left: 10),
                                   width: MediaQuery.of(context).size.width,
