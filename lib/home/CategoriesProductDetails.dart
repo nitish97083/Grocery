@@ -4,30 +4,31 @@ import 'package:radhe_radhe/home/AddButtonOfCart.dart';
 import 'package:radhe_radhe/home/CustomProperties.dart';
 import 'package:radhe_radhe/home/ExpationPannelForPrdctDtl.dart';
 import 'package:radhe_radhe/home/HomePageFront.dart';
-import 'package:radhe_radhe/home/ProductNameStack.dart';
-
-import 'package:radhe_radhe/home/pojo/post.dart';
+import 'package:radhe_radhe/home/pojo/CategoryProductPojo.dart';
 
 
-class ItemView extends StatefulWidget {
-  ItemView(this.index, this.topProducts);
+import 'CategoryProductDetailsStack.dart';
+
+
+class CategoryProductDetail extends StatefulWidget {
+  CategoryProductDetail(this.index, this.catProductDetail);
   final index;
-  final List<TopProducts> topProducts;
+  final List<CateryProduct1> catProductDetail;
  
   @override
   State<StatefulWidget> createState() {
-    return _ItemView();
+    return _CategoryProductDetail();
   }
 }
 
-class _ItemView extends State<ItemView> {
+class _CategoryProductDetail extends State<CategoryProductDetail> {
 
   ScrollController _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     String ss = " ";
-    if (widget.topProducts[widget.index].description != null) {
-      ss = widget.topProducts[widget.index].description;
+    if (widget.catProductDetail[widget.index].description != null) {
+      ss = widget.catProductDetail[widget.index].description;
     }
     var withd = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -59,7 +60,7 @@ class _ItemView extends State<ItemView> {
             children: <Widget>[
               Material(
                 child: Image.network(
-                  widget.topProducts[widget.index].imageUrl,
+                  widget.catProductDetail[widget.index].imageUrl,
                   width: withd,
                   height: withd,
                 ),
@@ -74,14 +75,14 @@ class _ItemView extends State<ItemView> {
               //           Container(
               //             alignment: Alignment.centerLeft,
               //             child: Text(
-              //               widget.topProducts[widget.index].nameInEng,
+              //               widget.catProductDetail[widget.index].nameInEng,
               //               style: TextStyle(fontSize: 22),
               //             ),
               //           ),
               //           Container(
               //             alignment: Alignment.centerLeft,
               //             child: Text(
-              //                 widget.topProducts[widget.index].nameInHin,
+              //                 widget.catProductDetail[widget.index].nameInHin,
               //                 style: TextStyle(fontSize: 22)),
               //           )
               //         ],
@@ -95,7 +96,7 @@ class _ItemView extends State<ItemView> {
               //             Container(
               //               color: Colors.green,
               //               child: Text(
-              //                 widget.topProducts[widget.index].mrp + " ₹",
+              //                 widget.catProductDetail[widget.index].mrp + " ₹",
               //                 style: TextStyle(
               //                     decoration: TextDecoration.lineThrough,
               //                     fontSize: 18,
@@ -104,7 +105,7 @@ class _ItemView extends State<ItemView> {
               //             ),
               //             Container(
               //               child: Text(
-              //                 widget.topProducts[widget.index].price + " ₹",
+              //                 widget.catProductDetail[widget.index].price + " ₹",
               //                 style: TextStyle(fontSize: 18),
               //               ),
               //             ),
@@ -112,7 +113,7 @@ class _ItemView extends State<ItemView> {
               //         ))
               //   ],
               // ),
-             // BaseProductContainer(widget.index,widget. topProducts),
+             // BaseProductContainer(widget.index,widget. catProductDetail),
              Container(
                margin: EdgeInsets.only(left:10.0,right:5.0),
                child: Material(
@@ -123,7 +124,7 @@ class _ItemView extends State<ItemView> {
                         padding: EdgeInsets.only(left:5.0),
                         width: MediaQuery.of(context).size.width/1.8,
                        // color: Colors.white,
-                        child: ProductNameStack(widget.index, widget.topProducts),
+                        child: CatProductDetailStack(widget.index, widget.catProductDetail),
                       ),
                      Container(
                       // color: Colors.white,
@@ -165,17 +166,8 @@ class _ItemView extends State<ItemView> {
               // Container(
               //   child: topProductTitle(context),
               // ),
-              // TopProductContainer(widget.topProducts),
-              categoriestitleContainer(context),
-               Container(
-                                  margin: EdgeInsets.only(top: 20, left: 10),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: MediaQuery.of(context).size.width / 2.1,
-                                  child: ListView.builder(
-                                      itemCount: ListVar.list1.length,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) =>
-                                          buildBody(context, index, ListVar.list1))),
+              // TopProductContainer(widget.catProductDetail),
+              
             ],
           ),
         ));

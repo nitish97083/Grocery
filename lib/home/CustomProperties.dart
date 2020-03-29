@@ -5,6 +5,7 @@ class CustomColors {
   static Color secondaryColors = Colors.white;
   static Color tertiary = Colors.black;
   static Color forthColors = Colors.grey;
+  static String hostName = 'https://onlinekiranabazar.000webhostapp.com';
 }
 
 Widget customCart(context) {

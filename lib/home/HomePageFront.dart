@@ -622,7 +622,7 @@ Widget buildBody(BuildContext ctxt, int index, List<Categories> data) {
             ],
           )),
           onTap: (){
-            Navigator.push(ctxt, MaterialPageRoute(builder: (context)=>CatItemDetail(index, data)));
+            Navigator.push(ctxt, MaterialPageRoute(builder: (context)=>CatItemDetail(data[index])));
           },
     ),
   );

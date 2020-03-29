@@ -4,8 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/home/SrchItemsDetails.dart';
 import 'package:radhe_radhe/home/pojo/SearchedItems.dart';
-import 'package:radhe_radhe/home/pojo/post.dart';
-import '../single_item_view.dart';
 import 'AddButtonOfCart.dart';
 import 'CustomProperties.dart';
 
@@ -120,11 +118,18 @@ class _SearchForProductState extends State<SearchForProduct> {
                         ),
                       );
                     } else {
-                      return Center(
-                          child: Container(
-                       color: Colors.red,
-                      ));
-                    }
+                          return Center(
+                              child: Container(
+                            height: MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width,
+                            child: Card(
+                              child: CupertinoActivityIndicator(
+                                animating: true,
+                                radius: 25,
+                              ),
+                            ),
+                          ));
+                        }
                   })
             ],
           )),
