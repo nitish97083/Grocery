@@ -27,16 +27,16 @@ class _Login extends State<Login> {
   //var data;
   String url = "https://onlinekiranabazar.000webhostapp.com/api/login";
 
-  Future singIn(String username, String Password) async {
-    Map data = {'phone': username, 'password': Password};
+  Future singIn(String username, String password) async {
+    Map data = {'phone': username, 'password': password};
 
     var response = await http.post(url, body: data);
     if (response.statusCode == 200) {
       if (response.body != null) {
         var data = jsonDecode(response.body);
-        var Success = data['Success'];
+        var success = data['success'];
         var message = data['message'];
-        if (Success) {
+        if (success) {
           naviagteTOLogin(context);
         }
         Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
@@ -131,7 +131,7 @@ class _Login extends State<Login> {
 
 //                          borderRadius: BorderRadius.circular(25.0),
                           ),
-                          labelText: "Password"),
+                          labelText: "password"),
                     ),
                   ],
                 )
@@ -156,7 +156,7 @@ class _Login extends State<Login> {
                     ),
                     SizedBox(height: 10),
                     TextFormField(
-                      keyboardType: TextInputType.visiblePassword,
+                      keyboardType: TextInputType.visiblepassword,
                       obscureText: true,
                       decoration: InputDecoration(
                         contentPadding: new EdgeInsets.symmetric(
@@ -166,7 +166,7 @@ class _Login extends State<Login> {
                               const BorderSide(color: Colors.green, ),
 //                          borderRadius: BorderRadius.circular(25.0),
                         ),
-                        labelText: "PASSWORD",
+                        labelText: "password",
                       ),
                     ),
                   ],
@@ -315,9 +315,9 @@ class _Login extends State<Login> {
         }
       });
       data.forEach((v) {
-        print(v['Success'] );
+        print(v['success'] );
         Fluttertoast.showToast(
-            msg: v['Success'],
+            msg: v['success'],
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIos: 1,
@@ -326,7 +326,7 @@ class _Login extends State<Login> {
             fontSize: 16.0);
       });
 
-      return 'Success';
+      return 'success';
     }
     */ /*Future<Post> fetchPost() async {
       final response = await http.post(

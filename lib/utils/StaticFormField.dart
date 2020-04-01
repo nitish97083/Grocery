@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+class Register1 {
+  static List registerLIst;
+}
 Widget textFieldText({
   String hintText,
   TextInputType k: TextInputType.text,
@@ -16,9 +18,10 @@ Widget textFieldText({
     
     onFieldSubmitted: (val){
       value =val;
-      
+      Register1.registerLIst.add(val);
       FocusScope.of(context).requestFocus(nextFocusNode);
       print("onFieldSubmitted ");
+      
     },
     focusNode:currentFocusNode,
     decoration: InputDecoration(

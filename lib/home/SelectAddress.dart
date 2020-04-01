@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:radhe_radhe/AppBarCustomWidth.dart';
 import 'package:radhe_radhe/home/CustomProperties.dart';
 import 'package:radhe_radhe/home/TextStyleProper.dart';
@@ -11,7 +15,48 @@ class SelectAddress extends StatefulWidget {
   }
 }
 
+
+
 List<dynamic> list = [6];
+
+Map<String,dynamic> map1 = {};
+
+String url = "https://onlinekiranabazar.000webhostapp.com/api/address/add/12";
+
+  Future registerAddress(Map map2) async {
+    var response = await http.post(url, body: map2);
+    // print("Response of body ${response.body}");
+    if (response.statusCode == 200) {
+      
+      if (response.body != null) {
+       
+        var data = jsonDecode(response.body);
+        var success = data['success'];
+        var message = data['message'];
+        if (success==true) {
+         Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
+        }
+      }
+      // Fluttertoast.showToast(
+      //     msg: response.body,
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIos: 1,
+      //     backgroundColor: Colors.red,
+      //     textColor: Colors.white,
+      //     fontSize: 16.0);
+    } else {
+      Fluttertoast.showToast(
+          msg: 'something went wrong',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
 class SelectAddressState extends State<SelectAddress> {
   final _formKey = GlobalKey<FormState>();
 final  FocusNode _nameFocus = FocusNode();
@@ -118,7 +163,12 @@ TextEditingController _alterCont = TextEditingController();
         .showSnackBar(snackBar)
         .closed
         .then((SnackBarClosedReason reason) {
-         list.forEach((v)=>print(v.toString()));
+          list.forEach((v)=>print(v.toString()));
+        map1 = {'locality':list[1],'landmark':list[2],'addressType':'primary'};
+       // map1.forEach((k,v)=>print(" Value of map$v"));
+       registerAddress(map1);
+       print(map1);
+        
     });
   }
 }
@@ -222,7 +272,7 @@ Widget textFormField(context, String validators,int numb,{TextInputType k,FocusN
               }
             },
            onFieldSubmitted: (val,){
-             list.add(val);
+              list.add(val);
              _fieldFocusChange(context,current,next);
            },
     ),

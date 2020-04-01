@@ -1,5 +1,8 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:radhe_radhe/login_register/login.dart';
 import 'package:radhe_radhe/utils/StaticFormField.dart';
 
@@ -11,13 +14,53 @@ class Register extends StatefulWidget {
   }
 }
 
+
+String url = "https://onlinekiranabazar.000webhostapp.com/api/newuser";
+
+  Future registerAddress(Map map2) async {
+    var response = await http.post(url, body: map2);
+    // print("Response of body ${response.body}");
+    if (response.statusCode == 200) {
+      
+      if (response.body != null) {
+       
+        var data = jsonDecode(response.body);
+        var success = data['success'];
+        var message = data['message'];
+        if (success==true) {
+         Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
+        }
+      }
+      // Fluttertoast.showToast(
+      //     msg: response.body,
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIos: 1,
+      //     backgroundColor: Colors.red,
+      //     textColor: Colors.white,
+      //     fontSize: 16.0);
+    } else {
+      Fluttertoast.showToast(
+          msg: 'something went wrong',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
+
+
 class _Register extends State<Register> {
   FocusNode f1 = FocusNode();
   FocusNode f2 = FocusNode();
   FocusNode f3 = FocusNode();
   FocusNode f4 = FocusNode();
   FocusNode f5 = FocusNode();
-  String name;
+  String fname;
+  String lName;
   String email;
   String phone;
   String password;
@@ -82,7 +125,14 @@ class _Register extends State<Register> {
                                   hintText: "name".toUpperCase(),
                                   currentFocusNode: f1,
                                   nextFocusNode: f2,
-                                  value: name,
+                                  value: fname,
+                                  context: context),
+                              SizedBox(height: 10),
+                               textFieldText(
+                                  hintText: "name".toUpperCase(),
+                                  currentFocusNode: f1,
+                                  nextFocusNode: f2,
+                                  value: fname,
                                   context: context),
                               SizedBox(height: 10),
                               textFieldText(
@@ -165,7 +215,7 @@ class _Register extends State<Register> {
                               ),
                               onPressed: () {},
                             )
-
+                          
                             /* Row(
                     children: <Widget>[
                       Container(
