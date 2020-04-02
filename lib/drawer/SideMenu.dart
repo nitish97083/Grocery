@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:radhe_radhe/home/FetchAddress.dart';
 import 'package:radhe_radhe/home/SelectAddress.dart';
 import 'package:radhe_radhe/home/fatchAddressPojo.dart';
 import 'package:radhe_radhe/home/pojo/post.dart';
@@ -67,11 +68,7 @@ class _SideMenuDrawerState extends State<SideMenuDrawer> {
                 subtitle: 'My Address $list' ,
                 icon: Icon(Icons.location_on),
                 icon2: Icon(Icons.edit),
-                route: Container(
-                  height: 100,
-                  width: 100,
-                  color: Colors.green,
-                )),
+                route: FatchAddress2()),
             listtiles(context, setState,
                 title: 'Help & Supports',
                 subtitle: 'My Orders',
