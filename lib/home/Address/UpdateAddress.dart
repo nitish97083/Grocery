@@ -3,29 +3,27 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:radhe_radhe/home/CustomProperties.dart';
-import 'package:radhe_radhe/home/TextStyleProper.dart';
+import 'package:radhe_radhe/home/fatchAddressPojo.dart';
 
-class SelectAddress extends StatefulWidget {
+import '../CustomProperties.dart';
+import '../TextStyleProper.dart';
+class UpdateAddress extends StatefulWidget {
 
-
+  final FatchAddress1 fetchAddress;
+  final index;
+  UpdateAddress(this.fetchAddress,this.index);
+  
   @override
-  _SelectAddressState createState() {
-    return _SelectAddressState();
-  }
+  _UpdateAddressState createState() => _UpdateAddressState();
 }
-
-
-
 List<dynamic> list = [6];
-
 Map<String,dynamic> map1 = {};
- 
-String url = "https://onlinekiranabazar.000webhostapp.com/api/address/add/12";
+ var addressId;
+String url = "https://onlinekiranabazar.000webhostapp.com/api/address/add/$addressId";
 
   Future registerAddress(Map map2) async {
     var response = await http.post(url, body: map2);
-    // print("Response of body ${response.body}");
+     print("Response of body ${response.body}");
     if (response.statusCode == 200) {
       
       if (response.body != null) {
@@ -56,9 +54,8 @@ String url = "https://onlinekiranabazar.000webhostapp.com/api/address/add/12";
           fontSize: 16.0);
     }
   }
-
-class _SelectAddressState extends State<SelectAddress> {
-  final _formKey = GlobalKey<FormState>();
+    final _formKey = GlobalKey<FormState>();
+    
 final  FocusNode _nameFocus = FocusNode();
 final FocusNode _add1Focus = FocusNode();
 final FocusNode _add2Focus = FocusNode();
@@ -66,6 +63,8 @@ final  FocusNode _pinFocus = FocusNode();
 final FocusNode _distFocus = FocusNode();
 final  FocusNode _contFocus = FocusNode();
 final  FocusNode _altconFocus = FocusNode();
+class _UpdateAddressState extends State<UpdateAddress> {
+
 TextEditingController _nameCont = TextEditingController();
 TextEditingController _add1Cont = TextEditingController();
 TextEditingController _add2Cont = TextEditingController();
@@ -73,6 +72,18 @@ TextEditingController _pinCont = TextEditingController();
 TextEditingController _contactCont = TextEditingController();
 TextEditingController _alterCont = TextEditingController();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+
+  void  getData(){
+    addressId= widget.fetchAddress.addressId;
+    print(" address id  = $addressId");
+  }
+  
+  @override
+  void initState() {
+  getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,10 +102,11 @@ TextEditingController _alterCont = TextEditingController();
                 //Center(child: myTextWidget(text: 'Full Address')),
                 myTextWidget(text: 'Full Name'),
                 textFormField(context, "Please Enter Full Name", 0,k: TextInputType.text,current: _nameFocus,next:
-                 _add1Focus,hintText:'Nitish Kumar Verma',controller: _nameCont,initialVal: 'name'),
+                 _add1Focus,hintText:'Nitish Kumar Verma',controller: _nameCont,initialVal: widget.fetchAddress.locality),
                 myTextWidget(text: 'Address Line 1'),
                 textFormField(context, 'Please Enter Address',1,k:TextInputType.text,current: _add1Focus,next: _add2Focus,
-                hintText: 'Village/Ward.....' ,controller: _add1Cont),
+                hintText: 'Village/Ward.....' ,initialVal: widget.fetchAddress.landmark,
+                controller: _add1Cont),
                 myTextWidget(text: 'Address Line 2'),
                 textFormField(context, 'Please Enter Address',2,k: TextInputType.text,current: _add2Focus,next: _pinFocus,
                 hintText: 'Near by/LandMark',controller: _add2Cont),
@@ -283,8 +295,3 @@ _fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFoc
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
 }
-
-//***************************************8 */
-// Widget submitAddress(context, GlobalKey<FormState> _formkey,GlobalKey<ScaffoldState> _scaffold) {
-//   return
-// }

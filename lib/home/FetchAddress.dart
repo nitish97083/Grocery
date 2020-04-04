@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/drawer/SideMenu.dart';
+import 'package:radhe_radhe/home/Address/UpdateAddress.dart';
+import 'package:radhe_radhe/home/SelectAddress.dart';
 import 'package:radhe_radhe/home/SwitchedAddress.dart';
 import 'package:radhe_radhe/home/fatchAddressPojo.dart';
 import 'dart:convert';
@@ -45,12 +47,13 @@ class _FatchAddress2State extends State<FatchAddress2> {
                 Container(
                   height: x / 12,
                   margin: EdgeInsets.only(bottom: 20),
-                 
                   child: Row(
                     children: <Widget>[
                       Container(
                         margin: EdgeInsets.only(left: 10, right: y / 5),
-                        child: Text("Saved Address",),
+                        child: Text(
+                          "Saved Address",
+                        ),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: y / 4.5, right: 10),
@@ -68,66 +71,26 @@ class _FatchAddress2State extends State<FatchAddress2> {
                     future: fetchAddressApi(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        List<FatchAddress1> fetchAddressList =
+                         ADDLst.fetchAddressList =
                             snapshot.data.data;
-                        print("Facthed Data From Api $fetchAddressList");
+                        print("Facthed Data From Api $ADDLst.fetchAddressList");
                         return Container(
                           height: MediaQuery.of(context).size.height,
                           child: ListView.builder(
-    
-                              itemCount: fetchAddressList.length,
+                              itemCount: ADDLst.fetchAddressList.length,
                               physics: BouncingScrollPhysics(),
                               scrollDirection: Axis.vertical,
                               itemBuilder: (context, index) {
                                 print(
-                                    "Length of Address1 Class data ${fetchAddressList.length}");
+                                    "Length of Address1 Class data ${ADDLst.fetchAddressList.length}");
                                 return Container(
-                                 // color: Colors.red,
-                                 margin: EdgeInsets.only(left:10,right: 10),
+                                  // color: Colors.red,
+                                  margin: EdgeInsets.only(left: 10, right: 10),
                                   child: Row(
                                     children: <Widget>[
-                                      Card(
-                                        elevation:1,
-                                        child: Container(
-                                         // margin: EdgeInsets.only(right:y/12),
-                                          height: x/10,
-                                          padding: EdgeInsets.only(left:10,),
-                                          width: y/1.4,
-                                         
-                                          child: Stack(
-                                            children: <Widget>[
-                                              Container(
-                                                width: y/2,
-                                                padding: EdgeInsets.only(top:10),
-                                                child: Text("${fetchAddressList[index].landmark}, ${fetchAddressList[index].locality}"
-                                                ,maxLines: 7,),
-                                              ),
-                                             Positioned(
-                                               left:y/2,
-                                              
-                                               child:IconButton(
-                                                 icon:Icon(Icons.edit), 
-                                                onPressed: (){
-
-                                                })
-                                               ),
-                                               Positioned(
-                                               left: y/1.7,
-                                               
-                                               child:IconButton(
-                                                 icon:Icon(Icons.delete), 
-                                                onPressed: (){
-
-                                                })
-                                               ) 
-
-
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                      addressCard(x,y,context,ADDLst.fetchAddressList,index),
                                       SwitchedAddress()
-                                    ],
+                                      ],
                                   ),
                                 );
                               }),
@@ -150,9 +113,50 @@ class _FatchAddress2State extends State<FatchAddress2> {
   }
 }
 
+Widget addressCard(var x,var y, BuildContext context,
+    List<FatchAddress1> fetchAddressList, index) {
+  return Card(
+    elevation: 1,
+    child: Container(
+      // margin: EdgeInsets.only(right:y/12),
+      height: x / 10,
+      padding: EdgeInsets.only(
+        left: 10,
+      ),
+      width: y / 1.4,
+
+      child: Stack(
+        children: <Widget>[
+          Container(
+            width: y / 2,
+            padding: EdgeInsets.only(top: 10),
+            child: Text(
+ """${fetchAddressList[index].landmark}, ${fetchAddressList[index].locality}, ${fetchAddressList[index].city},${fetchAddressList[index].pincode}""",
+              maxLines: 7,
+            ),
+          ),
+          Positioned(
+              left: y / 2,
+              child: IconButton(icon: Icon(Icons.edit),
+               onPressed: () {
+                 Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>UpdateAddress(fetchAddressList[index],index)));
+               })),
+          Positioned(
+              left: y / 1.7,
+              child: IconButton(icon: Icon(Icons.delete),
+               onPressed: () {}))
+        ],
+      ),
+    ),
+  );
+}
+
 Widget addNewAddress(context) {
   return RaisedButton(
     onPressed: () {},
     child: Text("Add Address"),
   );
+}
+class ADDLst{
+  static List<FatchAddress1> fetchAddressList;
 }
