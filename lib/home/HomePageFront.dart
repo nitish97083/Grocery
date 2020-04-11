@@ -33,7 +33,6 @@ class NewHomePageDart extends StatefulWidget {
  
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _NewHomePageDart();
   }
 }
@@ -81,9 +80,7 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
           drawer:SideMenuDrawer(),
           body: SingleChildScrollView(
             child: Container(
-          // height: MediaQuery.of(context).size.height/1,
-            //  controller: _scrollController,
-            //  headerSliverBuilder: (context, bool ibs) => [
+         
                child: 
                Column(
                  children: <Widget>[
@@ -168,8 +165,6 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                           Data d = snapshot.data.data;
                          ListVar.list1 = d.categories;
                            ListVar.topProduct = d.topProducts;
-                          /*Fluttertoast.showToast(
-                      msg: d.toJson().toString(), gravity: ToastGravity.CENTER);*/
                           return Column(
                             children: <Widget>[
                               //here app bar
@@ -532,27 +527,6 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   }
 }
 
-/*tapedButton(int productId, String price, String mrp, String nameInHin,
-    String nameInEng, String imageUrl, int categoryId, int clicked) {
-  //SharedPreferences prefs = await SharedPreferences.getInstance();
-  CartValue saveCart = CartValue();
-  saveCart.productId = productId;
-  saveCart.price = price;
-  saveCart.mrp = mrp;
-  saveCart.nameInHin;
-  saveCart.nameInEng;
-  saveCart.imageUrl;
-
-  saveCart.categoryId = categoryId;
-  SharedPref sharedPref = new SharedPref();
-  List<CartValue> getF = sharedPref.retrive() as List<CartValue>;
-  getF.add(saveCart);
-  sharedPref.save(getF);
-
-  //prefs.setString("cart", jsonEncode(saveCart));
-  //cartValue.toJson();
-  //value.insert(productId, new CartValue());
-}*/
 
 Widget buildBody(BuildContext ctxt, int index, List<Categories> data) {
   return Container(

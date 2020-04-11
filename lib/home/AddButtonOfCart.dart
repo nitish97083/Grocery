@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/home/pojo/post.dart';
 
+
+class CartAddValue {
+   
+     static var count = 0;
+}
+
 class Addbutton extends StatefulWidget {
 
   // final index;
@@ -13,7 +19,7 @@ class Addbutton extends StatefulWidget {
 
 class _AddbuttonState extends State<Addbutton> {
    
-   var countOfAddButton=0;
+   var countOfAddButton = CartAddValue.count;
 
   @override
   Widget build(BuildContext context) {

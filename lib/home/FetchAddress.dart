@@ -153,7 +153,9 @@ Widget addressCard(var x,var y, BuildContext context,
 
 Widget addNewAddress(context) {
   return RaisedButton(
-    onPressed: () {},
+    onPressed: () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SelectAddress()));
+    },
     child: Text("Add Address"),
   );
 }

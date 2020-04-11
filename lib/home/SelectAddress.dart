@@ -17,7 +17,7 @@ class SelectAddress extends StatefulWidget {
 
 
 
-List<dynamic> list = [6];
+List<dynamic> list = [];
 
 Map<String,dynamic> map1 = {};
  
@@ -89,25 +89,25 @@ TextEditingController _alterCont = TextEditingController();
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 //Center(child: myTextWidget(text: 'Full Address')),
-                myTextWidget(text: 'Full Name'),
-                textFormField(context, "Please Enter Full Name", 0,k: TextInputType.text,current: _nameFocus,next:
-                 _add1Focus,hintText:'Nitish Kumar Verma',controller: _nameCont,initialVal: 'name'),
+                // myTextWidget(text: 'Full Name'),
+                // textFormField(context, "Please Enter Full Name", 0,k: TextInputType.text,current: _nameFocus,next:
+                //  _add1Focus,hintText:'Nitish Kumar Verma',controller: _nameCont,initialVal: 'name'),
                 myTextWidget(text: 'Address Line 1'),
                 textFormField(context, 'Please Enter Address',1,k:TextInputType.text,current: _add1Focus,next: _add2Focus,
                 hintText: 'Village/Ward.....' ,controller: _add1Cont),
                 myTextWidget(text: 'Address Line 2'),
                 textFormField(context, 'Please Enter Address',2,k: TextInputType.text,current: _add2Focus,next: _pinFocus,
                 hintText: 'Near by/LandMark',controller: _add2Cont),
-                myTextWidget(text: 'Pin Code'),
-                textFormField(context, 'Please Enter PinCode',3,k: TextInputType.number,current: _pinFocus,next:
-                 _contFocus,pinLent: 6,hintText: 'Pincode/833201',controller: _pinCont),
-                // myTextWidget(text: 'Distict'),
-                // textFormField(context, 'Please Enter Distict name',k: TextInputType.text,current: _distFocus,next: _contFocus),
-                myTextWidget(text: 'Phone Number', ),
-                textFormField(context, 'Please Enter Contact Number',4,k:TextInputType.number,current:
-                 _contFocus,next: _altconFocus,pinLent: 13,hintText: '+918986567023',controller: _contactCont),
-                myTextWidget(text: 'Alternate Phone Number'),
-                textFormField(context, null,5,k: TextInputType.number,pinLent: 13,hintText: '+918787554223',controller: _alterCont),
+                // myTextWidget(text: 'Pin Code'),
+                // textFormField(context, 'Please Enter PinCode',3,k: TextInputType.number,current: _pinFocus,next:
+                //  _contFocus,pinLent: 6,hintText: 'Pincode/833201',controller: _pinCont),
+                // // myTextWidget(text: 'Distict'),
+                // // textFormField(context, 'Please Enter Distict name',k: TextInputType.text,current: _distFocus,next: _contFocus),
+                // myTextWidget(text: 'Phone Number', ),
+                // textFormField(context, 'Please Enter Contact Number',4,k:TextInputType.number,current:
+                //  _contFocus,next: _altconFocus,pinLent: 13,hintText: '+918986567023',controller: _contactCont),
+                // myTextWidget(text: 'Alternate Phone Number'),
+                // textFormField(context, null,5,k: TextInputType.number,pinLent: 13,hintText: '+918787554223',controller: _alterCont),
                 InkWell(
                   child: Container(
                     height: MediaQuery.of(context).size.height / 20,
@@ -164,10 +164,13 @@ TextEditingController _alterCont = TextEditingController();
         .closed
         .then((SnackBarClosedReason reason) {
           list.forEach((v)=>print(v.toString()));
-        map1 = {'locality':list[1],'landmark':list[2],'addressType':'primary'};
+        map1 = {'locality':list[0],'landmark':list[1],'addressType':'primary'};
        // map1.forEach((k,v)=>print(" Value of map$v"));
        registerAddress(map1);
        print(map1);
+        list.clear();
+         print("Clear List $list");
+        Navigator.pop(context);
         
     });
   }
