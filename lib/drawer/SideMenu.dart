@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:radhe_radhe/home/FetchAddress.dart';
-import 'package:radhe_radhe/home/SelectAddress.dart';
+import 'package:radhe_radhe/home/Address/FetchAddress.dart';
+import 'package:radhe_radhe/home/Address/SelectAddress.dart';
 
 class SideMenuDrawer extends StatefulWidget {
   @override
@@ -62,10 +62,10 @@ class _SideMenuDrawerState extends State<SideMenuDrawer> {
                 )),
             listtiles(context, setState,
                 title: 'Help & Supports',
-                subtitle: 'My Address $list' ,
+                subtitle: 'My Address list' ,//$
                 icon: Icon(Icons.location_on),
                 icon2: Icon(Icons.edit),
-                route: FatchAddress2()),
+                route: FetchAddress2()),
             listtiles(context, setState,
                 title: 'Help & Supports',
                 subtitle: 'My Orders',

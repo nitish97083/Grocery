@@ -1,15 +1,14 @@
 import 'dart:convert';
-
+import 'package:radhe_radhe/home/Address/FatchAddressPojo.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:radhe_radhe/home/fatchAddressPojo.dart';
 
 import '../CustomProperties.dart';
 import '../TextStyleProper.dart';
 class UpdateAddress extends StatefulWidget {
 
-  final FatchAddress1 fetchAddress;
+  final FetchAddress1 fetchAddress;
   final index;
   UpdateAddress(this.fetchAddress,this.index);
   
@@ -71,8 +70,7 @@ final  FocusNode _altconFocus = FocusNode();
 class _UpdateAddressState extends State<UpdateAddress> {
 
 TextEditingController _nameCont = TextEditingController();
-TextEditingController _add1Cont = TextEditingController();
-TextEditingController _add2Cont = TextEditingController();
+
 TextEditingController _pinCont = TextEditingController();
 TextEditingController _contactCont = TextEditingController();
 TextEditingController _alterCont = TextEditingController();
@@ -82,16 +80,32 @@ TextEditingController _alterCont = TextEditingController();
   void  getData(){
     addressId= widget.fetchAddress.addressId;
     userId = widget.fetchAddress.userId;
-    print(" address id  = $addressId, User Id = $userId");
+   locaLity= widget.fetchAddress.locality; 
+   landMark = widget.fetchAddress.landmark;
+    print(" address id  = $addressId, User Id = $userId, Locality = $locaLity, landaMark = $landMark");
+
   }
-  
+  TextEditingController _add1Cont = TextEditingController(
+    text: locaLity
+  );
+TextEditingController _add2Cont = TextEditingController(
+  text: landMark
+);
   @override
   void initState() {
   getData();
     super.initState();
   }
   @override
+void dispose() {
+  _add1Cont.dispose();
+  _add2Cont.dispose();
+      print("After dispose value in controller ${_add1Cont.text}");
+  super.dispose();
+}
+  @override
   Widget build(BuildContext context) {
+    print("Initial value in controller ${_add1Cont.text}");
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -111,11 +125,11 @@ TextEditingController _alterCont = TextEditingController();
                 //  _add1Focus,hintText:'Nitish Kumar Verma',controller: _nameCont,),
                 myTextWidget(text: 'Address Line 1'),
                 textFormField(context, 'Please Enter Address',1,k:TextInputType.text,current: _add1Focus,next: _add2Focus,
-                hintText: 'Village/Ward.....' ,initialVal: widget.fetchAddress.landmark,
+                hintText: 'Village/Ward.....' ,
                 controller: _add1Cont),
                 myTextWidget(text: 'Address Line 2'),
                 textFormField(context, 'Please Enter Address',2,k: TextInputType.text,current: _add2Focus,next: _pinFocus,
-                hintText: 'Near by/LandMark',controller: _add2Cont,initialVal: widget.fetchAddress.locality),
+                hintText: 'Near by/LandMark',controller: _add2Cont,),
                 // myTextWidget(text: 'Pin Code'),
                 // textFormField(context, 'Please Enter PinCode',3,k: TextInputType.number,current: _pinFocus,next:
                 //  _contFocus,pinLent: 6,hintText: 'Pincode/833201',controller: _pinCont),
@@ -186,11 +200,14 @@ TextEditingController _alterCont = TextEditingController();
         map1 = {'locality':list[0],'landmark':list[1],'addressType':'primary'};
        // map1.forEach((k,v)=>print(" Value of map$v"));
         print(map1);
-       registerAddress(map1);
+        if(map1.isNotEmpty){
+        registerAddress(map1);
+        }
+       
          list.clear();
          
          print("Clear List $list");
-        Navigator.pop(context);
+       // Navigator.pop(context);
         
     });
   }
@@ -284,10 +301,11 @@ Widget textFormField(context, String validators,int numb,{TextInputType k,FocusN
     )
     ),
       keyboardType: k,
-     
+     controller: controller,
       focusNode: current,
-     initialValue:initialVal=='null'? controller:initialVal,style: textStyle1,
+    // initialValue:initialVal=='null'? controller:initialVal,style: textStyle1,
       maxLength: pinLent,
+      
       validator: validators == null
           ? null
           : (value) {
@@ -295,10 +313,17 @@ Widget textFormField(context, String validators,int numb,{TextInputType k,FocusN
                 return validators;
               }
             },
-           onFieldSubmitted: (val,){
-              list.add(val);
-             _fieldFocusChange(context,current,next);
+           onTap:(){
+              list.add(controller.text);
+              
+              
+             
            },
+           onFieldSubmitted: (val){
+          _fieldFocusChange(context,current,next);
+           }
+             
+           
     ),
   );
 }

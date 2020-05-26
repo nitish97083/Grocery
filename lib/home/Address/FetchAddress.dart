@@ -2,24 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:radhe_radhe/drawer/SideMenu.dart';
 import 'package:radhe_radhe/home/Address/UpdateAddress.dart';
-import 'package:radhe_radhe/home/SelectAddress.dart';
-import 'package:radhe_radhe/home/SwitchedAddress.dart';
-import 'package:radhe_radhe/home/fatchAddressPojo.dart';
+import 'package:radhe_radhe/home/Address/FatchAddressPojo.dart';
+import 'package:radhe_radhe/home/Address/SwitchedAddress.dart';
+import 'package:radhe_radhe/home/Address/SelectAddress.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class FatchAddress2 extends StatefulWidget {
+class FetchAddress2 extends StatefulWidget {
   @override
-  _FatchAddress2State createState() => _FatchAddress2State();
+  _FetchAddress2State createState() => _FetchAddress2State();
 }
 
-Future<FatchAddress> fetchAddressApi() async {
+Future<FetchAddress> fetchAddressApi() async {
   var response = await http.get(
       "https://onlinekiranabazar.000webhostapp.com/api/address/get-all/12");
   if (response.statusCode == 200) {
     print(" Json Data Here ${jsonDecode(response.body)}");
     // If server returns an OK response, parse the JSON.
-    return FatchAddress.fromJson(json.decode(response.body));
+    return FetchAddress.fromJson(json.decode(response.body));
   } else {
     // If that response was not OK, throw an error.
     throw Exception('Failed to load post');
@@ -28,7 +28,7 @@ Future<FatchAddress> fetchAddressApi() async {
 
 bool isSwitched = false;
 
-class _FatchAddress2State extends State<FatchAddress2> {
+class _FetchAddress2State extends State<FetchAddress2> {
   @override
   Widget build(BuildContext context) {
     var x = MediaQuery.of(context).size.height;
@@ -37,8 +37,10 @@ class _FatchAddress2State extends State<FatchAddress2> {
       drawer: SideMenuDrawer(),
       appBar: AppBar(),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
             //  height: MediaQuery.of(context).size.height/1.2,
+          
             child: Column(
           children: <Widget>[
             Container(
@@ -67,7 +69,7 @@ class _FatchAddress2State extends State<FatchAddress2> {
             ListView(
               shrinkWrap: true,
               children: <Widget>[
-                FutureBuilder<FatchAddress>(
+                FutureBuilder<FetchAddress>(
                     future: fetchAddressApi(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -75,7 +77,9 @@ class _FatchAddress2State extends State<FatchAddress2> {
                             snapshot.data.data;
                         print("Facthed Data From Api $ADDLst.fetchAddressList");
                         return Container(
-                          height: MediaQuery.of(context).size.height,
+                          padding: EdgeInsets.only(top: 10,bottom:x/20),
+                          margin: EdgeInsets.only(bottom: 20),
+                          height: MediaQuery.of(context).size.height/1.25,
                           child: ListView.builder(
                               itemCount: ADDLst.fetchAddressList.length,
                               physics: BouncingScrollPhysics(),
@@ -106,15 +110,18 @@ class _FatchAddress2State extends State<FatchAddress2> {
                     })
               ],
             ),
+          
           ],
-        )),
+        ),
+        
+        ),
       ),
     );
   }
 }
 
 Widget addressCard(var x,var y, BuildContext context,
-    List<FatchAddress1> fetchAddressList, index) {
+    List<FetchAddress1> fetchAddressList, index) {
   return Card(
     elevation: 1,
     child: Container(
@@ -160,5 +167,5 @@ Widget addNewAddress(context) {
   );
 }
 class ADDLst{
-  static List<FatchAddress1> fetchAddressList;
+  static List<FetchAddress1> fetchAddressList;
 }

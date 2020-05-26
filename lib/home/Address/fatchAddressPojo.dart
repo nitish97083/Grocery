@@ -1,16 +1,16 @@
-class FatchAddress {
+class FetchAddress {
   bool success;
-  List<FatchAddress1> data;
+  List<FetchAddress1> data;
   String message;
 
-  FatchAddress({this.success, this.data, this.message});
+  FetchAddress({this.success, this.data, this.message});
 
-  FatchAddress.fromJson(Map<String, dynamic> json) {
+  FetchAddress.fromJson(Map<String, dynamic> json) {
     success = json['Success'];
     if (json['data'] != null) {
-      data = new List<FatchAddress1>();
+      data = new List<FetchAddress1>();
       json['data'].forEach((v) {
-        data.add(new FatchAddress1.fromJson(v));
+        data.add(new FetchAddress1.fromJson(v));
       });
     }
     message = json['message'];
@@ -27,7 +27,7 @@ class FatchAddress {
   }
 }
 
-class FatchAddress1 {
+class FetchAddress1 {
   int addressId;
   Null houseNo;
   String locality;
@@ -42,7 +42,7 @@ class FatchAddress1 {
   String createdAt;
   String updatedAt;
 
-  FatchAddress1(
+  FetchAddress1(
       {this.addressId,
       this.houseNo,
       this.locality,
@@ -57,7 +57,7 @@ class FatchAddress1 {
       this.createdAt,
       this.updatedAt});
 
-  FatchAddress1.fromJson(Map<String, dynamic> json) {
+  FetchAddress1.fromJson(Map<String, dynamic> json) {
     addressId = json['address_id'];
     houseNo = json['house_no'];
     locality = json['locality'];
