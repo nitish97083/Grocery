@@ -16,14 +16,14 @@ class UpdateAddress extends StatefulWidget {
   _UpdateAddressState createState() => _UpdateAddressState();
 }
 List<dynamic> list = [] ;
-Map<String,dynamic> map1 = {};
+Map<String,dynamic> map;
  var addressId;
  var userId;
 String url = "https://onlinekiranabazar.000webhostapp.com/api/address/update/$addressId";
 
   Future registerAddress(Map<String,dynamic> map2) async {
     print(url);
-
+   print("api $map2");
     var response = await http.post(url, body:map2);
      print("Response of body ${response.body}");
      print("Status Code = ${response.statusCode}");
@@ -74,7 +74,7 @@ TextEditingController _nameCont = TextEditingController();
 TextEditingController _pinCont = TextEditingController();
 TextEditingController _contactCont = TextEditingController();
 TextEditingController _alterCont = TextEditingController();
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 
   void  getData(){
@@ -91,18 +91,16 @@ TextEditingController _alterCont = TextEditingController();
 TextEditingController _add2Cont = TextEditingController(
   text: landMark
 );
+
   @override
   void initState() {
-  getData();
+     
+      print("After dispose value in controller ${_add1Cont.text} and ${_add2Cont.text}");
+    getData();
     super.initState();
   }
-  @override
-void dispose() {
-  _add1Cont.dispose();
-  _add2Cont.dispose();
-      print("After dispose value in controller ${_add1Cont.text}");
-  super.dispose();
-}
+ 
+
   @override
   Widget build(BuildContext context) {
     print("Initial value in controller ${_add1Cont.text}");
@@ -125,11 +123,11 @@ void dispose() {
                 //  _add1Focus,hintText:'Nitish Kumar Verma',controller: _nameCont,),
                 myTextWidget(text: 'Address Line 1'),
                 textFormField(context, 'Please Enter Address',1,k:TextInputType.text,current: _add1Focus,next: _add2Focus,
-                hintText: 'Village/Ward.....' ,
+                hintText: 'Village/Ward.....' ,i: 1,j: 0,
                 controller: _add1Cont),
                 myTextWidget(text: 'Address Line 2'),
                 textFormField(context, 'Please Enter Address',2,k: TextInputType.text,current: _add2Focus,next: _pinFocus,
-                hintText: 'Near by/LandMark',controller: _add2Cont,),
+                hintText: 'Near by/LandMark',controller: _add2Cont,i: 1,j: 1),
                 // myTextWidget(text: 'Pin Code'),
                 // textFormField(context, 'Please Enter PinCode',3,k: TextInputType.number,current: _pinFocus,next:
                 //  _contFocus,pinLent: 6,hintText: 'Pincode/833201',controller: _pinCont),
@@ -195,18 +193,22 @@ void dispose() {
         .showSnackBar(snackBar)
         .closed
         .then((SnackBarClosedReason reason) {
-          list.forEach((v)=>print(v.toString()));
+          // list.forEach((v)=>print(v.toString()));
+          // if(list[0]==null){
+          //   list[0]=null;
+          // }
          
-        map1 = {'locality':list[0],'landmark':list[1],'addressType':'primary'};
+      //  map = {'locality':list[0],'landmark':list[1],'addressType':'primary'};
        // map1.forEach((k,v)=>print(" Value of map$v"));
-        print(map1);
-        if(map1.isNotEmpty){
-        registerAddress(map1);
-        }
+        print(' map value $map');
        
-         list.clear();
+       
+         registerAddress(map);
+      
+        
+        // list.clear();
          
-         print("Clear List $list");
+         print("Clear List $map");
        // Navigator.pop(context);
         
     });
@@ -288,7 +290,7 @@ Widget myTextWidget({String text}) {
 }
 
 Widget textFormField(context, String validators,int numb,{TextInputType k,FocusNode current,FocusNode next,var pinLent,String initialVal
- ,hintText,TextEditingController controller}) {
+ ,hintText,int i, int j ,TextEditingController controller}) {
  if (initialVal == "null") initialVal = '123';
   return Container(
     height: MediaQuery.of(context).size.height / 15,
@@ -313,15 +315,33 @@ Widget textFormField(context, String validators,int numb,{TextInputType k,FocusN
                 return validators;
               }
             },
+            onFieldSubmitted: (val){
+           //   list.add(val);
+          _fieldFocusChange(context,current,next);
+           },
            onTap:(){
-              list.add(controller.text);
-              
+             
+ 
+
+   if(i==1 && j==0){
+     
+    map = {'locality':controller.text.toString(),'landmark':null,'addressType':'primary'};
+    // return map;
+   }
+   else if(i==1 && j==1){
+
+    map = {'locality':controller.text.toString(),'landmark':controller.text.toString(),'addressType':'primary'};
+    // return map;
+   }
+   else {
+   map = {'locality':null,'landmark':controller.text.toString(),'addressType':'primary'};
+    // return map;
+   }
+  
               
              
            },
-           onFieldSubmitted: (val){
-          _fieldFocusChange(context,current,next);
-           }
+           
              
            
     ),
