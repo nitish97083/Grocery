@@ -14,7 +14,7 @@ Future<Post> fetchPost() async {
   var response = await http
       .get("https://onlinekiranabazar.000webhostapp.com/api/getCategories");
   if (response.statusCode == 200) {
-    print(jsonDecode(response.body));
+    // print(jsonDecode(response.body));
     // If server returns an OK response, parse the JSON.
     return Post.fromJson(json.decode(response.body));
   } else {
@@ -24,12 +24,13 @@ Future<Post> fetchPost() async {
 }
 
 var count = 0;
-class ListVar{
- static  List<Categories> list1;
- static List<TopProducts> topProduct;
+
+class ListVar {
+  static List<Categories> list1;
+  static List<TopProducts> topProduct;
 }
+
 class NewHomePageDart extends StatefulWidget {
- 
   @override
   State<StatefulWidget> createState() {
     return _NewHomePageDart();
@@ -65,94 +66,91 @@ class _NewHomePageDart extends State {
   //   _scrollController.removeListener(_scrollListener);
   //   super.dispose();
   // }
-GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     var www = MediaQuery.of(context).size.width;
 
-   
     return MaterialApp(
-      home: Scaffold(
-        key: _scaffoldKey,
-          backgroundColor: Color(0xffDDDDDD),
-          appBar: AppbarCustomWidth(_scaffoldKey),
-          drawer:SideMenuDrawer(),
-          body: SingleChildScrollView(
-            child: Container(
-         
-               child: 
-               Column(
-                 children: <Widget>[
-                  //  SliverAppBar(
-                  //     backgroundColor: Colors.transparent,
-                  //     expandedHeight: 40,
-                  //     floating: false,
-                  //     pinned: true,
-                  //     flexibleSpace: Container(
-                  //       color: Color(0xffDDDDDD),
-                  //       padding: EdgeInsets.only(top: 10),
-                  //       width: MediaQuery.of(context).size.width,
-                  //       height: MediaQuery.of(context).size.height / 10,
-                  //       child: Stack(
-                  //         children: <Widget>[
-                  //           Positioned(
-                  //             top: 30,
-                  //             left: 20,
-                  //             child: InkWell(
-                  //               child: Container(
-                  //                 //margin: EdgeInsets.only(left: 20, top: 20),
-                  //                 child: Image.asset(
-                  //                   'assets/icons_new/menu.png',
-                  //                   width: 25,
-                  //                   height: 25,
-                  //                 ),
-                  //               ),
-                  //               onTap: () {
-                  //                 // there will be hamburger menu
-                  //                 print("drawer icon");
-                  //               },
-                  //             ),
-                  //           ),
-                  //           Positioned(
-                  //             top: 30,
-                  //             left: MediaQuery.of(context).size.width / 1.3,
-                  //             child: InkWell(
-                  //               child: Container(
-                  //                 // margin: EdgeInsets.only(left: 20, top: 20),
-                  //                 child: Image.asset(
-                  //                   'assets/icons_new/cart.png',
-                  //                   width: 25,
-                  //                   height: 25,
-                  //                 ),
-                  //               ),
-                  //               onTap: () {
-                  //                 // there will be hamburger menu
-                  //               },
-                  //             ),
-                  //           ),
-                  //           Positioned(
-                  //             top: 30,
-                  //             left: MediaQuery.of(context).size.width / 1.15,
-                  //             child: InkWell(
-                  //               child: Container(
-                  //                 // margin: EdgeInsets.only(left: 20, top: 20),
-                  //                 child: Image.asset(
-                  //                   'assets/icons_new/notification.png',
-                  //                   width: 25,
-                  //                   height: 25,
-                  //                 ),
-                  //               ),
-                  //               onTap: () {
-                  //                 // there will be hamburger menu
-                  //               },
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-            //  ],
-               Container(
+        home: Scaffold(
+      key: _scaffoldKey,
+      backgroundColor: Color(0xffDDDDDD),
+      appBar: AppbarCustomWidth(_scaffoldKey),
+      drawer: SideMenuDrawer(),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              //  SliverAppBar(
+              //     backgroundColor: Colors.transparent,
+              //     expandedHeight: 40,
+              //     floating: false,
+              //     pinned: true,
+              //     flexibleSpace: Container(
+              //       color: Color(0xffDDDDDD),
+              //       padding: EdgeInsets.only(top: 10),
+              //       width: MediaQuery.of(context).size.width,
+              //       height: MediaQuery.of(context).size.height / 10,
+              //       child: Stack(
+              //         children: <Widget>[
+              //           Positioned(
+              //             top: 30,
+              //             left: 20,
+              //             child: InkWell(
+              //               child: Container(
+              //                 //margin: EdgeInsets.only(left: 20, top: 20),
+              //                 child: Image.asset(
+              //                   'assets/icons_new/menu.png',
+              //                   width: 25,
+              //                   height: 25,
+              //                 ),
+              //               ),
+              //               onTap: () {
+              //                 // there will be hamburger menu
+              //                 print("drawer icon");
+              //               },
+              //             ),
+              //           ),
+              //           Positioned(
+              //             top: 30,
+              //             left: MediaQuery.of(context).size.width / 1.3,
+              //             child: InkWell(
+              //               child: Container(
+              //                 // margin: EdgeInsets.only(left: 20, top: 20),
+              //                 child: Image.asset(
+              //                   'assets/icons_new/cart.png',
+              //                   width: 25,
+              //                   height: 25,
+              //                 ),
+              //               ),
+              //               onTap: () {
+              //                 // there will be hamburger menu
+              //               },
+              //             ),
+              //           ),
+              //           Positioned(
+              //             top: 30,
+              //             left: MediaQuery.of(context).size.width / 1.15,
+              //             child: InkWell(
+              //               child: Container(
+              //                 // margin: EdgeInsets.only(left: 20, top: 20),
+              //                 child: Image.asset(
+              //                   'assets/icons_new/notification.png',
+              //                   width: 25,
+              //                   height: 25,
+              //                 ),
+              //               ),
+              //               onTap: () {
+              //                 // there will be hamburger menu
+              //               },
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              //  ],
+              Container(
                 child: ListView(
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
@@ -162,8 +160,8 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           Data d = snapshot.data.data;
-                         ListVar.list1 = d.categories;
-                           ListVar.topProduct = d.topProducts;
+                          ListVar.list1 = d.categories;
+                          ListVar.topProduct = d.topProducts;
                           return Column(
                             children: <Widget>[
                               //here app bar
@@ -275,20 +273,23 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 //                                   ],
 //                                 ),
 //                               ),
-                             //categories************************************************
-                             categoriestitleContainer(context),
+                              //categories************************************************
+                              categoriestitleContainer(context),
                               Container(
                                   margin: EdgeInsets.only(top: 20, left: 10),
                                   width: MediaQuery.of(context).size.width,
-                                  height: MediaQuery.of(context).size.width / 2.1,
+                                  height:
+                                      MediaQuery.of(context).size.width / 2.1,
                                   child: ListView.builder(
                                       itemCount: ListVar.list1.length,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) =>
-                                          buildBody(context, index, ListVar.list1))),
+                                          buildBody(
+                                              context, index, ListVar.list1))),
                               Container(
                                 margin: EdgeInsets.only(left: 10, top: 5),
-                                height: MediaQuery.of(context).size.height / 5.4,
+                                height:
+                                    MediaQuery.of(context).size.height / 5.4,
                                 width: MediaQuery.of(context).size.width / 1.1,
                                 child: ClipRRect(
                                     borderRadius: BorderRadius.circular(6.0),
@@ -299,15 +300,13 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                                       fit: BoxFit.fill,
                                     )),
                               ),
-                              
+
                               topProductTitle(context),
 
                               // ****************from topProducthere************************************//
-                             InkWell(
+                              InkWell(
                                 child: TopProductContainer(ListVar.topProduct),
-
-                                )
-
+                              )
 
 //                               Container(
 //                                   /*ListView.builder(
@@ -517,21 +516,19 @@ GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                   ],
                 ),
               ),
-              ],
-            ),
-                 
-      ),
+            ],
           ),
+        ),
+      ),
     ));
   }
 }
-
 
 Widget buildBody(BuildContext ctxt, int index, List<Categories> data) {
   return Container(
     width: MediaQuery.of(ctxt).size.width / 2.5,
     height: MediaQuery.of(ctxt).size.width / 2.5,
-    child:InkWell(
+    child: InkWell(
       child: Card(
           margin: EdgeInsets.all(10),
           shape: RoundedRectangleBorder(
@@ -594,9 +591,12 @@ Widget buildBody(BuildContext ctxt, int index, List<Categories> data) {
                   ))
             ],
           )),
-          onTap: (){
-            Navigator.push(ctxt, MaterialPageRoute(builder: (context)=>CatItemDetail(data[index])));
-          },
+      onTap: () {
+        Navigator.push(
+            ctxt,
+            MaterialPageRoute(
+                builder: (context) => CatItemDetail(data[index])));
+      },
     ),
   );
 }

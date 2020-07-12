@@ -6,11 +6,11 @@ import 'package:radhe_radhe/home/SearchForProduct.dart';
 
 import 'home/CustomProperties.dart';
 
+TextStyle style = TextStyle(color: CustomColors.secondaryColors, fontSize: 15);
 
- TextStyle style = TextStyle(color:CustomColors.secondaryColors,fontSize: 15);
 class AppbarCustomWidth extends StatefulWidget with PreferredSizeWidget {
   GlobalKey<ScaffoldState> _scd = GlobalKey<ScaffoldState>();
-   AppbarCustomWidth(this._scd);
+  AppbarCustomWidth(this._scd);
 
   @override
   _AppbarCustomWidthState createState() => _AppbarCustomWidthState();
@@ -31,22 +31,20 @@ class _AppbarCustomWidthState extends State<AppbarCustomWidth> {
         child: Column(
           children: <Widget>[
             Container(
-              
               padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height /15, left: 0),
+                  top: MediaQuery.of(context).size.height / 15, left: 0),
               child: Column(
                 children: <Widget>[
                   Container(
                     child: Row(
                       children: <Widget>[
                         Container(
-                          
                           padding: EdgeInsets.only(),
                           child: IconButton(
                               icon: Icon(
                                 Icons.menu,
                                 color: CustomColors.secondaryColors,
-                                size:30,
+                                size: 30,
                               ),
                               onPressed: () {
                                 widget._scd.currentState.openDrawer();
@@ -54,44 +52,19 @@ class _AppbarCustomWidthState extends State<AppbarCustomWidth> {
                                 print("Drawer menu Icon pressed");
                               }),
                         ),
+                        //address section [Container]
                         Container(
-                          width: MediaQuery.of(context).size.width/1.5,
-
+                          width: MediaQuery.of(context).size.width / 1.5,
                           margin: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width /50),
-                         
-                          child:InkWell(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("delivery location",style: style,),
-                                Container(
-                                    child: Row(
-                                   mainAxisAlignment: MainAxisAlignment.spaceAround,  
-                                  children: <Widget>[
-                                   Expanded(child: Text("Kestopur Kolkata shjkshldfdv",maxLines:2,style: style,)),
-                                    Container(
-                                     // margin: EdgeInsets.only(right:10),
-                                      child: 
-                                           Icon(
-                                            Icons.edit,
-                                            color: CustomColors.secondaryColors,
-                                          ),
-                                         
-                                    ),
-                                  ],
-                                ))
-                              ],
-                              
-                            ),
-                            onTap: (){
+                              left: MediaQuery.of(context).size.width / 50),
+                          child: InkWell(
+                            child: customAddressEditText(context),
+                            onTap: () {
                               print("Edit Location");
                             },
                           ),
                         ),
-                        
-                         customCart(context),  
-                        
+                        customCart(context),
                       ],
                     ),
                   ),
@@ -99,7 +72,7 @@ class _AppbarCustomWidthState extends State<AppbarCustomWidth> {
                     child: Row(
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(right: 10,left: 10),
+                          margin: EdgeInsets.only(right: 10, left: 10),
                           child: RaisedButton(
                             onPressed: () {},
                             child: Text("Categories"),
@@ -130,7 +103,10 @@ class _AppbarCustomWidthState extends State<AppbarCustomWidth> {
                             ),
                           ),
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchForProduct()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchForProduct()));
                             print("object");
                           },
                         )
